@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\{Category, Item, User};
+use App\Models\{Item, User};
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

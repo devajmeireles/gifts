@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,12 +21,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/category', function (Request $request) {
+    ray($request->all());
+
     return Category::query()
         ->when(
             $search = $request->get('search'),
             fn ($query) => $query->where('name', 'like', "%{$search}%")
         )
-        ->limit($search ? 50 : 10)
+        ->when(
+            $selected = $request->get('selected'),
+            fn (Builder $query) => $query->whereIn('id', $selected),
+        )
+        ->limit($search || $selected ? 50 : 10)
         ->get()
         ->map(fn (Category $category) => $category->only('id', 'name'));
 })->name('category');

@@ -9,9 +9,7 @@
                 :options="[10, 25, 50, 100]"
                 wire:model.debounce.250ms="quantity"
             />
-            <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none sm:justify-end">
-                <x-button primary label="Adicionar" />
-            </div>
+            <livewire:item.create />
         </div>
         <div class="mt-4 flow-root">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

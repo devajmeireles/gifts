@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Item\Index;
+use App\Http\Livewire\Item\Update;
 use App\Models\Item;
 use function Pest\Livewire\livewire;
 
@@ -18,7 +19,18 @@ it('can load item', function () {
     $reference = fake()->url();
     $activated = fake()->boolean();
 
-    livewire()
+    livewire(Update::class)
+        ->call('load', $item)
+        ->set('item.name', $name)
+        ->set('item.description', $description)
+        ->set('item.category_id', $category)
+        ->set('item.quantity', $quantity)
+        ->set('item.reference', $reference)
+        ->set('item.is_active', $activated)
+        ->call('update')
+        ->assertHasNoErrors()
+        ->assertSuccessful()
+        ->assertEmittedUp('item::index::refresh');
 
     $update->assertPayloadSet('item', $item->toArray());
 });

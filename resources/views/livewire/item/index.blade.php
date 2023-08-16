@@ -39,6 +39,10 @@
                                                              icon="pencil"
                                                              wire:click="update({{ $item->id }})"
                                             />
+                                            <x-button.circle negative
+                                                             icon="trash"
+                                                             wire:click="delete({{ $item->id }})"
+                                            />
                                         </td>
                                     </tr>
                                 @endforeach
@@ -50,5 +54,6 @@
         </div>
         {{ $items->links() }}
         <livewire:item.update />
+        <livewire:item.delete />
     </div>
 </div>

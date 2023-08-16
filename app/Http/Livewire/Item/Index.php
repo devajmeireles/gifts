@@ -39,4 +39,9 @@ class Index extends Component
     {
         $this->emitTo(Update::class, 'item::update::load', $item);
     }
+
+    public function delete(Item $item): void
+    {
+        $this->emitTo(Delete::class, 'item::delete::load', $item);
+    }
 }

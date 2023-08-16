@@ -5,5 +5,5 @@
         </h2>
     </x-slot>
 
-    HAHAHA
+    <livewire:item.index />
 </x-app-layout>

@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Livewire\Item\Delete;
-use App\Http\Livewire\Item\Index;
+use App\Http\Livewire\Item\{Delete, Index};
 use App\Models\Item;
 
 use function Pest\Laravel\assertModelMissing;

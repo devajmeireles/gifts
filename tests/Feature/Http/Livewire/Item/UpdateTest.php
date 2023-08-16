@@ -39,5 +39,11 @@ it('can update item', function () {
         ->and($item->description)
         ->toBe($description)
         ->and($item->category_id)
-        ->toBe($category);
+        ->toBe($category)
+        ->and($item->quantity)
+        ->toBe($quantity)
+        ->and($item->reference)
+        ->toBe($reference)
+        ->and($item->is_active)
+        ->toBe($activated);
 });

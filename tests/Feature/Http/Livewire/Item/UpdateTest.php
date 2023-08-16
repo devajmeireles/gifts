@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Livewire\Item\{Index, Update};
-use App\Models\Item;
+use App\Models\{Category, Item};
 
 use function Pest\Livewire\livewire;
 
@@ -12,9 +12,10 @@ it('can update item', function () {
         ->forCategory()
         ->create();
 
+    $category = Category::factory()->create();
+
     $name        = fake()->word();
     $description = fake()->sentence();
-    $category    = $item->category_id;
     $quantity    = fake()->numberBetween(1, 100);
     $reference   = fake()->url();
     $activated   = fake()->boolean();
@@ -23,7 +24,7 @@ it('can update item', function () {
         ->call('load', $item)
         ->set('item.name', $name)
         ->set('item.description', $description)
-        ->set('item.category_id', $category)
+        ->set('item.category_id', $category->id)
         ->set('item.quantity', $quantity)
         ->set('item.reference', $reference)
         ->set('item.is_active', $activated)
@@ -39,11 +40,43 @@ it('can update item', function () {
         ->and($item->description)
         ->toBe($description)
         ->and($item->category_id)
-        ->toBe($category)
+        ->toBe($category->id)
         ->and($item->quantity)
         ->toBe($quantity)
         ->and($item->reference)
         ->toBe($reference)
         ->and($item->is_active)
         ->toBe($activated);
+});
+
+it('cannot update item using name already in use', function () {
+    $one = Item::factory()
+        ->forCategory()
+        ->create();
+
+    $two = Item::factory()
+        ->forCategory()
+        ->create();
+
+    $category = Category::factory()->create();
+
+    $description = fake()->sentence();
+    $quantity    = fake()->numberBetween(1, 100);
+    $reference   = fake()->url();
+    $activated   = fake()->boolean();
+
+    livewire(Update::class)
+        ->call('load', $one)
+        ->set('item.name', $two->name)
+        ->set('item.description', $description)
+        ->set('item.category_id', $category->id)
+        ->set('item.quantity', $quantity)
+        ->set('item.reference', $reference)
+        ->set('item.is_active', $activated)
+        ->call('update')
+        ->assertHasErrors(['item.name' => 'unique']);
+
+    expect($one->refresh()->name)
+        ->not()
+        ->toBe($two->name);
 });

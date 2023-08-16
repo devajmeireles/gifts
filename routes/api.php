@@ -21,8 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/category', function (Request $request) {
-    ray($request->all());
-
     return Category::query()
         ->when(
             $search = $request->get('search'),

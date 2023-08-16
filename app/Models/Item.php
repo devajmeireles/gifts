@@ -15,6 +15,21 @@ class Item extends Model
     use HasFactory;
     use Searchable;
 
+    protected $fillable = [
+        'category_id',
+        'name',
+        'description',
+        'reference',
+        'quantity',
+        'is_active',
+        'signed_at',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'signed_at' => 'datetime',
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

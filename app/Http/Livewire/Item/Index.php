@@ -25,7 +25,7 @@ class Index extends Component
 
     private function data(): LengthAwarePaginator
     {
-        return Item::query()
+        return Item::with('category')
             ->search($this->search, [
                 'name',
                 'description',

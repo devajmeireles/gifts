@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'aj@aj.com',
         ]);
 
-        Item::factory(10)
+        Item::factory(25)
             ->forCategory()
             ->activated()
             ->create();

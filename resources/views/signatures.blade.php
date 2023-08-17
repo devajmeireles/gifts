@@ -29,8 +29,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-1">
                     <x-button.circle xs primary icon="pencil" />
+                    <x-button.circle xs red icon="trash" />
                 </div>
             </x-card>
         </div>
@@ -53,8 +54,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-1">
                     <x-button.circle xs primary icon="pencil" />
+                    <x-button.circle xs red icon="trash" />
                 </div>
             </x-card>
         </div>
@@ -77,8 +79,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-1">
                     <x-button.circle xs primary icon="pencil" />
+                    <x-button.circle xs red icon="trash" />
                 </div>
             </x-card>
         </div>

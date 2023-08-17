@@ -30,14 +30,14 @@
                                     <x-table.td>{{ $category->items_count }}</x-table.td>
                                     <x-table.td>{{ $category->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>
-{{--                                        <x-button.circle primary--}}
-{{--                                                         icon="pencil"--}}
-{{--                                                         wire:click="update({{ $item->id }})"--}}
-{{--                                        />--}}
-{{--                                        <x-button.circle negative--}}
-{{--                                                         icon="trash"--}}
-{{--                                                         wire:click="delete({{ $item->id }})"--}}
-{{--                                        />--}}
+                                        <x-button.circle primary
+                                                         icon="pencil"
+                                                         wire:click="update({{ $category->id }})"
+                                        />
+                                        <x-button.circle negative
+                                                         icon="trash"
+                                                         wire:click="delete({{ $category->id }})"
+                                        />
                                     </x-table.td>
                                 </x-table.tr>
                             @endforeach
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-{{--        <livewire:item.update />--}}
-{{--        <livewire:item.delete />--}}
+        <livewire:category.update />
+        <livewire:category.delete />
     </div>
 </div>

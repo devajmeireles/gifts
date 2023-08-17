@@ -83,6 +83,6 @@ class Update extends Component
             report($e);
         }
 
-        $this->notification()->error('Erro ao criar item!');
+        $this->notification()->error('Erro ao atualizar item!');
     }
 }

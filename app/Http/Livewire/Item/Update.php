@@ -59,6 +59,10 @@ class Update extends Component
                 'required',
                 'integer',
             ],
+            'item.is_quotable' => [
+                'nullable',
+                'boolean',
+            ],
             'item.is_active' => [
                 'nullable',
                 'boolean',

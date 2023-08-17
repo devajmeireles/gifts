@@ -27,8 +27,9 @@
 
             <x-inputs.number label="Quantidade" wire:model.defer="item.quantity" />
 
-            <div class="col-span-1 flex items-center sm:mt-6">
+            <div class="col-span-1 flex items-center sm:mt-6 gap-2">
                 <x-toggle label="Ativo" lg wire:model.defer="item.is_active" />
+                <x-toggle label="Cotas" lg wire:model.defer="item.is_quotable" />
             </div>
         </div>
 

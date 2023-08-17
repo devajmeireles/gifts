@@ -15,6 +15,7 @@ it('can create', function () {
     $category    = Category::factory()->create()->id;
     $quantity    = fake()->numberBetween(1, 100);
     $reference   = fake()->url();
+    $quotable    = fake()->boolean();
     $activated   = fake()->boolean();
 
     livewire(Create::class)
@@ -23,6 +24,7 @@ it('can create', function () {
         ->set('item.category_id', $category)
         ->set('item.quantity', $quantity)
         ->set('item.reference', $reference)
+        ->set('item.is_quotable', $quotable)
         ->set('item.is_active', $activated)
         ->call('create')
         ->assertHasNoErrors()
@@ -35,6 +37,7 @@ it('can create', function () {
         'category_id' => $category,
         'quantity'    => $quantity,
         'reference'   => $reference,
+        'is_quotable' => $quotable,
         'is_active'   => $activated,
     ]);
 });

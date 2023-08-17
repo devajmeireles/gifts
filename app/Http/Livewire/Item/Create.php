@@ -20,8 +20,9 @@ class Create extends Component
     public function mount(): void
     {
         $this->item = new Item([
-            'quantity'  => 1,
-            'is_active' => true,
+            'quantity'    => 1,
+            'is_active'   => true,
+            'is_quotable' => false,
         ]);
     }
 
@@ -55,6 +56,10 @@ class Create extends Component
             'item.quantity' => [
                 'required',
                 'integer',
+            ],
+            'item.is_quotable' => [
+                'nullable',
+                'boolean',
             ],
             'item.is_active' => [
                 'nullable',

@@ -21,13 +21,15 @@ class Item extends Model
         'description',
         'reference',
         'quantity',
+        'is_quotable',
         'is_active',
         'signed_at',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
-        'signed_at' => 'datetime',
+        'is_quotable' => 'boolean',
+        'is_active'   => 'boolean',
+        'signed_at'   => 'datetime',
     ];
 
     public function category(): BelongsTo

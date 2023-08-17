@@ -27,6 +27,11 @@ class ItemFactory extends Factory
         return $this->state(['is_active' => true]);
     }
 
+    public function quotable(): self
+    {
+        return $this->state(['is_quotable' => true]);
+    }
+
     public function signed(Carbon $carbon = null): self
     {
         return $this->state(['signed_at' => $carbon ?? $this->faker->dateTimeBetween('-1 year', 'now')]);

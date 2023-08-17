@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Category\Badge;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,6 +16,7 @@ class CategoryFactory extends Factory
         return [
             'name'        => $this->faker->word(),
             'description' => $this->faker->sentence(),
+            'color'       => $this->faker->randomElement(Badge::toArray()),
             'is_active'   => $this->faker->boolean(),
         ];
     }

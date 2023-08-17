@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Category;
 
+use App\Enums\Category\Badge;
 use App\Models\Category;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -17,18 +18,23 @@ class Update extends Component
 
     public bool $modal = false;
 
+    public ?string $color = null;
+
     protected $listeners = [
         'category::update::load' => 'load',
     ];
 
     public function render(): View
     {
-        return view('livewire.category.update');
+        return view('livewire.category.update', [
+            'colors' => collect(Badge::cases()),
+        ]);
     }
 
     public function load(Category $category): void
     {
         $this->category = $category;
+        $this->color    = $category->color->value;
         $this->modal    = true;
     }
 
@@ -41,6 +47,11 @@ class Update extends Component
                 'max:255',
                 Rule::unique('items', 'name')
                     ->ignore($this->category->id),
+            ],
+            'color' => [
+                'required',
+                'string',
+                Rule::in(Badge::toArray()),
             ],
             'category.description' => [
                 'nullable',

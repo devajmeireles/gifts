@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Category\Badge;
 use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,10 +19,12 @@ class Category extends Model
     protected $fillable = [
         'name',
         'description',
+        'color',
         'is_active',
     ];
 
     protected $casts = [
+        'color'     => Badge::class,
         'is_active' => 'boolean',
     ];
 

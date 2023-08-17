@@ -2,7 +2,7 @@
 
 namespace App\View\Components\Category;
 
-use App\Models\Item;
+use App\Models\{Category, Item};
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -10,19 +10,26 @@ use Illuminate\View\Component;
 class Label extends Component
 {
     public function __construct(
-        protected Item $item
+        protected Item|Category $model
     ) {
         //
     }
 
     public function render(): View|Closure|string
     {
-        $color = $this->item->category->is_active ? 'green' : 'red';
-        $label = $this->item->category->name;
+        $category = $this->model instanceof Category;
+
+        $color = $category
+            ? $this->model->color->value
+            : $this->model->category->color->value;
+
+        $label = $category
+            ? $this->model->name
+            : $this->model->category->name;
 
         return <<<blade
 <div>
-    <x-badge color="$color" label="$label" />
+    <x-badge outline color="$color" label="$label" />
 </div>
 blade;
     }

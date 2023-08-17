@@ -26,7 +26,7 @@
                             @forelse ($categories as $category)
                                 <x-table.tr>
                                     <x-table.td first>{{ $category->id }}</x-table.td>
-                                    <x-table.td>{{ $category->name }}</x-table.td>
+                                    <x-table.td><x-category.label :model="$category" /></x-table.td>
                                     <x-table.td>{{ $category->items_count }}</x-table.td>
                                     <x-table.td>{{ $category->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>

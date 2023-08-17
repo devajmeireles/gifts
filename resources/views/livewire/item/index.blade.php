@@ -28,7 +28,7 @@
                                 <x-table.tr>
                                     <x-table.td first>{{ $item->id }}</x-table.td>
                                     <x-table.td>{{ $item->name }}</x-table.td>
-                                    <x-table.td><x-category.label :$item/></x-table.td>
+                                    <x-table.td><x-category.label :model="$item" /></x-table.td>
                                     <x-table.td>{{ $item->quantity }}</x-table.td>
                                     <x-table.td>{{ $item->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>

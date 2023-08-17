@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Category;
 
+use App\Enums\Category\Badge;
 use App\Models\Category;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -17,6 +18,8 @@ class Create extends Component
 
     public bool $modal = false;
 
+    public ?string $color = null;
+
     public function mount(): void
     {
         $this->category = new Category(['is_active' => true]);
@@ -24,7 +27,9 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.category.create');
+        return view('livewire.category.create', [
+            'colors' => collect(Badge::cases()),
+        ]);
     }
 
     public function rules(): array
@@ -35,6 +40,11 @@ class Create extends Component
                 'string',
                 'max:255',
                 Rule::unique('categories', 'name'),
+            ],
+            'color' => [
+                'required',
+                'string',
+                Rule::in(Badge::toArray()),
             ],
             'category.description' => [
                 'nullable',
@@ -47,6 +57,11 @@ class Create extends Component
         ];
     }
 
+    public function updatingCategory($property, $value)
+    {
+        ray($property, $value);
+    }
+
     public function create(): void
     {
         $this->validate();
@@ -54,6 +69,7 @@ class Create extends Component
         $this->modal = false;
 
         try {
+            $this->category->color = Badge::from($this->color);
             $this->category->save();
 
             $this->category = new Category();

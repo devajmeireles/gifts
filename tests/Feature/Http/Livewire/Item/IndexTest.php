@@ -59,6 +59,21 @@ it('can change quantity', function () {
         ->assertSee($two->name);
 });
 
+it('can sort items', function () {
+    $one = Item::factory()
+        ->forCategory()
+        ->create(['name' => 'A']);
+
+    $two = Item::factory()
+        ->forCategory()
+        ->create(['name' => 'B']);
+
+    livewire(Index::class, ['sort' => 'name', 'direction' => 'asc'])
+        ->assertSeeInOrder([$one->name, $two->name])
+        ->set('direction', 'desc')
+        ->assertSeeInOrder([$two->name, $one->name]);
+});
+
 it('can load item method', function (array $data) {
     $method = $data['method'];
     $event  = $data['event']['class'];

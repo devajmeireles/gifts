@@ -15,8 +15,8 @@
                     <x-table :items="$categories">
                         <x-table.thead>
                             <x-table.tr>
-                                <x-table.th first label="#" />
-                                <x-table.th label="Nome" />
+                                <x-table.th column="id" :$sort :$direction first label="#" />
+                                <x-table.th column="name" :$sort :$direction label="Nome" />
                                 <x-table.th label="Qnt. de Itens" />
                                 <x-table.th label="Status" />
                                 <x-table.th />

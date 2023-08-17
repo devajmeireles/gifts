@@ -45,7 +45,7 @@ class Update extends Component
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('items', 'name')
+                Rule::unique('categories', 'name')
                     ->ignore($this->category->id),
             ],
             'color' => [
@@ -71,6 +71,7 @@ class Update extends Component
         $this->modal = false;
 
         try {
+            $this->category->color = Badge::from($this->color);
             $this->category->save();
 
             $this->emitUp('category::index::refresh');

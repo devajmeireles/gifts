@@ -15,7 +15,7 @@ class ItemFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
-            'name'        => $this->faker->word(),
+            'name'        => $this->faker->text(15),
             'description' => $this->faker->sentence(),
             'reference'   => $this->faker->word(),
             'quantity'    => $this->faker->numberBetween(1, 10),

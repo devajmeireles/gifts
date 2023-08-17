@@ -7,7 +7,7 @@ use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
-it('can update item', function () {
+it('can update', function () {
     $item = Item::factory()
         ->forCategory()
         ->create();

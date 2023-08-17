@@ -1,34 +1,30 @@
 <?php
 
-use App\Http\Livewire\Item\{Delete, Index, Update};
-use App\Models\Item;
+use App\Http\Livewire\Category\{Delete, Index, Update};
+use App\Models\Category;
 
 use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
 it('can render component', function () {
-    $this->get(route('items'))
+    $this->get(route('categories'))
         ->assertSeeLivewire(Index::class);
 });
 
 it('can list', function () {
-    $item = Item::factory()
-        ->forCategory()
+    $category = Category::factory()
         ->create();
 
-    livewire(Index::class)
-        ->assertSee($item->name)
-        ->assertSee($item->category->name);
+    livewire(Index::class)->assertSee($category->name);
 });
 
 it('can paginate', function () {
-    $item = Item::factory(2)
-        ->forCategory()
+    $category = Category::factory(2)
         ->create();
 
-    $one = $item->first();
-    $two = $item->last();
+    $one = $category->first();
+    $two = $category->last();
 
     livewire(Index::class, ['quantity' => 1])
         ->assertSee($one->name)
@@ -40,13 +36,11 @@ it('can paginate', function () {
 });
 
 it('can change quantity', function () {
-    $one = Item::factory()
-        ->forCategory()
-        ->create(['name' => 'First Item']);
+    $one = Category::factory()
+        ->create(['name' => 'First Category']);
 
-    $two = Item::factory()
-        ->forCategory()
-        ->create(['name' => 'Second Item']);
+    $two = Category::factory()
+        ->create(['name' => 'Second Category']);
 
     livewire(Index::class, ['quantity' => 1])
         ->assertSee($one->name)
@@ -56,12 +50,10 @@ it('can change quantity', function () {
 });
 
 it('can sort', function () {
-    $one = Item::factory()
-        ->forCategory()
+    $one = Category::factory()
         ->create(['name' => 'A']);
 
-    $two = Item::factory()
-        ->forCategory()
+    $two = Category::factory()
         ->create(['name' => 'B']);
 
     livewire(Index::class, ['sort' => 'name', 'direction' => 'asc'])
@@ -75,26 +67,24 @@ it('can load method', function (array $data) {
     $component = $data['event']['class'];
     $event     = $data['event']['name'];
 
-    $item = Item::factory()
-        ->forCategory()
-        ->create();
+    $category = Category::factory()->create();
 
     livewire(Index::class)
-        ->call($method, $item)
-        ->assertEmittedTo($component, $event, $item);
+        ->call($method, $category)
+        ->assertEmittedTo($component, $event, $category);
 })->with([
     fn () => [
         'method' => 'update',
         'event'  => [
             'class' => Update::class,
-            'name'  => 'item::update::load',
+            'name'  => 'category::update::load',
         ],
     ],
     fn () => [
         'method' => 'delete',
         'event'  => [
             'class' => Delete::class,
-            'name'  => 'item::delete::load',
+            'name'  => 'category::delete::load',
         ],
     ],
 ]);

@@ -9,7 +9,7 @@ use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
-it('can create item', function () {
+it('can create', function () {
     $name        = fake()->word();
     $description = fake()->sentence();
     $category    = Category::factory()->create()->id;
@@ -39,7 +39,7 @@ it('can create item', function () {
     ]);
 });
 
-it('cannot create item with name already in use', function () {
+it('cannot create with name already in use', function () {
     $item = Item::factory()
         ->forCategory()
         ->create();

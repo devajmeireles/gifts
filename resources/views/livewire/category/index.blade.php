@@ -23,7 +23,7 @@
                             </x-table.tr>
                         </x-table.thead>
                         <x-table.tbody>
-                            @foreach ($categories as $category)
+                            @forelse ($categories as $category)
                                 <x-table.tr>
                                     <x-table.td first>{{ $category->id }}</x-table.td>
                                     <x-table.td>{{ $category->name }}</x-table.td>
@@ -40,7 +40,9 @@
                                         />
                                     </x-table.td>
                                 </x-table.tr>
-                            @endforeach
+                            @empty
+                                <x-table.empty />
+                            @endforelse
                         </x-table.tbody>
                     </x-table>
                 </div>

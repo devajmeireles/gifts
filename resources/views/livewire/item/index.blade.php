@@ -24,11 +24,11 @@
                             </x-table.tr>
                         </x-table.thead>
                         <x-table.tbody>
-                            @foreach ($items as $item)
+                            @forelse ($items as $item)
                                 <x-table.tr>
                                     <x-table.td first>{{ $item->id }}</x-table.td>
                                     <x-table.td>{{ $item->name }}</x-table.td>
-                                    <x-table.td>{{ $item->category->name }}</x-table.td>
+                                    <x-table.td><x-category.label :$item/></x-table.td>
                                     <x-table.td>{{ $item->quantity }}</x-table.td>
                                     <x-table.td>{{ $item->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>
@@ -42,7 +42,9 @@
                                         />
                                     </x-table.td>
                                 </x-table.tr>
-                            @endforeach
+                            @empty
+                                <x-table.empty />
+                            @endforelse
                         </x-table.tbody>
                     </x-table>
                 </div>

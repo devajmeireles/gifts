@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{CategoryController, ItemController, ProfileController};
+use App\Http\Controllers\{CategoryController, ItemController, ProfileController, SignatureController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +32,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/items', ItemController::class)->name('items');
 Route::get('/categories', CategoryController::class)->name('categories');
+Route::get('/signatures', SignatureController::class)->name('signatures');
 
 require __DIR__ . '/auth.php';

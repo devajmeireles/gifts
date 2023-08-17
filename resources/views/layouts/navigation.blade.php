@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
                         {{ __('Categorias') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('signatures')" :active="request()->routeIs('signatures')">
+                        {{ __('Assinaturas') }}
+                    </x-nav-link>
                 </div>
             </div>
 

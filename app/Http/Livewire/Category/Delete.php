@@ -29,9 +29,14 @@ class Delete extends Component
     {
         $this->category = $category;
 
+        $count = $category->items->count();
+        $title = $count > 0
+            ? "{$count} itens vinculados a esta categoria!"
+            : "Confirmação";
+
         $this->notification()->confirm([
-            'title'       => 'Confirmação!',
-            'description' => 'Deseja realmente deletar esta categoria?',
+            'title'       => $title,
+            'description' => "Deseja realmente deletar esta categoria?",
             'icon'        => 'question',
             'accept'      => [
                 'label'  => 'Sim!',

@@ -1,5 +1,6 @@
 <div>
-    <div class="flex justify-end mb-4 ">
+    <div class="flex items-center justify-end mb-4 gap-2">
+        <livewire:signature.create />
         <livewire:signature.filter />
     </div>
     <div class="mb-4">

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\DeliveryType;
 use App\Models\{Item, Signature};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,7 +17,7 @@ class SignatureFactory extends Factory
             'item_id'     => Item::factory(),
             'name'        => $this->faker->name(),
             'phone'       => $this->faker->phoneNumber(),
-            'delivery'    => $this->faker->numberBetween(1, 3),
+            'delivery'    => $this->faker->randomElement(DeliveryType::toArray()),
             'observation' => $this->faker->sentence(),
         ];
     }

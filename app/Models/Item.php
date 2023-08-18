@@ -6,6 +6,7 @@ use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin IdeHelperItem
@@ -37,8 +38,8 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function signatures(): BelongsTo
+    public function signatures(): HasMany
     {
-        return $this->belongsTo(Signature::class);
+        return $this->hasMany(Signature::class);
     }
 }

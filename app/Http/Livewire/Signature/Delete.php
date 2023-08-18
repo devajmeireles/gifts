@@ -44,6 +44,7 @@ class Delete extends Component
 
     public function delete(): void
     {
+        //TODO: deletar tem que possívelmente analisar o item para restaurar status
 
         try {
             $this->signature->delete();

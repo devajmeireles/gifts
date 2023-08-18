@@ -4,67 +4,11 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
     <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-1">
-            <x-card>
-                <div class="ml-4 p-2">
-                    <div class="flex items-center justify-start">
-                        <div class="flex-shrink-0">
-                            <p class="text-3xl text-primary font-semibold">123</p>
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-base font-semibold leading-6 text-gray-900">
-                                Itens Cadastrados
-                            </h3>
-                            <x-badge outline primary>
-                                80% em Fraldas
-                            </x-badge>
-                        </div>
-                    </div>
-                </div>
-            </x-card>
-        </div>
-        <div class="col-span-1">
-            <x-card>
-                <div class="ml-4 p-2">
-                    <div class="flex items-center justify-start">
-                        <div class="flex-shrink-0">
-                            <p class="text-3xl text-primary font-semibold">22</p>
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-base font-semibold leading-6 text-gray-900">
-                                Itens Assinados
-                            </h3>
-                            <x-badge outline primary>
-                                22% em Utensilhos
-                            </x-badge>
-                        </div>
-                    </div>
-                </div>
-            </x-card>
-        </div>
-        <div class="col-span-1">
-            <x-card>
-                <div class="ml-4 p-2">
-                    <div class="flex items-center justify-start">
-                        <div class="flex-shrink-0">
-                            <p class="text-3xl text-primary font-semibold">123</p>
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-base font-semibold leading-6 text-gray-900">
-                                Itens Restantes
-                            </h3>
-                            <x-badge outline primary>
-                                50% em Roupas
-                            </x-badge>
-                        </div>
-                    </div>
-                </div>
-            </x-card>
-        </div>
+        <livewire:dashboard.card :type="\App\Enums\Dashboard\CardType::AllItems" />
+        <livewire:dashboard.card :type="\App\Enums\Dashboard\CardType::ItemsSigned" />
+        <livewire:dashboard.card :type="\App\Enums\Dashboard\CardType::ItemsNotSigned" />
     </div>
-
     <div class="mt-6"
          x-data="{
             values : [{{ collect($dates)->keys()->map(fn($date) => $date)->join(',') }}],

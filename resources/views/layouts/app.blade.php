@@ -21,6 +21,7 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
+        <x-dialog />
         <x-notifications />
 
         <div class="min-h-screen bg-gray-100">

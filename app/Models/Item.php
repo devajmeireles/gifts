@@ -36,4 +36,9 @@ class Item extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function signatures(): BelongsTo
+    {
+        return $this->belongsTo(Signature::class);
+    }
 }

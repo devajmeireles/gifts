@@ -55,9 +55,5 @@
             </div>
         @endforelse
     </div>
-    @if ($signatures->hasPages())
-        <div class="flex justify-end mt-4">
-            {{ $signatures->links() }}
-        </div>
-    @endif
+    <x-pagination :items="$signatures" />
 </div>

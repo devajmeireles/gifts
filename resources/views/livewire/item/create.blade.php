@@ -7,13 +7,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <x-input label="Nome" wire:model.defer="item.name" />
 
-            <x-select label="Categoria"
-                      wire:model.defer="item.category_id"
-                      placeholder="Procure uma categoria"
-                      :async-data="route('api.category')"
-                      option-label="name"
-                      option-value="id"
-            />
+            <x-filter.category wire:model.defer="item.category_id" />
 
             <div class="col-span-full">
                 <x-textarea label="Descrição"

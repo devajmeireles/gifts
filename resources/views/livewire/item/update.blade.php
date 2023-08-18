@@ -4,13 +4,7 @@
             <x-input label="Nome" wire:model.defer="item.name" />
 
             @if ($item)
-                <x-select label="Categoria"
-                          wire:model.defer="item.category_id"
-                          placeholder="Procure uma categoria"
-                          :async-data="route('api.category')"
-                          option-label="name"
-                          option-value="id"
-                />
+                <x-filter.category wire:model.defer="item.category_id" />
             @endif
 
             <div class="col-span-full">

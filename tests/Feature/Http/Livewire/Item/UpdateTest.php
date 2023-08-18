@@ -18,6 +18,7 @@ it('can update', function () {
     $description = fake()->sentence();
     $quantity    = fake()->numberBetween(1, 100);
     $reference   = fake()->url();
+    $quotable    = fake()->boolean();
     $activated   = fake()->boolean();
 
     livewire(Update::class)
@@ -27,6 +28,7 @@ it('can update', function () {
         ->set('item.category_id', $category->id)
         ->set('item.quantity', $quantity)
         ->set('item.reference', $reference)
+        ->set('item.is_quotable', $quotable)
         ->set('item.is_active', $activated)
         ->call('update')
         ->assertHasNoErrors()
@@ -46,7 +48,9 @@ it('can update', function () {
         ->and($item->reference)
         ->toBe($reference)
         ->and($item->is_active)
-        ->toBe($activated);
+        ->toBe($activated)
+        ->and($item->is_quotable)
+        ->toBe($quotable);
 });
 
 it('cannot update item using name already in use', function () {

@@ -1,4 +1,7 @@
 <div>
+    <div class="flex justify-end mb-4 ">
+        <livewire:signature.filter />
+    </div>
     <div class="mb-4">
         <x-input type="text"
                  placeholder="Pesquise alguma coisa..."

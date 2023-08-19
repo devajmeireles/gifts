@@ -21,10 +21,8 @@ class SettingsService
     {
         Cache::forget("settings::{$key}");
 
-        $key = strtoupper($key);
-
-        return Setting::firstOrCreate([
-            'key' => $key,
+        return Setting::updateOrCreate([
+            'key' => strtoupper($key),
         ], [
             'value' => $value,
         ]);

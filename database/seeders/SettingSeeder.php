@@ -16,15 +16,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key'   => 'data_evento',
-                'value' => now()->addWeek()->format('Y-m-d'),
-            ],
-            [
-                'key'   => 'itens_cotas_via_pix',
-                'value' => true,
-            ],
-            [
-                'key'   => 'pix',
-                'value' => '123.456.789-00',
+                'value' => now()->addWeek()->format('d/m/Y'),
             ],
         ];
 

@@ -8,15 +8,15 @@ it('can update password', function () {
     $response = $this->from('/profile')
         ->put('/password', [
             'current_password'      => 'password',
-            'password'              => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password'              => 'Senh4!@#Abc',
+            'password_confirmation' => 'Senh4!@#Abc',
         ]);
 
     $response
         ->assertSessionHasNoErrors()
         ->assertRedirect('/profile');
 
-    $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
+    $this->assertTrue(Hash::check('Senh4!@#Abc', $user->refresh()->password));
 });
 
 it('cannot update password using wrong password', function () {

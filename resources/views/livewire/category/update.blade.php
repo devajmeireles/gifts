@@ -1,8 +1,4 @@
 <div>
-    <x-button.circle primary
-                     icon="pencil"
-                     wire:click="$toggle('modal')"
-    />
     <x-modal.card :title="__('Edição de Categoria: #:id', ['id' => $category?->id])" blur wire:model.defer="modal">
         <div class="grid grid-cols-2 gap-4">
             <div class="col-span-1">

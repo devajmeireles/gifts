@@ -14,22 +14,28 @@ class Update extends Component
 {
     use Actions;
 
-    public ?Category $category = null;
+    public Category $category;
 
     public bool $modal = false;
 
     public ?string $color = null;
 
-    public function mount(): void
-    {
-        $this->color = $this->category?->color->value;
-    }
+    protected $listeners = [
+        'category::update::load' => 'load',
+    ];
 
     public function render(): View
     {
         return view('livewire.category.update', [
             'colors' => collect(Badge::cases()),
         ]);
+    }
+
+    public function load(Category $category): void
+    {
+        $this->category = $category;
+        $this->color    = $category->color->value;
+        $this->modal    = true;
     }
 
     public function rules(): array

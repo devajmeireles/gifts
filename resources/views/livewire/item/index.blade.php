@@ -28,10 +28,14 @@
                                     <x-table.td>{{ $item->quantity }}</x-table.td>
                                     <x-table.td>{{ $item->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>
-                                        <div class="inline-flex gap-1">
-                                            <livewire:item.update :item="$item" :key="md5('update-'.$item->id)" />
-                                            <livewire:item.delete :item="$item" :key="md5('delete-'.$item->id)" />
-                                        </div>
+                                        <x-button.circle primary
+                                                         icon="pencil"
+                                                         wire:click="update({{ $item->id }})"
+                                        />
+                                        <x-button.circle negative
+                                                         icon="trash"
+                                                         wire:click="delete({{ $item->id }})"
+                                        />
                                     </x-table.td>
                                 </x-table.tr>
                             @empty
@@ -43,5 +47,7 @@
             </div>
             <x-pagination :$items />
         </div>
+        <livewire:item.update />
+        <livewire:item.delete />
     </div>
 </div>

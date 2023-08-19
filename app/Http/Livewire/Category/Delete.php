@@ -13,21 +13,22 @@ class Delete extends Component
 
     public ?Category $category = null;
 
+    protected $listeners = [
+        'category::delete::load' => 'load',
+    ];
+
     public function render(): string
     {
         return <<<'blade'
-            <div>
-                <x-button.circle negative
-                                 icon="trash"
-                                 wire:click="confirmation"
-                />
-            </div>
+            <div></div>
         blade;
     }
 
-    public function confirmation(): void
+    public function load(Category $category): void
     {
-        $count = $this->category->items->count();
+        $this->category = $category;
+
+        $count = $category->items->count();
         $title = $count > 0
             ? "{$count} itens vinculados a esta categoria!"
             : "Confirmação";

@@ -11,22 +11,23 @@ class Delete extends Component
 {
     use Actions;
 
-    public ?Item $item = null;
+    public Item $item;
+
+    protected $listeners = [
+        'item::delete::load' => 'load',
+    ];
 
     public function render(): string
     {
         return <<<'blade'
-            <div>
-                <x-button.circle negative
-                                 icon="trash"
-                                 wire:click="confirmation"
-                />
-            </div>
+            <div></div>
         blade;
     }
 
-    public function confirmation(): void
+    public function load(Item $item): void
     {
+        $this->item = $item;
+
         $this->notification()->confirm([
             'title'       => 'Confirmação!',
             'description' => 'Deseja realmente deletar este item?',

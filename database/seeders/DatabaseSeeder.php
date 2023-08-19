@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
                 'username' => 'admin',
             ]);
 
+        User::factory(10)
+            ->user()
+            ->create();
+
         Item::factory(25)
             ->forCategory()
             ->activated()

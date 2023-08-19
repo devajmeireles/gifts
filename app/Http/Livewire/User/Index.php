@@ -12,6 +12,10 @@ class Index extends Component
 {
     use Table;
 
+    protected $listeners = [
+        'user::index::refresh' => '$refresh',
+    ];
+
     public function render(): View
     {
         return view('livewire.user.index', [

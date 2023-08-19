@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\UnauthorizeUserPageAccess;
 use App\Http\Controllers\{CategoryController,
     DashboardController,
     ItemController,
@@ -8,7 +7,7 @@ use App\Http\Controllers\{CategoryController,
     SettingsController,
     SignatureController,
     UserController};
-use App\Http\Middleware\UnauthorizeSettingsPageAccess;
+use App\Http\Middleware\{UnauthorizeSettingsPageAccess, UnauthorizeUserPageAccess};
 use Illuminate\Support\Facades\Route;
 
 /*

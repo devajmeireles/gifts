@@ -1,19 +1,18 @@
 <?php
 
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
-test('login screen can be rendered', function () {
+it('can see login page', function () {
     $response = $this->get('/login');
 
     $response->assertStatus(200);
 });
 
-test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+it('can authenticate', function () {
+    $user = createTestUser(login: false);
 
     $response = $this->post('/login', [
-        'email'    => $user->email,
+        'username' => $user->username,
         'password' => 'password',
     ]);
 
@@ -21,11 +20,11 @@ test('users can authenticate using the login screen', function () {
     $response->assertRedirect(RouteServiceProvider::HOME);
 });
 
-test('users can not authenticate with invalid password', function () {
-    $user = User::factory()->create();
+it('cannot authenticate using wrong password', function () {
+    $user = createTestUser(login: false);
 
     $this->post('/login', [
-        'email'    => $user->email,
+        'username' => $user->username,
         'password' => 'wrong-password',
     ]);
 

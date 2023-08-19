@@ -23,6 +23,11 @@ class UserFactory extends Factory
         ];
     }
 
+    public function role(UserRole $role): self
+    {
+        return $this->state(['role' => $role]);
+    }
+
     public function admin(): self
     {
         return $this->state(['role' => UserRole::Admin]);
@@ -40,8 +45,6 @@ class UserFactory extends Factory
 
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->state(['email_verified_at' => null]);
     }
 }

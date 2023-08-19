@@ -1,14 +1,11 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-test('password can be updated', function () {
-    $user = User::factory()->create();
+it('can update password', function () {
+    $user = createTestUser();
 
-    $response = $this
-        ->actingAs($user)
-        ->from('/profile')
+    $response = $this->from('/profile')
         ->put('/password', [
             'current_password'      => 'password',
             'password'              => 'new-password',
@@ -22,8 +19,8 @@ test('password can be updated', function () {
     $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
 });
 
-test('correct password must be provided to update password', function () {
-    $user = User::factory()->create();
+it('cannot update password using wrong password', function () {
+    $user = createTestUser();
 
     $response = $this
         ->actingAs($user)

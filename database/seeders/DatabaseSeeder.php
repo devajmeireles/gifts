@@ -7,15 +7,14 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        User::factory()->create([
-            'name'  => 'AJ',
-            'email' => 'aj@aj.com',
-        ]);
+        User::factory()
+            ->admin()
+            ->create([
+                'name'  => 'AJ',
+                'email' => 'aj@aj.com',
+            ]);
 
         Item::factory(25)
             ->forCategory()

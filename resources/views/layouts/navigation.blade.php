@@ -3,30 +3,30 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('admin.dashboard') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('items')" :active="request()->routeIs('items')">
+                    <x-nav-link :href="route('admin.items')" :active="request()->routeIs('admin.items')">
                         {{ __('Itens') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('categories')" :active="request()->routeIs('categories')">
+                    <x-nav-link :href="route('admin.categories')" :active="request()->routeIs('admin.categories')">
                         {{ __('Categorias') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('signatures')" :active="request()->routeIs('signatures')">
+                    <x-nav-link :href="route('admin.signatures')" :active="request()->routeIs('admin.signatures')">
                         {{ __('Assinaturas') }}
                     </x-nav-link>
                     @if (!user()->isGuest())
-                        <x-nav-link :href="route('settings')" :active="request()->routeIs('settings')">
+                        <x-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')">
                             {{ __('Configurações') }}
                         </x-nav-link>
                     @endif
                     @if (user()->isAdmin())
-                        <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        <x-nav-link :href="route('admin.users')" :active="request()->routeIs('admin.users')">
                             {{ __('Usuários') }}
                         </x-nav-link>
                     @endif
@@ -49,13 +49,13 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('admin.profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('admin.logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
+                            <x-dropdown-link :href="route('admin.logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
@@ -76,7 +76,7 @@
     </div>
     <div x-bind:class="{ 'block' : profile, 'hidden' : ! profile }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
@@ -86,12 +86,12 @@
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('admin.profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
-                    <x-responsive-nav-link :href="route('logout')"
+                    <x-responsive-nav-link :href="route('admin.logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}

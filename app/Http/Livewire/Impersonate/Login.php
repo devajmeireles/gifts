@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Impersonate;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Livewire\{Component, Redirector};
+use Livewire\Component;
 use WireUi\Traits\Actions;
 
 class Login extends Component
@@ -24,7 +24,7 @@ class Login extends Component
         blade;
     }
 
-    public function login(): ?Redirector
+    public function login(): mixed
     {
         if (user()->is($this->user)) {
             $this->notification()->warning('Você não pode se impersonar');
@@ -46,6 +46,6 @@ class Login extends Component
         Auth::logout();
         Auth::login($this->user);
 
-        return redirect(route('dashboard'));
+        return redirect(route('admin.dashboard'));
     }
 }

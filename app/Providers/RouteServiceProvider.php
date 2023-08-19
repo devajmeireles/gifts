@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\{RateLimiter, Route};
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/dashboard';
+    public const HOME = '/admin';
 
     public function boot(): void
     {

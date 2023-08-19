@@ -22,7 +22,7 @@ class Logout extends Component
         blade;
     }
 
-    public function logout(): ?Redirector
+    public function logout(): mixed
     {
         if (!session()->has('impersonate')) {
             $this->notification()->warning('Você não está impersonando');
@@ -35,6 +35,6 @@ class Logout extends Component
 
         session()->forget('impersonate');
 
-        return redirect(route('dashboard'));
+        return redirect(route('admin.dashboard'));
     }
 }

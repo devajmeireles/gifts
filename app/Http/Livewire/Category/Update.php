@@ -50,7 +50,6 @@ class Update extends Component
             ],
             'color' => [
                 'required',
-                'string',
                 Rule::in(Badge::toArray()),
             ],
             'category.description' => [

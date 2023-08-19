@@ -43,7 +43,6 @@ class Create extends Component
             ],
             'color' => [
                 'required',
-                'string',
                 Rule::in(Badge::toArray()),
             ],
             'category.description' => [
@@ -55,11 +54,6 @@ class Create extends Component
                 'boolean',
             ],
         ];
-    }
-
-    public function updatingCategory($property, $value)
-    {
-        ray($property, $value);
     }
 
     public function create(): void

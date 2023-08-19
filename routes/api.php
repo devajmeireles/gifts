@@ -25,6 +25,7 @@ Route::prefix('/search')
     ->group(function () {
         Route::get('/category', function (Request $request) {
             return Category::query()
+                ->active()
                 ->when(
                     $search = $request->get('search'),
                     fn ($query) => $query->where('name', 'like', "%{$search}%")
@@ -40,6 +41,7 @@ Route::prefix('/search')
 
         Route::get('/item', function (Request $request) {
             return Item::query()
+                ->active()
                 ->when(
                     $category = $request->get('category'),
                     fn (Builder $query) => $query->where('category_id', '=', $category),

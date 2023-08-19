@@ -63,3 +63,19 @@ it('cannot update using name already in use', function () {
         ->not()
         ->toBe($two->name);
 });
+
+it('can validate successfully', function () {
+    $category = Category::factory()->create();
+
+    livewire(Update::class)
+        ->call('load', $category)
+        ->set('category.name', fake()->words(300, true))
+        ->set('category.description', fake()->words(300, true))
+        ->set('color', 'asd')
+        ->call('update')
+        ->assertHasErrors([
+            'category.name'        => 'max',
+            'category.description' => 'max',
+            'color'                => 'in',
+        ]);
+});

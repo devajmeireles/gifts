@@ -27,6 +27,11 @@ class ItemFactory extends Factory
         return $this->state(['is_active' => true]);
     }
 
+    public function inactivated(): self
+    {
+        return $this->state(['is_active' => false]);
+    }
+
     public function quotable(): self
     {
         return $this->state(['is_quotable' => true]);

@@ -25,4 +25,9 @@ class CategoryFactory extends Factory
     {
         return $this->state(['is_active' => true]);
     }
+
+    public function inactivated(): self
+    {
+        return $this->state(['is_active' => false]);
+    }
 }

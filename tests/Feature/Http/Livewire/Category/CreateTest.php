@@ -11,8 +11,8 @@ beforeEach(fn () => createTestUser());
 
 it('can create', function () {
     $name        = fake()->word();
-    $description = fake()->sentence();
     $color       = 'default';
+    $description = fake()->sentence();
     $activated   = fake()->boolean();
 
     livewire(Create::class)
@@ -49,4 +49,17 @@ it('cannot create with name already in use', function () {
         ->assertHasErrors(['category.name' => 'unique']);
 
     assertDatabaseCount('categories', 1);
+});
+
+it('can validate successfully', function () {
+    livewire(Create::class)
+        ->set('category.name', fake()->words(300, true))
+        ->set('category.description', fake()->words(300, true))
+        ->set('color', 'asd')
+        ->call('create')
+        ->assertHasErrors([
+            'category.name'        => 'max',
+            'category.description' => 'max',
+            'color'                => 'in',
+        ]);
 });

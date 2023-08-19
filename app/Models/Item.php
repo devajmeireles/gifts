@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Searchable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
@@ -55,5 +56,10 @@ class Item extends Model
     public function available(): bool
     {
         return $this->signatures->count() < $this->quantity;
+    }
+
+    public function scopeActive(Builder $builder): Builder
+    {
+        return $builder->where('is_active', '=', true);
     }
 }

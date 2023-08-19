@@ -23,9 +23,11 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
         "pestphp/pest-plugin-livewire": "^2.1",
+        "pestphp/pest-plugin-type-coverage": "^2.0",
         "spatie/laravel-ignition": "^2.0",
         "spatie/laravel-ray": "^1.32"
     },
@@ -59,6 +61,7 @@
             "@php artisan key:generate --ansi"
         ],
         "format": "./vendor/bin/pint",
+        "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G",
         "test": [
             "./vendor/bin/pint --test",
             "./vendor/bin/pest"

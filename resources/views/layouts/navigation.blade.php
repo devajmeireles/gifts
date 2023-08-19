@@ -24,6 +24,11 @@
                     <x-nav-link :href="route('signatures')" :active="request()->routeIs('signatures')">
                         {{ __('Assinaturas') }}
                     </x-nav-link>
+                    @if (!user()->isGuest())
+                        <x-nav-link :href="route('settings')" :active="request()->routeIs('settings')">
+                            {{ __('Configurações') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

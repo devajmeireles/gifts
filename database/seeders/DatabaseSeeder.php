@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
             ->forCategory()
             ->activated()
             ->create();
+
+        $this->call(SettingSeeder::class);
     }
 }

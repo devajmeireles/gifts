@@ -4,7 +4,9 @@ use App\Http\Controllers\{CategoryController,
     DashboardController,
     ItemController,
     ProfileController,
+    SettingsController,
     SignatureController};
+use App\Http\Middleware\UnauthorizeSettingsPageAccess;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,5 +39,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/items', ItemController::class)->name('items');
 Route::get('/categories', CategoryController::class)->name('categories');
 Route::get('/signatures', SignatureController::class)->name('signatures');
+Route::middleware(UnauthorizeSettingsPageAccess::class)
+    ->get('/settings', SettingsController::class)->name('settings');
 
 require __DIR__ . '/auth.php';

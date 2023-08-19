@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Middleware\UnauthorizeUserPageAccess;
 use App\Http\Controllers\{CategoryController,
     DashboardController,
     ItemController,
     ProfileController,
     SettingsController,
-    SignatureController};
+    SignatureController,
+    UserController};
 use App\Http\Middleware\UnauthorizeSettingsPageAccess;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +41,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/items', ItemController::class)->name('items');
 Route::get('/categories', CategoryController::class)->name('categories');
 Route::get('/signatures', SignatureController::class)->name('signatures');
+
 Route::middleware(UnauthorizeSettingsPageAccess::class)
     ->get('/settings', SettingsController::class)->name('settings');
+
+Route::middleware(UnauthorizeUserPageAccess::class)
+    ->get('/users', UserController::class)->name('users');
 
 require __DIR__ . '/auth.php';

@@ -13,4 +13,12 @@ return [
             3 => 'Itens Não Assinados',
         ],
     ],
+
+    'user' => [
+        'role' => [
+            1 => 'Administrador',
+            2 => 'Usuário',
+            3 => 'Convidado',
+        ],
+    ],
 ];

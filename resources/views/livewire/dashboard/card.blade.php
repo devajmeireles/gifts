@@ -1,4 +1,4 @@
-<div class="col-span-1" wire:init="load">
+<div class="col-span-full sm:col-span-1" wire:init="load">
     <x-card wire:loading>
         <div class="animate-pulse flex space-x-4">
             <div class="flex-1 space-y-6 py-1">

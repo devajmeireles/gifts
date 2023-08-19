@@ -24,7 +24,7 @@ return new class () extends Migration {
             $table->boolean('is_active')->default(true);
             $table->boolean('is_quotable')->default(false);
             $table->timestamps();
-            $table->timestamp('signed_at')->nullable();
+            $table->timestamp('last_signed_at')->nullable();
         });
     }
 

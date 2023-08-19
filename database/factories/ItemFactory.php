@@ -34,6 +34,6 @@ class ItemFactory extends Factory
 
     public function signed(Carbon $carbon = null): self
     {
-        return $this->state(['signed_at' => $carbon ?? $this->faker->dateTimeBetween('-1 year', 'now')]);
+        return $this->state(['last_signed_at' => $carbon ?? $this->faker->dateTimeBetween('-1 year', 'now')]);
     }
 }

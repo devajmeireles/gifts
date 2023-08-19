@@ -13,7 +13,7 @@
     <div class="grid grid-cols-3 gap-4">
         @php /** @var \App\Models\Signature $signature */ @endphp
         @forelse ($signatures as $signature)
-            <div class="col-span-1">
+            <div class="col-span-full sm:col-span-1">
                 <x-card>
                     <div class="ml-4 p-2">
                         <div class="flex items-center justify-start">
@@ -41,7 +41,7 @@
                 </x-card>
             </div>
         @empty
-            <div class="col-span-full">
+            <div class="col-span-full sm:col-span-1">
                 <x-card>
                     <div class="p-8 flex justify-center items-center">
                         <div class="inline-flex gap-2">

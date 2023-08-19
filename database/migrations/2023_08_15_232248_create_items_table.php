@@ -20,6 +20,7 @@ return new class () extends Migration {
             $table->string('description')->nullable();
             $table->string('reference')->nullable();
             $table->unsignedInteger('quantity')->default(1);
+            $table->double('price', 10, 2)->default(0.0);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_quotable')->default(false);
             $table->timestamps();

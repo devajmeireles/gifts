@@ -14,6 +14,7 @@ it('can create', function () {
     $description = fake()->sentence();
     $category    = Category::factory()->create()->id;
     $quantity    = fake()->numberBetween(1, 100);
+    $price       = fake()->numberBetween(1, 100);
     $reference   = fake()->url();
     $quotable    = fake()->boolean();
     $activated   = fake()->boolean();
@@ -23,6 +24,7 @@ it('can create', function () {
         ->set('item.description', $description)
         ->set('item.category_id', $category)
         ->set('item.quantity', $quantity)
+        ->set('item.price', $price)
         ->set('item.reference', $reference)
         ->set('item.is_quotable', $quotable)
         ->set('item.is_active', $activated)
@@ -36,6 +38,7 @@ it('can create', function () {
         'description' => $description,
         'category_id' => $category,
         'quantity'    => $quantity,
+        'price'       => $price,
         'reference'   => $reference,
         'is_quotable' => $quotable,
         'is_active'   => $activated,

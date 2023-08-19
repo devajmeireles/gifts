@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@alpinejs/mask": "^3.12.3",
         "apexcharts": "^3.41.1"
     }
 }

@@ -21,6 +21,7 @@ class Item extends Model
         'description',
         'reference',
         'quantity',
+        'price',
         'is_quotable',
         'is_active',
         'signed_at',

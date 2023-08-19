@@ -17,6 +17,7 @@ it('can update', function () {
     $name        = fake()->word();
     $description = fake()->sentence();
     $quantity    = fake()->numberBetween(1, 100);
+    $price       = fake()->numberBetween(1, 100);
     $reference   = fake()->url();
     $quotable    = fake()->boolean();
     $activated   = fake()->boolean();
@@ -27,6 +28,7 @@ it('can update', function () {
         ->set('item.description', $description)
         ->set('item.category_id', $category->id)
         ->set('item.quantity', $quantity)
+        ->set('item.price', $price)
         ->set('item.reference', $reference)
         ->set('item.is_quotable', $quotable)
         ->set('item.is_active', $activated)

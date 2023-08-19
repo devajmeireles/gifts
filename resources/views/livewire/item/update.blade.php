@@ -16,15 +16,24 @@
             </div>
 
             <div class="col-span-full">
-                <x-input label="Referência" wire:model.defer="item.reference" />
+                <x-inputs.number label="Quantidade"
+                                 :min="1"
+                                 wire:model.defer="item.quantity" />
             </div>
 
-            <x-inputs.number label="Quantidade" wire:model.defer="item.quantity" />
-
-            <div class="col-span-1 flex items-center sm:mt-6 gap-2">
+            <div class="col-span-full flex items-center gap-2">
                 <x-toggle label="Ativo" lg wire:model.defer="item.is_active" />
-                <x-toggle label="Cotas" lg wire:model.defer="item.is_quotable" />
+                <x-toggle label="Cotas" lg wire:model.debounce.250ms="item.is_quotable" />
             </div>
+
+            @if ($item?->is_quotable)
+                <x-input type="number"
+                         label="Valor"
+                         wire:model="item.price"
+                />
+
+                <x-input label="Referência" wire:model.defer="item.reference" />
+            @endif
         </div>
 
         <x-slot name="footer">

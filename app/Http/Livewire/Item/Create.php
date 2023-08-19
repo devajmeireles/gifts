@@ -57,6 +57,12 @@ class Create extends Component
                 'required',
                 'integer',
             ],
+            'item.price' => [
+                Rule::when($this->item?->is_quotable, [
+                    'required',
+                    'numeric',
+                ]),
+            ],
             'item.is_quotable' => [
                 'nullable',
                 'boolean',

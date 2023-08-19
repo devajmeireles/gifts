@@ -1,10 +1,11 @@
 <div>
     @php use \App\Enums\DeliveryType; @endphp
-    <x-button sm label="Adicionar"
-              primary
-              wire:click="$toggle('modal')"
+    <x-button.circle xs
+                     primary
+                     icon="pencil"
+                     wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Assinatura" blur wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Assinatura: #:id', ['id' => $signature?->id])" blur wire:model.defer="modal">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <x-input label="Nome" wire:model.defer="signature.name"/>
 
@@ -22,23 +23,12 @@
                              option-value="id"
             />
 
-            @if ($item?->quantity > 1)
-                <div class="col-span-full">
-                    <x-inputs.number label="Quantidade"
-                                     wire:model.debounce.250ms="quantity"
-                                     :min="1"
-                                     :max="$item->quantity"
-                    />
-                </div>
-            @endif
-
-            @if ($item?->is_quotable && $item?->price > 0)
+            @if ($item && $signature->item->isNot($item))
                 <div class="col-span-full">
                     <div class="flex justify-center">
                         <p class="text-xs text-red-500 font-semibold">
-                            Este item possui um preço definido de R$ {{ $item->price() }}.
-                            Ao assinar {{ $quantity }} unidades, o valor total recebido
-                            será de R$ {{ $item->price / $item->quantity * $quantity }}
+                            Ao trocar o item da assinatura, uma única quantidade do
+                            novo item será consumido para esta assinatura.
                         </p>
                     </div>
                 </div>
@@ -56,7 +46,7 @@
             <div class="flex justify-end gap-x-4">
                 <div class="flex">
                     <x-button flat label="Cancelar" x-on:click="close"/>
-                    <x-button primary label="Criar" wire:click="create"/>
+                    <x-button primary label="Salvar" wire:click="update"/>
                 </div>
             </div>
         </x-slot>

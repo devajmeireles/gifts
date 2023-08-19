@@ -44,9 +44,14 @@ class Delete extends Component
 
     public function delete(): void
     {
-        //TODO: deletar tem que possívelmente analisar o item para restaurar status
-
         try {
+            if ($this->signature->item->quantity === 1) {
+                $this->signature->item
+                    ->update([
+                        'last_signed_at' => null,
+                    ]);
+            }
+
             $this->signature->delete();
 
             $this->signature = new Signature();

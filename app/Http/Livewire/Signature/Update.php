@@ -6,16 +6,15 @@ use App\Enums\DeliveryType;
 use App\Models\{Item, Signature};
 use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class Create extends Component
+class Update extends Component
 {
     use Actions;
 
-    public Signature $signature;
+    public ?Signature $signature;
 
     public ?Item $item = null;
 
@@ -27,22 +26,11 @@ class Create extends Component
 
     public int $delivery = 1;
 
-    public function render(): View
+    public function mount(): void
     {
-        return view('livewire.signature.create');
-    }
-
-    public function updatedModal(): void
-    {
-        $this->signature        = new Signature();
-        $this->signature->phone = '';
-    }
-
-    public function updatedSelected(): void
-    {
-        if ($this->selected) {
-            $this->item = Item::find($this->selected);
-        }
+        $this->delivery = $this->signature->delivery->value;
+        $this->selected = $this->signature->item_id;
+        $this->item     = $this->signature->item;
     }
 
     public function rules(): array
@@ -56,13 +44,27 @@ class Create extends Component
         ];
     }
 
-    public function create(): void
+    public function render(): View
+    {
+        return view('livewire.signature.update');
+    }
+
+    public function updatedSelected(): void
+    {
+        if ($this->selected) {
+            $this->item = Item::find($this->selected);
+        }
+    }
+
+    public function update(): void
     {
         $this->validate();
 
-        $this->signature->delivery = DeliveryType::from($this->delivery);
+        $current     = $this->signature->item;
+        $different   = $current->isNot($this->item);
+        $this->modal = false;
 
-        if (!$this->item->available()) {
+        if ($different && !$this->item->available()) {
             $this->resetExcept('item', 'signature');
             $this->notification()->error('Item indisponível para assinatura!');
 
@@ -70,27 +72,24 @@ class Create extends Component
         }
 
         try {
-            $this->item->signatures()
-                ->createMany(
-                    Collection::times($this->quantity, fn () => $this->signature->toArray())
-                        ->toArray()
-                );
+            $this->signature->delivery = DeliveryType::from($this->delivery);
+            $this->signature->item_id  = $this->selected;
 
-            $this->resetExcept('item', 'signature');
+            if ($different) {
+                $this->item->update(['last_signed_at' => now()]);
+                $current->update(['last_signed_at' => null]);
+            }
 
-            $this->item->update(['last_signed_at' => now()]);
-
-            $this->signature = new Signature();
-            $this->item      = new Item();
+            $this->signature->save();
 
             $this->emitUp('signature::index::refresh');
-            $this->notification()->success('Assinatura criada com sucesso!');
+            $this->notification()->success('Assinatura atualizada com sucesso!');
 
             return;
         } catch (Exception $e) {
             report($e);
         }
 
-        $this->notification()->error('Erro ao criar assinatura!');
+        $this->notification()->error('Erro ao atualizar a assinatura!');
     }
 }

@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end gap-1">
-                        <x-button.circle xs primary icon="pencil" />
+                        <livewire:signature.update :signature="$signature" :key="$signature->id" />
                         <livewire:signature.delete :signature="$signature" :key="$signature->id" />
                     </div>
                 </x-card>

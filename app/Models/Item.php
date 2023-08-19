@@ -51,4 +51,9 @@ class Item extends Model
 
         return number_format($this->price, 2, ',', '.');
     }
+
+    public function available(): bool
+    {
+        return $this->signatures->count() < $this->quantity;
+    }
 }

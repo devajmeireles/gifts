@@ -13,23 +13,13 @@ class Update extends Component
 {
     use Actions;
 
-    public Item $item;
+    public ?Item $item = null;
 
     public bool $modal = false;
-
-    protected $listeners = [
-        'item::update::load' => 'load',
-    ];
 
     public function render(): View
     {
         return view('livewire.item.update');
-    }
-
-    public function load(Item $item): void
-    {
-        $this->item  = $item;
-        $this->modal = true;
     }
 
     public function rules(): array

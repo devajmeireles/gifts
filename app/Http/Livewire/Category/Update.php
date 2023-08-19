@@ -32,13 +32,6 @@ class Update extends Component
         ]);
     }
 
-    public function load(Category $category): void
-    {
-        $this->category = $category;
-        $this->color    = $category->color->value;
-        $this->modal    = true;
-    }
-
     public function rules(): array
     {
         return [

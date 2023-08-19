@@ -27,7 +27,7 @@
                                     <x-table.td>{{ $category->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>
                                         <div class="inline-flex gap-1">
-                                            <livewire:category.update :category="$category" :key="md5('edit-'.$category->id)" />
+                                            <livewire:category.update :category="$category" :key="md5('update-'.$category->id)" />
                                             <livewire:category.delete :category="$category" :key="md5('delete-'.$category->id)" />
                                         </div>
                                     </x-table.td>

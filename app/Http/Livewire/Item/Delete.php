@@ -11,23 +11,22 @@ class Delete extends Component
 {
     use Actions;
 
-    public Item $item;
-
-    protected $listeners = [
-        'item::delete::load' => 'load',
-    ];
+    public ?Item $item = null;
 
     public function render(): string
     {
         return <<<'blade'
-            <div></div>
+            <div>
+                <x-button.circle negative
+                                 icon="trash"
+                                 wire:click="confirmation"
+                />
+            </div>
         blade;
     }
 
-    public function load(Item $item): void
+    public function confirmation(): void
     {
-        $this->item = $item;
-
         $this->notification()->confirm([
             'title'       => 'Confirmação!',
             'description' => 'Deseja realmente deletar este item?',
@@ -35,10 +34,6 @@ class Delete extends Component
             'accept'      => [
                 'label'  => 'Sim!',
                 'method' => 'delete',
-            ],
-            'reject' => [
-                'label'  => 'Não, cancelar!',
-                'method' => 'cancel',
             ],
         ]);
     }
@@ -57,10 +52,5 @@ class Delete extends Component
         }
 
         $this->notification()->error('Erro ao deletar item!');
-    }
-
-    public function cancel(): void
-    {
-        $this->notification()->info('Operação cancelada!');
     }
 }

@@ -30,9 +30,6 @@
                     <h3 class="text-base font-semibold leading-6 text-indigo-600">
                         {{ $this->type->translate() }}
                     </h3>
-                    <x-badge outline primary>
-                        80% em Fraldas
-                    </x-badge>
                 </div>
             </div>
         </div>

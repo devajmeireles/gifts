@@ -4,9 +4,9 @@ namespace App\Enums\Dashboard;
 
 enum CardType: int
 {
-    case AllItems       = 1;
-    case ItemsSigned    = 2;
-    case ItemsNotSigned = 3;
+    case AllItems         = 1;
+    case AllSignedItems   = 2;
+    case AllUnsignedItems = 3;
 
     public function translate(): string
     {

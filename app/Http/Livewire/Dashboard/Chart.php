@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Signature;
 use Carbon\{CarbonInterval, CarbonPeriod};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -53,6 +54,8 @@ class Chart extends Component
 
     private function count(string $date): int
     {
-        return rand(1, 100);
+        return Signature::query()
+            ->whereDate('created_at', $date)
+            ->count();
     }
 }

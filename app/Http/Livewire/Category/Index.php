@@ -30,14 +30,4 @@ class Index extends Component
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }
-
-    public function update(Category $category): void
-    {
-        $this->emitTo(Update::class, 'category::update::load', $category);
-    }
-
-    public function delete(Category $category): void
-    {
-        $this->emitTo(Delete::class, 'category::delete::load', $category);
-    }
 }

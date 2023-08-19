@@ -11,25 +11,23 @@ class Delete extends Component
 {
     use Actions;
 
-    public Category $category;
-
-    protected $listeners = [
-        'category::delete::load' => 'load',
-    ];
+    public ?Category $category = null;
 
     public function render(): string
     {
         return <<<'blade'
             <div>
+                <x-button.circle negative
+                                 icon="trash"
+                                 wire:click="confirmation"
+                />
             </div>
         blade;
     }
 
-    public function load(Category $category): void
+    public function confirmation(): void
     {
-        $this->category = $category;
-
-        $count = $category->items->count();
+        $count = $this->category->items->count();
         $title = $count > 0
             ? "{$count} itens vinculados a esta categoria!"
             : "Confirmação";
@@ -41,10 +39,6 @@ class Delete extends Component
             'accept'      => [
                 'label'  => 'Sim!',
                 'method' => 'delete',
-            ],
-            'reject' => [
-                'label'  => 'Não, cancelar!',
-                'method' => 'cancel',
             ],
         ]);
     }
@@ -63,10 +57,5 @@ class Delete extends Component
         }
 
         $this->notification()->error('Erro ao deletar categoria!');
-    }
-
-    public function cancel(): void
-    {
-        $this->notification()->info('Operação cancelada!');
     }
 }

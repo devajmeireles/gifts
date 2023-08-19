@@ -21,7 +21,10 @@
                         <x-table.tbody>
                             @forelse ($users as $user)
                                 <x-table.tr>
-                                    <x-table.td first>{{ $user->id }}</x-table.td>
+                                    <x-table.td class="inline-flex items-center gap-2" first>
+                                        <livewire:impersonate.login :user="$user" :key="$user->id" />
+                                        {{ $user->id }}
+                                    </x-table.td>
                                     <x-table.td>{{ $user->name }}</x-table.td>
                                     <x-table.td>{{ $user->username }}</x-table.td>
                                     <x-table.td>

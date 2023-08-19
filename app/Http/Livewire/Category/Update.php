@@ -14,15 +14,16 @@ class Update extends Component
 {
     use Actions;
 
-    public Category $category;
+    public ?Category $category = null;
 
     public bool $modal = false;
 
     public ?string $color = null;
 
-    protected $listeners = [
-        'category::update::load' => 'load',
-    ];
+    public function mount(): void
+    {
+        $this->color = $this->category?->color->value;
+    }
 
     public function render(): View
     {

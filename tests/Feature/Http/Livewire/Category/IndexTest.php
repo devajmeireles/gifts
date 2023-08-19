@@ -8,7 +8,7 @@ use function Pest\Livewire\livewire;
 beforeEach(fn () => createTestUser());
 
 it('can render component', function () {
-    $this->get(route('categories'))
+    $this->get(route('admin.categories'))
         ->assertSeeLivewire(Index::class);
 });
 

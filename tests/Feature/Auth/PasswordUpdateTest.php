@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Hash;
 it('can update password', function () {
     $user = createTestUser();
 
-    $response = $this->from('/profile')
-        ->put('/password', [
+    $response = $this->from(route('admin.profile.edit'))
+        ->put(route('admin.password.update'), [
             'current_password'      => 'password',
             'password'              => 'Senh4!@#Abc',
             'password_confirmation' => 'Senh4!@#Abc',
@@ -14,7 +14,7 @@ it('can update password', function () {
 
     $response
         ->assertSessionHasNoErrors()
-        ->assertRedirect('/profile');
+        ->assertRedirect(route('admin.profile.edit'));
 
     $this->assertTrue(Hash::check('Senh4!@#Abc', $user->refresh()->password));
 });
@@ -22,10 +22,8 @@ it('can update password', function () {
 it('cannot update password using wrong password', function () {
     $user = createTestUser();
 
-    $response = $this
-        ->actingAs($user)
-        ->from('/profile')
-        ->put('/password', [
+    $response = $this->from(route('admin.profile.edit'))
+        ->put(route('admin.password.update'), [
             'current_password'      => 'wrong-password',
             'password'              => 'new-password',
             'password_confirmation' => 'new-password',
@@ -33,5 +31,5 @@ it('cannot update password using wrong password', function () {
 
     $response
         ->assertSessionHasErrorsIn('updatePassword', 'current_password')
-        ->assertRedirect('/profile');
+        ->assertRedirect(route('admin.profile.edit'));
 });

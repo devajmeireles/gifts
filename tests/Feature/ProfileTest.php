@@ -1,25 +1,24 @@
 <?php
 
+use function Pest\Laravel\get;
+
 test('profile page is displayed', function () {
-    $user = createTestUser();
+    createTestUser();
 
-    $response = $this
-        ->actingAs($user)
-        ->get('/profile');
-
-    $response->assertOk();
+    get(route('admin.profile.edit'))
+        ->assertOk();
 });
 
 test('can update profile', function () {
     $user = createTestUser();
 
-    $response = $this->patch(route('profile.edit'), [
+    $response = $this->patch(route('admin.profile.edit'), [
         'name'     => 'Test User',
         'username' => 'testuser',
     ]);
 
     $response->assertSessionHasNoErrors()
-        ->assertRedirect(route('profile.edit'));
+        ->assertRedirect(route('admin.profile.edit'));
 
     $user->refresh();
 

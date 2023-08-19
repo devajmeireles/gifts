@@ -3,7 +3,7 @@
 use App\Providers\RouteServiceProvider;
 
 it('can see login page', function () {
-    $response = $this->get('/login');
+    $response = $this->get(route('admin.login'));
 
     $response->assertStatus(200);
 });
@@ -11,7 +11,7 @@ it('can see login page', function () {
 it('can authenticate', function () {
     $user = createTestUser(login: false);
 
-    $response = $this->post('/login', [
+    $response = $this->post(route('admin.login'), [
         'username' => $user->username,
         'password' => 'password',
     ]);
@@ -23,7 +23,7 @@ it('can authenticate', function () {
 it('cannot authenticate using wrong password', function () {
     $user = createTestUser(login: false);
 
-    $this->post('/login', [
+    $this->post(route('admin.login'), [
         'username' => $user->username,
         'password' => 'wrong-password',
     ]);

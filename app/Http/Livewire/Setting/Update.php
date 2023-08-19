@@ -6,7 +6,6 @@ use App\Models\Setting;
 use App\Services\Settings\Facades\Settings;
 use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 

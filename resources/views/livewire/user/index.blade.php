@@ -3,7 +3,7 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flow-root">
             <div class="flex justify-end">
-                <livewire:item.create />
+                <livewire:user.create />
             </div>
             <x-table.filter quantity search />
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

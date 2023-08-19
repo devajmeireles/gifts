@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\Settings\Facades\Settings;
 use App\Services\Settings\SettingsService;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,5 +20,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         auth()->loginUsingId(1);
+
+        Password::defaults(function () {
+            return Password::min(8)
+                ->letters()
+                ->numbers()
+                ->symbols()
+                ->mixedCase();
+        });
     }
 }

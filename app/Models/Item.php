@@ -42,4 +42,13 @@ class Item extends Model
     {
         return $this->hasMany(Signature::class);
     }
+
+    public function price(): ?string
+    {
+        if (!$this->price) {
+            return null;
+        }
+
+        return number_format($this->price, 2, ',', '.');
+    }
 }

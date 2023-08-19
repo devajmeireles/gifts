@@ -22,13 +22,25 @@
                              option-value="id"
             />
 
-            @if ($item && $item->is_quotable)
+            @if ($item?->is_quotable)
                 <div class="col-span-full">
                     <x-inputs.number label="Quantidade"
-                                     wire:model.defer="quantity"
+                                     wire:model.debounce.250ms="quantity"
                                      :min="1"
                                      :max="$item->quantity"
                     />
+                </div>
+            @endif
+
+            @if ($item?->price > 0)
+                <div class="col-span-full">
+                    <div class="flex justify-center">
+                        <p class="text-xs text-red-500 font-semibold">
+                            Este item possui um preço definido de R$ {{ $item->price() }}.
+                            Ao assinar {{ $quantity }} unidades, o valor total recebido
+                            será de R$ {{ $item->price / $item->quantity * $quantity }}
+                        </p>
+                    </div>
                 </div>
             @endif
 

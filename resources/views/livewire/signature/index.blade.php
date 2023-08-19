@@ -41,7 +41,7 @@
                 </x-card>
             </div>
         @empty
-            <div class="col-span-full sm:col-span-1">
+            <div class="col-span-full">
                 <x-card>
                     <div class="p-8 flex justify-center items-center">
                         <div class="inline-flex gap-2">

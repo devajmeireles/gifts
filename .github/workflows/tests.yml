@@ -48,14 +48,20 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Pint
-        run: vendor/bin/pint --test
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: Key Generate
         run: php artisan key:generate
 
+      - name: Check Route Integrity
+        run: php artisan route:list
+
       - name: Migrate
-        run: php artisan migrate:fresh --seed
+        run: php artisan migrate:fresh --step --force --no-interaction --seed
+
+      - name: Pint
+        run: vendor/bin/pint --test
 
       - name: Execute tests
         run: vendor/bin/pest --ci --parallel --stop-on-failure --configuration=phpunit-ci.xml

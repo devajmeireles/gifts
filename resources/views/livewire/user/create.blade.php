@@ -1,5 +1,5 @@
 <div>
-    <x-button sm label="Adicionar"
+    <x-button label="Adicionar"
               primary
               wire:click="$toggle('modal')"
     />

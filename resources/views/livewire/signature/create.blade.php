@@ -1,6 +1,6 @@
 <div>
     @php use \App\Enums\DeliveryType; @endphp
-    <x-button sm label="Adicionar"
+    <x-button label="Adicionar"
               primary
               wire:click="$toggle('modal')"
     />

@@ -57,9 +57,6 @@ jobs:
       - name: Check Route Integrity
         run: php artisan route:list
 
-      - name: Create SQLite Database
-        run: touch database/database.sqlite
-
       - name: Migrate
         run: php artisan migrate:fresh --step --force --no-interaction --seed
 

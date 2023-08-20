@@ -33,7 +33,7 @@ test('warning when category is in use', function () {
 
     expect(data_get($component->payload, 'effects.dispatches.0.data.options'))
         ->toBe([
-            'icon'        => 'info',
+            'icon'        => 'warning',
             'title'       => 'Itens vinculados a categoria!',
             'description' => 'Remova os itens da categoria antes de poder deletá-la!',
         ]);

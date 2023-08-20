@@ -81,7 +81,6 @@ class Create extends Component
 
             return;
         } catch (Exception $e) {
-            ray($e->getMessage());
             report($e);
         }
 

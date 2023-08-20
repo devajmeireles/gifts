@@ -36,9 +36,19 @@ class SetupCommand extends Command
             sleep(1);
 
             try {
-                Process::run(['php', 'artisan', 'migrate', '--step']);
+                Process::run(['php', 'artisan', 'key:generate']);
             } catch (Throwable $e) {
-                error('Ops!' . $e->getMessage());
+                error("Error: {$e->getMessage()}");
+            }
+        }, 'Preparing application...');
+
+        spin(function () {
+            sleep(1);
+
+            try {
+                Process::run(['php', 'artisan', 'migrate:fresh', '--step']);
+            } catch (Throwable $e) {
+                error("Error: {$e->getMessage()}");
             }
         }, 'Migrating database...');
 
@@ -54,7 +64,7 @@ class SetupCommand extends Command
                         'password' => Hash::make($password),
                     ]);
             } catch (Throwable $e) {
-                error('Ops!' . $e->getMessage());
+                error("Error: {$e->getMessage()}");
             }
         }, 'Creating root...');
     }

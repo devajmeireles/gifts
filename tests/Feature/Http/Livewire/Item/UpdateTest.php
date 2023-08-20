@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Livewire\Item\{Index, Update};
-use App\Models\{Category, Item};
+use App\Models\{Category, Item, Signature};
 
 use function Pest\Livewire\livewire;
 
@@ -85,4 +85,38 @@ it('cannot update item using name already in use', function () {
     expect($one->refresh()->name)
         ->not()
         ->toBe($two->name);
+});
+
+it('cannot update decreasing the quantity to be less than signatures', function () {
+    $item = Item::factory()
+        ->forCategory()
+        ->create(['quantity' => 5]);
+
+    Signature::factory(5)
+        ->for($item)
+        ->create();
+
+    $name        = fake()->word();
+    $description = fake()->sentence();
+    $price       = fake()->numberBetween(1, 100);
+    $reference   = fake()->url();
+    $quotable    = fake()->boolean();
+    $activated   = fake()->boolean();
+
+    livewire(Update::class)
+        ->call('load', $item)
+        ->set('item.name', $name)
+        ->set('item.description', $description)
+        ->set('item.category_id', $item->category_id)
+        ->set('item.quantity', 4)
+        ->set('item.price', $price)
+        ->set('item.reference', $reference)
+        ->set('item.is_quotable', $quotable)
+        ->set('item.is_active', $activated)
+        ->call('update')
+        ->assertDispatchedBrowserEvent('wireui:notification');
+
+    $item->refresh();
+
+    expect($item->quantity)->toBe(5);
 });

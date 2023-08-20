@@ -27,7 +27,7 @@ class SettingSeeder extends Seeder
                 'value' => now()->addWeek()->format('d/m/Y'),
             ],
             [
-                'key'   => 'hora_event',
+                'key'   => 'hora_evento',
                 'value' => now()->addWeek()->format('H:i'),
             ],
             [

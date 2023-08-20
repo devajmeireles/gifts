@@ -19,14 +19,14 @@
                         <div class="flex items-center justify-start">
                             <div class="flex-shrink-0">
                                 <img class="h-12 w-12 rounded-full"
-                                     src="{{ $signature->avatar() }}" alt="">
+                                     src="{{ $signature->avatar() }}" alt="{{ $signature->name }}">
                             </div>
                             <div class="ml-4">
                                 <h3 class="text-base font-semibold leading-6 text-gray-900">
                                     (#{{ $signature->id }}) {{ $signature->name }}
                                 </h3>
                                 <p class="text-sm text-gray-500">
-                                    <a href="#">{{ $signature->phone }}</a>
+                                    <a href="#">{{ $signature->item->name }}</a>
                                 </p>
                                 <x-badge outline primary>
                                     {{ $signature->created_at->format('d/m/Y H:i') }}

@@ -31,7 +31,7 @@ class Delete extends Component
         $this->dialog()->confirm([
             'title'       => 'Confirmação',
             'description' => 'Deseja realmente deletar esta assinatura?',
-            'icon'        => 'question',
+            'icon'        => 'error',
             'accept'      => [
                 'label'  => 'Sim!',
                 'method' => 'delete',

@@ -25,7 +25,8 @@ class Index extends Component
 
     private function data(): LengthAwarePaginator
     {
-        return Item::with('category')
+        return Item::with(['category', 'signatures'])
+            ->withCount('signatures')
             ->search($this->search, [
                 'name',
                 'description',

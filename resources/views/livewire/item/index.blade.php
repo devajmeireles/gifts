@@ -15,6 +15,7 @@
                                 <x-table.th column="name" :$sort :$direction label="Nome" />
                                 <x-table.th label="Categoria" />
                                 <x-table.th column="quantity" :$sort :$direction label="Quantidade" />
+                                <x-table.th label="Qnt. Assinado" />
                                 <x-table.th label="Status" />
                                 <x-table.th />
                             </x-table.tr>
@@ -26,6 +27,7 @@
                                     <x-table.td>{{ $item->name }}</x-table.td>
                                     <x-table.td><x-category.label :model="$item" /></x-table.td>
                                     <x-table.td>{{ $item->quantity }}</x-table.td>
+                                    <x-table.td>{{ $item->signatures_count }}</x-table.td>
                                     <x-table.td>{{ $item->is_active ? 'Sim' : 'Não' }}</x-table.td>
                                     <x-table.td buttons>
                                         <x-button.circle primary

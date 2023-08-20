@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Item;
 
-use App\Models\Item;
+use App\Models\{Category, Item};
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
@@ -35,6 +35,18 @@ class Create extends Component
     public function render(): View
     {
         return view('livewire.item.create');
+    }
+
+    public function updatedModal(bool $value): void
+    {
+        if ($value && Category::count() === 0) {
+            $this->dialog()->info(
+                'Sem categoria cadastrada!',
+                'Você precisa cadastrar uma categoria antes de criar um item.'
+            );
+
+            $this->modal = false;
+        }
     }
 
     public function rules(): array

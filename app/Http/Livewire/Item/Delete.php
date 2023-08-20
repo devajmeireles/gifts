@@ -27,11 +27,16 @@ class Delete extends Component
     public function load(Item $item): void
     {
         $this->item = $item;
+        $signatures = $item->signatures->count();
 
-        $this->notification()->confirm([
+        $message = $signatures > 0
+            ? __('app.item.delete.signature_exists', ['count' => $signatures])
+            : 'Deseja realmente deletar este item?';
+
+        $this->dialog()->confirm([
             'title'       => 'Confirmação!',
-            'description' => 'Deseja realmente deletar este item?',
-            'icon'        => 'question',
+            'description' => $message,
+            'icon'        => 'error',
             'accept'      => [
                 'label'  => 'Sim!',
                 'method' => 'delete',

@@ -21,4 +21,10 @@ return [
             3 => 'Convidado',
         ],
     ],
+
+    'item' => [
+        'delete' => [
+            'signature_exists' => 'Este item possui :count assinatura(s) vinculada(s). Ao deletá-lo, todas as assinaturas serão apagadas. Você tem certeza que deseja realmente apagar este item?',
+        ],
+    ],
 ];

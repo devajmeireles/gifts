@@ -75,5 +75,6 @@ class Create extends Component
     private function category(): void
     {
         $this->category = new Category(['is_active' => true]);
+        $this->color    = null;
     }
 }

@@ -52,7 +52,7 @@ class Create extends Component
     {
         return [
             'signature.name'        => ['required', 'string', 'min:3', 'max:255'],
-            'signature.phone'       => ['required', 'string', 'min:3', 'max:255'],
+            'signature.phone'       => ['nullable', 'string', 'min:3', 'max:255'],
             'delivery'              => ['required', Rule::enum(DeliveryType::class)],
             'quantity'              => ['required', 'numeric', 'min:1'],
             'signature.observation' => ['nullable', 'string', 'min:3', 'max:255'],

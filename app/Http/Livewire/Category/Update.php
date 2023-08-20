@@ -41,25 +41,10 @@ class Update extends Component
     public function rules(): array
     {
         return [
-            'category.name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('categories', 'name')
-                    ->ignore($this->category->id),
-            ],
-            'color' => [
-                'required',
-                Rule::in(Badge::toArray()),
-            ],
-            'category.description' => [
-                'nullable',
-                'max:255',
-            ],
-            'category.is_active' => [
-                'nullable',
-                'boolean',
-            ],
+            'category.name'        => ['required', 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->category->id)],
+            'color'                => ['required', Rule::in(Badge::toArray())],
+            'category.description' => ['nullable', 'max:255'],
+            'category.is_active'   => ['nullable', 'boolean'],
         ];
     }
 

@@ -13,7 +13,7 @@ return new class () extends Migration {
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('phone', 20);
+            $table->string('phone', 20)->nullable();
             $table->unsignedSmallInteger('delivery');
             $table->string('observation')->nullable();
             $table->timestamps();

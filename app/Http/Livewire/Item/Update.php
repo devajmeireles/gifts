@@ -35,44 +35,14 @@ class Update extends Component
     public function rules(): array
     {
         return [
-            'item.category_id' => [
-                'required',
-                Rule::exists('categories', 'id'),
-            ],
-            'item.name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('items', 'name')
-                    ->ignore($this->item->id),
-            ],
-            'item.description' => [
-                'nullable',
-                'max:255',
-            ],
-            'item.reference' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
-            'item.quantity' => [
-                'required',
-                'integer',
-            ],
-            'item.price' => [
-                Rule::when($this->item->is_quotable, [
-                    'required',
-                    'numeric',
-                ]),
-            ],
-            'item.is_quotable' => [
-                'nullable',
-                'boolean',
-            ],
-            'item.is_active' => [
-                'nullable',
-                'boolean',
-            ],
+            'item.category_id' => ['required', Rule::exists('categories', 'id')],
+            'item.name'        => ['required', 'string', 'max:255', Rule::unique('items', 'name')->ignore($this->item->id)],
+            'item.description' => ['nullable', 'max:255'],
+            'item.reference'   => ['nullable', 'string', 'max:255'],
+            'item.quantity'    => ['required', 'integer'],
+            'item.price'       => [Rule::when($this->item->is_quotable, ['required', 'numeric', ])],
+            'item.is_quotable' => ['nullable', 'boolean'],
+            'item.is_active'   => ['nullable', 'boolean'],
         ];
     }
 

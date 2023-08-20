@@ -25,16 +25,8 @@ class Update extends Component
     public function rules(): array
     {
         return [
-            'setting.key' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'setting.value' => [
-                'required',
-                'string',
-                'max:255',
-            ],
+            'setting.key'   => ['required', 'string', 'max:255'],
+            'setting.value' => ['required', 'string', 'max:255'],
         ];
     }
 

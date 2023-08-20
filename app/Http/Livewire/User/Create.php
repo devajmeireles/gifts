@@ -53,28 +53,10 @@ class Create extends Component
     public function rules(): array
     {
         return [
-            'user.name' => [
-                'required',
-                'string',
-                'min:2',
-                'max:255',
-            ],
-            'user.username' => [
-                'required', 'string',
-                'min:2',
-                'max:255',
-                Rule::unique('users', 'username'),
-            ],
-            'role' => [
-                'required',
-                'integer',
-                Rule::enum(UserRole::class),
-            ],
-            'password' => [
-                'required',
-                Password::default(),
-                'confirmed',
-            ],
+            'user.name'     => ['required', 'string', 'min:2', 'max:255'],
+            'user.username' => ['required', 'string', 'min:2', 'max:255', Rule::unique('users', 'username')],
+            'role'          => ['required', 'integer', Rule::enum(UserRole::class)],
+            'password'      => ['required', Password::default(), 'confirmed'],
         ];
     }
 

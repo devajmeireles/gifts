@@ -19,7 +19,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Noto Sans', ...defaultTheme.fontFamily.sans],
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 current: 'currentColor',

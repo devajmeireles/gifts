@@ -27,6 +27,8 @@ class Notification extends Component
     {
         sleep(1);
 
+        $this->notifications = [];
+
         DatabaseNotification::get()
             ->lazy()
             ->each(fn (DatabaseNotification $notification) => $notification->markAsRead())

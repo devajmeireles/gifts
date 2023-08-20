@@ -28,9 +28,7 @@
                                     <x-table.td>{{ $user->name }}</x-table.td>
                                     <x-table.td>{{ $user->username }}</x-table.td>
                                     <x-table.td>
-                                        <x-badge outline :color="$user->role->color()">
-                                            {{ $user->role->translate() }}
-                                        </x-badge>
+                                        <livewire:user.role :user="$user" :key="md5('edit-role'.$user->id)" />
                                     </x-table.td>
                                     <x-table.td buttons>
                                         <livewire:user.delete :user="$user" :key="$user->id" />

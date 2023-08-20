@@ -19,7 +19,7 @@
                           wire:model.debounce.250ms="color"
                 />
 
-                @if ($color && in_array($color, $colors->toArray()))
+                @if ($colors->contains('value', $color))
                     <div class="mt-2">
                         <x-badge outline :$color>Exemplo de Cor</x-badge>
                     </div>

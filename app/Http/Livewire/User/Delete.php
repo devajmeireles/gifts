@@ -44,7 +44,7 @@ class Delete extends Component
     public function delete(): void
     {
         if (user()->is($this->user)) {
-            $this->notification()->error('Você não pode deletar a si mesmo!');
+            $this->notification()->error('Você não pode deletar a si próprio!');
 
             return;
         }

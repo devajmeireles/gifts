@@ -27,15 +27,18 @@ class Create extends Component
 
     public int $delivery = 1;
 
+    protected array $validationAttributes = [
+        'selected' => 'item',
+    ];
+
+    public function mount(): void
+    {
+        $this->signature = new Signature(['phone' => '']);
+    }
+
     public function render(): View
     {
         return view('livewire.signature.create');
-    }
-
-    public function updatedModal(): void
-    {
-        $this->signature        = new Signature();
-        $this->signature->phone = '';
     }
 
     public function updatedSelected(): void
@@ -53,6 +56,7 @@ class Create extends Component
             'delivery'              => ['required', Rule::enum(DeliveryType::class)],
             'quantity'              => ['required', 'numeric', 'min:1'],
             'signature.observation' => ['nullable', 'string', 'min:3', 'max:255'],
+            'selected'              => ['required'],
         ];
     }
 
@@ -62,9 +66,9 @@ class Create extends Component
 
         $this->signature->delivery = DeliveryType::from($this->delivery);
 
-        if (!$this->item->available()) {
+        if ($this->quantity > $this->item->quantity) {
             $this->resetExcept('item', 'signature');
-            $this->notification()->error('Item indisponível para assinatura!');
+            $this->notification()->error('Quantidade incompatível para assinaturas');
 
             return;
         }
@@ -78,6 +82,7 @@ class Create extends Component
 
             $this->resetExcept('item', 'signature');
 
+            //TODO: desativar o item se a quantidade for igual a quantidade de assinaturas
             $this->item->update(['last_signed_at' => now()]);
 
             $this->signature = new Signature();

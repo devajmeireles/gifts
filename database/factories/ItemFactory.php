@@ -32,9 +32,13 @@ class ItemFactory extends Factory
         return $this->state(['is_active' => false]);
     }
 
-    public function quotable(): self
+    public function quotable(int $quantity): self
     {
-        return $this->state(['is_quotable' => true]);
+        return $this->state([
+            'quantity'    => $quantity,
+            'price'       => $this->faker->randomFloat(2, 1, 500),
+            'is_quotable' => true,
+        ]);
     }
 
     public function signed(Carbon $carbon = null): self

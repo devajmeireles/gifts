@@ -45,6 +45,8 @@ class Delete extends Component
     public function delete(): void
     {
         try {
+            $this->signature->item->is_active = true;
+
             if ($this->signature->item->quantity === 1) {
                 $this->signature->item
                     ->update([
@@ -52,6 +54,7 @@ class Delete extends Component
                     ]);
             }
 
+            $this->signature->item->save();
             $this->signature->delete();
 
             $this->signature = new Signature();

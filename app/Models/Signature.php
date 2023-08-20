@@ -21,7 +21,7 @@ class Signature extends Model
         'name',
         'phone',
         'delivery',
-        'description',
+        'observation',
     ];
 
     protected $casts = [

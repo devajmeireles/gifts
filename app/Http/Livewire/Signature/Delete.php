@@ -18,7 +18,7 @@ class Delete extends Component
         return <<<'blade'
             <div>
                 <x-button.circle xs
-                                 red
+                                 primary
                                  icon="trash"
                                  wire:click="confirmation"
                 />

@@ -6,47 +6,47 @@
                 <livewire:item.create />
             </div>
             <x-table.filter quantity search />
-            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                    <x-table :$items>
-                        <x-table.thead>
-                            <x-table.tr>
-                                <x-table.th column="id" :$sort :$direction first label="#" />
-                                <x-table.th column="name" :$sort :$direction label="Nome" />
-                                <x-table.th label="Categoria" />
-                                <x-table.th column="quantity" :$sort :$direction label="Quantidade" />
-                                <x-table.th label="Qnt. Assinado" />
-                                <x-table.th label="Status" />
-                                <x-table.th />
-                            </x-table.tr>
-                        </x-table.thead>
-                        <x-table.tbody>
-                            @forelse ($items as $item)
-                                <x-table.tr>
-                                    <x-table.td first>{{ $item->id }}</x-table.td>
-                                    <x-table.td>{{ $item->name }}</x-table.td>
-                                    <x-table.td><x-category.label :model="$item" /></x-table.td>
-                                    <x-table.td>{{ $item->quantity }}</x-table.td>
-                                    <x-table.td>{{ $item->signatures_count }}</x-table.td>
-                                    <x-table.td>{{ $item->is_active ? 'Sim' : 'Não' }}</x-table.td>
-                                    <x-table.td buttons>
-                                        <x-button.circle primary
-                                                         icon="pencil"
-                                                         wire:click="update({{ $item->id }})"
-                                        />
-                                        <x-button.circle negative
-                                                         icon="trash"
-                                                         wire:click="delete({{ $item->id }})"
-                                        />
-                                    </x-table.td>
-                                </x-table.tr>
-                            @empty
-                                <x-table.empty />
-                            @endforelse
-                        </x-table.tbody>
-                    </x-table>
-                </div>
-            </div>
+            <x-table :$items>
+                <x-table.thead>
+                    <x-table.tr>
+                        <x-table.th column="id" :$sort :$direction first label="#" />
+                        <x-table.th column="name" :$sort :$direction label="Nome" />
+                        <x-table.th label="Categoria" />
+                        <x-table.th column="quantity" :$sort :$direction label="Quantidade" />
+                        <x-table.th label="Qnt. Assinado" />
+                        <x-table.th label="Status" />
+                        <x-table.th />
+                    </x-table.tr>
+                </x-table.thead>
+                <x-table.tbody>
+                    @forelse ($items as $item)
+                        <x-table.tr>
+                            <x-table.td first>{{ $item->id }}</x-table.td>
+                            <x-table.td :class="!$item->signed() ?: 'line-through'">
+                                {{ $item->name }}
+                            </x-table.td>
+                            <x-table.td><x-category.label :model="$item" /></x-table.td>
+                            <x-table.td>{{ $item->quantity }}</x-table.td>
+                            <x-table.td>{{ $item->signatures_count }}</x-table.td>
+                            <x-table.td>
+                                <x-status :status="$item->is_active" />
+                            </x-table.td>
+                            <x-table.td buttons>
+                                <x-button.circle primary
+                                                 icon="pencil"
+                                                 wire:click="update({{ $item->id }})"
+                                />
+                                <x-button.circle primary
+                                                 icon="trash"
+                                                 wire:click="delete({{ $item->id }})"
+                                />
+                            </x-table.td>
+                        </x-table.tr>
+                    @empty
+                        <x-table.empty />
+                    @endforelse
+                </x-table.tbody>
+            </x-table>
             <x-pagination :$items />
         </div>
         <livewire:item.update />

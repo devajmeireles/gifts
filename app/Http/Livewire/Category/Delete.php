@@ -29,7 +29,7 @@ class Delete extends Component
         $this->category = $category;
 
         if ($category->items->count() > 0) {
-            $this->dialog()->info(
+            $this->dialog()->warning(
                 __('Itens vinculados a categoria!'),
                 'Remova os itens da categoria antes de poder deletá-la!'
             );

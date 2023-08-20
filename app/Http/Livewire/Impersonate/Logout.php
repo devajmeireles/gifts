@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Impersonate;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\{Auth, Session};
 use Livewire\{Component, Redirector};
 use WireUi\Traits\Actions;
 
@@ -32,8 +32,6 @@ class Logout extends Component
 
         Auth::logout();
         Auth::login(User::find(session()->get('impersonate.from')));
-
-        session()->forget('impersonate');
 
         return redirect(route('admin.dashboard'));
     }

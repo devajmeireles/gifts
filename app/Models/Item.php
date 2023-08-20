@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use App\Models\Traits\Searchable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Illuminate\Database\Eloquent\{Builder, Model};
 
 /**
  * @mixin IdeHelperItem

@@ -76,7 +76,7 @@ class Update extends Component
             $this->signature->item_id  = $this->selected;
 
             if ($different) {
-                if ($this->item->signatures()->count() === $this->item->quantity) {
+                if ($this->item->quantity === 1 || $this->item->signatures()->count() === $this->item->quantity) {
                     $this->item->is_active = false;
                 }
 

@@ -85,4 +85,29 @@ it('cannot update using unavailable item', function () {
         ->observation->not->toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 });
 
-it('can update and hydrate item successfully')->todo();
+it('can update to new item disabling to be reused', function () {
+    $item = Item::factory()
+        ->activated()
+        ->create(['quantity' => 1]);
+
+    $signature = Signature::factory()
+        ->forItem()
+        ->create();
+
+    livewire(Update::class, ['signature' => $signature])
+        ->set('signature.name', 'Foo Bar')
+        ->set('signature.phone', '123456789')
+        ->set('delivery', DeliveryType::Remote->value)
+        ->set('selected', $item->id)
+        ->set('signature.observation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
+        ->call('update')
+        ->assertHasNoErrors();
+
+    $signature->refresh();
+    $item->refresh();
+
+    expect($signature->item_id)
+        ->toBe($item->id)
+        ->and($item->is_active)
+        ->toBeFalse();
+});

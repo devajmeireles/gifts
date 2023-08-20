@@ -9,7 +9,7 @@
 ])
 
 @php
-    $type = 'indigo';
+    $type = 'primary';
 
     if ($green) $type = 'green';
     if ($red) $type = 'red';
@@ -25,14 +25,22 @@
     'bg-blue-100'    => $type === 'blue',
     'bg-yellow-100'  => $type === 'yellow',
     'bg-gray-100'    => $type === 'gray',
-    'bg-indigo-100'  => $type === 'indigo',
+    'bg-primary-100' => $type === 'primary',
 ])>
     <div @class([
         'flex',
         'justify-center' => $center,
     ])>
         <div class="ml-3">
-            <p class="text-sm font-medium text-{{ $type }}-800">
+            <p @class([
+                'text-sm font-medium',
+                'text-green-800'   => $type === 'green',
+                'text-red-800'     => $type === 'red',
+                'text-blue-800'    => $type === 'blue',
+                'text-yellow-800'  => $type === 'yellow',
+                'text-gray-800'    => $type === 'gray',
+                'text-primary-800'  => $type === 'primary',
+            ])>
                 {{ $slot }}
             </p>
         </div>

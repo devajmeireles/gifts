@@ -19,7 +19,7 @@ class Chart extends Component
 
     public function load(): void
     {
-        sleep(2);
+        sleep(1);
     }
 
     public function getChartProperty(): array

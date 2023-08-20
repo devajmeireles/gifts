@@ -9,8 +9,8 @@ return [
     'dashboard' => [
         'card' => [
             1 => 'Todos os Itens',
-            2 => 'Itens Assinados',
-            3 => 'Itens Não Assinados',
+            2 => 'Assinados',
+            3 => 'Não Assinados',
         ],
     ],
 

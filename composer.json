@@ -63,8 +63,10 @@
         "format": "./vendor/bin/pint",
         "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G",
         "test": [
+            "./vendor/bin/phpstan analyse --memory-limit=2G",
             "./vendor/bin/pint --test",
-            "./vendor/bin/pest"
+            "./vendor/bin/pest --type-coverage",
+            "./vendor/bin/pest --parallel"
         ],
         "test:parallel": "./vendor/bin/pest --parallel"
     },

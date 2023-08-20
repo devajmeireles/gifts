@@ -14,7 +14,14 @@
             },
             get options () {
                 return {
-                    chart: { type: 'line', width: '100%', height: 450, background: this.dark ? '#4B5563' : '#ffffff', foreColor: this.dark ? '#ffffff' : '#4b5563',
+                    colors: ['#e63f66'],
+                    chart: {
+                        type: 'line',
+                        width: '100%',
+                        height: 450,
+                        background: '#fff',
+                        foreColor: '#e63f66',
+                        colors: '#e63f66',
                         toolbar: {
                             show: false
                         }
@@ -34,8 +41,8 @@
                     xaxis: { categories: this.labels },
                     series: [{
                         name: 'Assinaturas',
-                        data: this.values,
-                    }],
+                        data: this.values
+                    }]
                 }
             }
         }" wire:init="load">
@@ -43,7 +50,7 @@
             <div class="flex items-center justify-center">
                 <div class="bg-white bg-opacity-75" aria-hidden="true">
                     <div class="flex h-full items-center justify-center">
-                        <svg class="h-12 w-12 animate-spin text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        <svg class="h-12 w-12 animate-spin text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none"
                              viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor"
@@ -54,6 +61,7 @@
             </div>
         </x-card>
         <x-card wire:loading.remove>
+            <p class="text-xl text-primary font-semibold">Assinaturas</p>
             <div x-ref="chart"></div>
         </x-card>
     </div>

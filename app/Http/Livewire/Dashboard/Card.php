@@ -20,27 +20,12 @@ class Card extends Component
 
     public function load(): void
     {
-        sleep(2);
+        sleep(1);
 
-        $this->quantity = match ($this->type) {
-            CardType::AllItems         => $this->allItems(),
-            CardType::AllSignedItems   => $this->allSignedItems(),
-            CardType::AllUnsignedItems => $this->allUnsignedItems(),
-        };
-    }
-
-    private function allItems(): int
-    {
-        return Item::count();
-    }
-
-    private function allSignedItems(): int
-    {
-        return Item::whereHas('signatures')->count();
-    }
-
-    private function allUnsignedItems(): int
-    {
-        return Item::whereDoesntHave('signatures')->count();
+        $this->quantity = (match ($this->type) {
+            CardType::AllItems         => fn () => Item::count(),
+            CardType::AllSignedItems   => fn () => Item::whereHas('signatures')->count(),
+            CardType::AllUnsignedItems => fn () => Item::whereDoesntHave('signatures')->count(),
+        })();
     }
 }

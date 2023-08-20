@@ -44,6 +44,9 @@ it('can paginate', function () {
     $first = $signature->first();
     $last  = $signature->last();
 
+    $first->update(['name' => fake()->name()]);
+    $last->update(['name' => fake()->name()]);
+
     livewire(Index::class)
         ->assertSee($first->name)
         ->assertDontSee($last->name);

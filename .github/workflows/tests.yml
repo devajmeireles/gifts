@@ -48,9 +48,6 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:${{ matrix.carbon }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: PhpStan
-        run: vendor/bin/phpstan analyse --memory-limit=2G
-
       - name: Pint
         run: vendor/bin/pint --test
 

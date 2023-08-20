@@ -14,8 +14,8 @@
                           wire:model.debounce.250ms="color"
                 />
 
-                @if ($color instanceof \App\Enums\Category\Badge)
-                    <div>
+                @if ($color && in_array($color, $colors->toArray()))
+                    <div class="mt-2">
                         <x-badge outline :$color>Exemplo de Cor</x-badge>
                     </div>
                 @endif

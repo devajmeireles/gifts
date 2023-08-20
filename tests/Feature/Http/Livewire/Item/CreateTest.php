@@ -19,6 +19,13 @@ it('can create', function () {
     $quotable    = fake()->boolean();
     $activated   = fake()->boolean();
 
+    $default = new Item([
+        'quantity'    => 1,
+        'is_active'   => true,
+        'is_quotable' => false,
+        'price'       => 0,
+    ]);
+
     livewire(Create::class)
         ->set('item.name', $name)
         ->set('item.description', $description)
@@ -31,7 +38,8 @@ it('can create', function () {
         ->call('create')
         ->assertHasNoErrors()
         ->assertSuccessful()
-        ->assertEmittedUp('item::index::refresh');
+        ->assertEmittedUp('item::index::refresh')
+        ->assertSet('item', $default);
 
     assertDatabaseHas('items', [
         'name'        => $name,

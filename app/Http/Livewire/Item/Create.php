@@ -17,13 +17,19 @@ class Create extends Component
 
     public bool $modal = false;
 
+    protected array $validationAttributes = [
+        'item.category_id' => 'categoria',
+        'item.name'        => 'nome',
+        'item.description' => 'descrição',
+        'item.reference'   => 'referência',
+        'item.quantity'    => 'quantidade',
+        'item.price'       => 'preço',
+        'item.is_quotable' => 'cotas',
+    ];
+
     public function mount(): void
     {
-        $this->item = new Item([
-            'quantity'    => 1,
-            'is_active'   => true,
-            'is_quotable' => false,
-        ]);
+        $this->item();
     }
 
     public function render(): View
@@ -83,7 +89,7 @@ class Create extends Component
         try {
             $this->item->save();
 
-            $this->item = new Item();
+            $this->item();
 
             $this->emitUp('item::index::refresh');
             $this->notification()->success('Item criado com sucesso!');
@@ -94,5 +100,15 @@ class Create extends Component
         }
 
         $this->notification()->error('Erro ao criar item!');
+    }
+
+    private function item(): void
+    {
+        $this->item = new Item([
+            'quantity'    => 1,
+            'is_active'   => true,
+            'is_quotable' => false,
+            'price'       => 0,
+        ]);
     }
 }

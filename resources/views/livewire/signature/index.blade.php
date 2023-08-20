@@ -35,8 +35,8 @@
                         </div>
                     </div>
                     <div class="flex justify-end gap-1">
-                        <livewire:signature.update :signature="$signature" :key="$signature->id" />
-                        <livewire:signature.delete :signature="$signature" :key="$signature->id" />
+                        <livewire:signature.update :signature="$signature" :key="md5('update-'.$signature->id)" />
+                        <livewire:signature.delete :signature="$signature" :key="md5('delete-'.$signature->id)" />
                     </div>
                 </x-card>
             </div>

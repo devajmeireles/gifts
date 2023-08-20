@@ -20,9 +20,16 @@ class Create extends Component
 
     public ?string $color = null;
 
+    protected array $validationAttributes = [
+        'category.name'        => 'nome',
+        'category.description' => 'descrição',
+        'category.is_active'   => 'ativo',
+        'color'                => 'cor',
+    ];
+
     public function mount(): void
     {
-        $this->category = new Category(['is_active' => true]);
+        $this->category();
     }
 
     public function render(): View
@@ -66,7 +73,7 @@ class Create extends Component
             $this->category->color = Badge::from($this->color);
             $this->category->save();
 
-            $this->category = new Category();
+            $this->category();
 
             $this->emitUp('category::index::refresh');
             $this->notification()->success('Categoria criada com sucesso!');
@@ -77,5 +84,10 @@ class Create extends Component
         }
 
         $this->notification()->error('Erro ao criar categoria!');
+    }
+
+    private function category(): void
+    {
+        $this->category = new Category(['is_active' => true]);
     }
 }

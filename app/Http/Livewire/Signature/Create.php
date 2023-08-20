@@ -82,8 +82,12 @@ class Create extends Component
 
             $this->resetExcept('item', 'signature');
 
-            //TODO: desativar o item se a quantidade for igual a quantidade de assinaturas
-            $this->item->update(['last_signed_at' => now()]);
+            if ($this->item->signatures()->count() === $this->item->quantity) {
+                $this->item->is_active = false;
+            }
+
+            $this->item->last_signed_at = now();
+            $this->item->save();
 
             $this->signature = new Signature();
             $this->item      = new Item();

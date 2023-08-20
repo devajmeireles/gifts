@@ -76,8 +76,13 @@ class Update extends Component
             $this->signature->item_id  = $this->selected;
 
             if ($different) {
-                //TODO: desativar item???
-                $this->item->update(['last_signed_at' => now()]);
+                if ($this->item->signatures()->count() === $this->item->quantity) {
+                    $this->item->is_active = false;
+                }
+
+                $this->item->last_signed_at = now();
+                $this->item->save();
+
                 $current->update(['last_signed_at' => null]);
             }
 

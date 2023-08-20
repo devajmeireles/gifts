@@ -17,15 +17,6 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('password'),
             ]);
 
-        User::factory(10)
-            ->user()
-            ->create();
-
-        Item::factory(25)
-            ->forCategory()
-            ->activated()
-            ->create();
-
         $this->call(SettingSeeder::class);
     }
 }

@@ -15,6 +15,8 @@ it('can create', function () {
     $description = fake()->sentence();
     $activated   = fake()->boolean();
 
+    $default = new Category(['is_active' => true]);
+
     livewire(Create::class)
         ->set('category.name', $name)
         ->set('category.description', $description)
@@ -23,7 +25,8 @@ it('can create', function () {
         ->call('create')
         ->assertHasNoErrors()
         ->assertSuccessful()
-        ->assertEmittedUp('category::index::refresh');
+        ->assertEmittedUp('category::index::refresh')
+        ->assertSet('category', $default);
 
     assertDatabaseHas('categories', [
         'name'        => $name,

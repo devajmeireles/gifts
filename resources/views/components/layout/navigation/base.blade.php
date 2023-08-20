@@ -26,7 +26,7 @@
                 </ul>
             </li>
             <li>
-                <div class="text-xs font-semibold leading-6 text-gray-400">{{ __('Administração') }}</div>
+                <div class="text-xs font-semibold leading-6 text-primary-400">{{ __('Administração') }}</div>
                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                     <ul role="list" class="-mx-2 space-y-1">
                         <x-layout.navigation.link :route="route('admin.users')"

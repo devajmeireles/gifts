@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use Illuminate\Console\Command;
 
-use Illuminate\Support\Facades\{Hash, Process};
+use Illuminate\Support\Facades\Process;
 
-use function Laravel\Prompts\{error, password, spin, text};
+use function Laravel\Prompts\{error, spin};
 
 use Throwable;
 
@@ -19,19 +18,6 @@ class SetupCommand extends Command
 
     public function handle(): int
     {
-        $this->setup();
-
-        $this->components->info('Access the application by clicking here: ' . route('admin.login'));
-
-        return self::SUCCESS;
-    }
-
-    private function setup(): void
-    {
-        $name     = text('What will be the root user name?', required: true);
-        $nick     = text('What will be the root username?', default: str($name)->snake()->value(), required: true);
-        $password = password('What will be the root password?', required: true);
-
         spin(function () {
             sleep(1);
 
@@ -52,20 +38,10 @@ class SetupCommand extends Command
             }
         }, 'Migrating database...');
 
-        spin(function () use ($name, $nick, $password) {
-            sleep(1);
+        $this->components->info("Use <bg=red>php artisan make:user</> to create the first root user.");
+        $this->newLine();
+        $this->components->info('Access the application by clicking here: ' . route('admin.login'));
 
-            try {
-                User::factory()
-                    ->admin()
-                    ->create([
-                        'name'     => $name,
-                        'username' => $nick,
-                        'password' => Hash::make($password),
-                    ]);
-            } catch (Throwable $e) {
-                error("Error: {$e->getMessage()}");
-            }
-        }, 'Creating root...');
+        return self::SUCCESS;
     }
 }

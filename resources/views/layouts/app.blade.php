@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
       class="h-full bg-gray-100"
-      x-data="{ mobile : false }"
+      x-data="{ mobile : false, slide : false }"
       x-cloak
 >
 <head>
@@ -22,12 +22,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-    <body class="font-sans antialiased h-full">
+    <body class="font-sans antialiased h-full" >
         <x-layout.navigation />
         <x-dialog />
         <x-notifications />
         <div class="min-h-full">
             <div class="lg:pl-72">
+                <livewire:layout.notification />
                 <x-layout.header />
                 <main class="max-w-full mx-auto sm:px-6 lg:px-8 py-10">
                     <div class="px-4 sm:px-6 lg:px-8">

@@ -27,4 +27,8 @@ return [
             'signature_exists' => 'Este item possui :count assinatura(s) vinculada(s). Ao deletá-lo, todas as assinaturas serão apagadas. Você tem certeza que deseja realmente apagar este item?',
         ],
     ],
+
+    'signature' => [
+        'notification' => '<b>Nova Assinatura Criada!</b> Assinante: :name (telefone: :phone). <b>Item: :item</b> (quantidade: :quantity, categoria: :category)',
+    ],
 ];

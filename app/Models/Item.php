@@ -62,6 +62,11 @@ class Item extends Model
         return $this->signatures->count() < $this->quantity;
     }
 
+    public function availableQuantity(): int
+    {
+        return $this->quantity - $this->signatures->count();
+    }
+
     public function scopeActive(Builder $builder): Builder
     {
         return $builder->where('is_active', '=', true);

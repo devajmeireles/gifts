@@ -27,7 +27,7 @@
                     <x-inputs.number label="Quantidade"
                                      wire:model.debounce.250ms="quantity"
                                      :min="1"
-                                     :max="$item->quantity"
+                                     :max="$item->availableQuantity()"
                     />
                 </div>
             @endif

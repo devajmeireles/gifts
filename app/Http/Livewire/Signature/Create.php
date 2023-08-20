@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Signature;
 
 use App\Enums\DeliveryType;
 use App\Models\{Item, Signature};
+use App\Notifications\SignatureCreated;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -88,6 +89,8 @@ class Create extends Component
 
             $this->item->last_signed_at = now();
             $this->item->save();
+
+            user()->notify(new SignatureCreated($this->item, $this->signature, $this->quantity));
 
             $this->signature = new Signature();
             $this->item      = new Item();

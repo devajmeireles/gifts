@@ -4,12 +4,17 @@ use App\Enums\DeliveryType;
 use App\Http\Livewire\Signature\Create;
 use App\Models\Item;
 
+use App\Notifications\SignatureCreated;
+use Illuminate\Support\Facades\Notification;
+
 use function Pest\Laravel\{assertDatabaseCount, assertDatabaseEmpty, assertDatabaseHas};
 use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
 it('can create one', function () {
+    Notification::fake();
+
     $name        = 'John Doe';
     $phone       = '123456789';
     $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -32,9 +37,14 @@ it('can create one', function () {
         'delivery'    => $remote,
         'observation' => $observation,
     ]);
+
+    Notification::assertCount(1);
+    Notification::assertSentTo(user(), SignatureCreated::class);
 });
 
 it('can create multiples', function () {
+    Notification::fake();
+
     $name        = 'John Doe';
     $phone       = '123456789';
     $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -52,9 +62,14 @@ it('can create multiples', function () {
         ->assertHasNoErrors();
 
     assertDatabaseCount('signatures', 5);
+
+    Notification::assertCount(1);
+    Notification::assertSentTo(user(), SignatureCreated::class);
 });
 
 it('can create with quotas', function () {
+    Notification::fake();
+
     $name        = 'John Doe';
     $phone       = '123456789';
     $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -77,9 +92,14 @@ it('can create with quotas', function () {
 
     expect($item->refresh()->last_signed_at)
         ->not()->toBeNull();
+
+    Notification::assertCount(1);
+    Notification::assertSentTo(user(), SignatureCreated::class);
 });
 
 it('cannot create out of quantity', function () {
+    Notification::fake();
+
     $name        = 'John Doe';
     $phone       = '123456789';
     $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -97,4 +117,6 @@ it('cannot create out of quantity', function () {
         ->assertDispatchedBrowserEvent('wireui:notification');
 
     assertDatabaseEmpty('signatures');
+
+    Notification::assertNothingSentTo(user());
 });

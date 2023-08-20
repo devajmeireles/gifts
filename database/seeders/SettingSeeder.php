@@ -11,11 +11,11 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             [
-                'key'   => 'titlo_evento',
+                'key'   => 'titulo_evento',
                 'value' => 'Casamento de João & Maria',
             ],
             [
-                'key'   => 'sub_titlo_evento',
+                'key'   => 'subtitulo_evento',
                 'value' => 'O dia mais feliz de nossas vidas',
             ],
             [

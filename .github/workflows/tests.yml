@@ -51,5 +51,11 @@ jobs:
       - name: Pint
         run: vendor/bin/pint --test
 
+      - name: Key Generate
+        run: php artisan key:generate
+
+      - name: Migrate
+        run: php artisan migrate:fresh --seed
+
       - name: Execute tests
         run: vendor/bin/pest --ci --parallel --stop-on-failure --configuration=phpunit-ci.xml

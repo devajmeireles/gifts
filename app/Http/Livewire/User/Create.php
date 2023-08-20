@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
@@ -75,6 +76,11 @@ class Create extends Component
                 'confirmed',
             ],
         ];
+    }
+
+    public function random(): void
+    {
+        $this->password = $this->password_confirmation = Str::password(8, symbols: false);
     }
 
     public function create(): void

@@ -20,6 +20,7 @@
 
             <div class="col-span-full">
                 <x-inputs.password label="Senha" wire:model.defer="password" />
+                <p class="text-sm text-gray-500 cursor-pointer" wire:click="random">Gerar senha randomica</p>
             </div>
 
             <div class="col-span-full">

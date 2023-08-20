@@ -19,7 +19,7 @@ it('can list', function () {
 
     livewire(Index::class)
         ->assertSee($signature->name)
-        ->assertSee($signature->phone);
+        ->assertSee($signature->item->name);
 });
 
 it('can search', function () {

@@ -15,7 +15,7 @@ it('can delete', function () {
 
     livewire(Delete::class)
         ->call('load', $item)
-        ->assertDispatchedBrowserEvent('wireui:confirm-notification')
+        ->assertDispatchedBrowserEvent('wireui:confirm-dialog')
         ->call('delete')
         ->assertEmittedUp('item::index::refresh');
 

@@ -14,14 +14,14 @@ it('can delete', function () {
 
     livewire(Delete::class)
         ->call('load', $category)
-        ->assertDispatchedBrowserEvent('wireui:confirm-notification')
+        ->assertDispatchedBrowserEvent('wireui:confirm-dialog')
         ->call('delete')
         ->assertEmittedUp('category::index::refresh');
 
     assertModelMissing($category);
 });
 
-it('can warning when category is in use', function () {
+test('warning when category is in use', function () {
     $category = Category::factory()->create();
 
     Item::factory()
@@ -33,30 +33,8 @@ it('can warning when category is in use', function () {
 
     expect(data_get($component->payload, 'effects.dispatches.0.data.options'))
         ->toBe([
-            'title'       => '1 itens vinculados a esta categoria!',
-            'description' => 'Deseja realmente deletar esta categoria?',
-            'icon'        => 'question',
-            'accept'      => [
-                'label'  => 'Sim!',
-                'method' => 'delete',
-            ],
+            'icon'        => 'info',
+            'title'       => 'Itens vinculados a categoria!',
+            'description' => 'Remova os itens da categoria antes de poder deletá-la!',
         ]);
-});
-
-it('can delete and detach item', function () {
-    $category = Category::factory()->create();
-
-    $item = Item::factory()
-        ->for($category)
-        ->create();
-
-    livewire(Delete::class)
-        ->call('load', $category)
-        ->assertDispatchedBrowserEvent('wireui:confirm-notification')
-        ->call('delete')
-        ->assertEmittedUp('category::index::refresh');
-
-    assertModelMissing($category);
-
-    expect($item->category)->toBeNull();
 });

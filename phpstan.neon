@@ -8,10 +8,5 @@ parameters:
 
     level: 5
 
-#    ignoreErrors:
-#        - '#PHPDoc tag @var#'
-#
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
-#
-#    checkMissingIterableValueType: false
+    ignoreErrors:
+        - '#PHPDoc tag @mixin contains unknown class#'

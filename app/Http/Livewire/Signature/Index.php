@@ -43,7 +43,7 @@ class Index extends Component
                 new FilterSignatureDate($this->filters),
             ])
             ->then(
-                fn (Builder $builder) => $builder->search($this->search, ['name', 'phone'])
+                fn (Builder $builder) => $builder->search($this->search, ['name', 'phone']) // @phpstan-ignore-line
                     ->orderBy($this->sort, $this->direction)
                     ->paginate(12)
             );

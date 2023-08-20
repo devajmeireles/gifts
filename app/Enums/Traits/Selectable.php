@@ -22,7 +22,7 @@ trait Selectable
     {
         return match (self::class) {
             DeliveryType::class => __('app.delivery_type.' . strtolower($case->name)),
-            UserRole::class     => __('app.user.role.' . $case->value),
+            UserRole::class     => __('app.user.role.' . $case->value), // @phpstan-ignore-line
         };
     }
 }

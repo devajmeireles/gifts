@@ -19,6 +19,24 @@ it('can list', function () {
     livewire(Index::class)->assertSee($setting->key);
 });
 
+it('can search', function () {
+    $setting = Setting::factory(2)
+        ->create();
+
+    $one = $setting->first();
+    $two = $setting->last();
+
+    livewire(Index::class)
+        ->set('search', $one->key)
+        ->assertSee($one->key)
+        ->assertDontSee($two->key);
+
+    livewire(Index::class)
+        ->set('search', $two->key)
+        ->assertSee($two->key)
+        ->assertDontSee($one->key);
+});
+
 it('can paginate', function () {
     $setting = Setting::factory(2)
         ->create();

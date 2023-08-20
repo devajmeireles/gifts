@@ -22,8 +22,6 @@ jobs:
         stability: [prefer-stable]
         include:
           - laravel: 10.*
-            testbench: 8.*
-            carbon: ^2.63
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -56,6 +54,9 @@ jobs:
 
       - name: Check Route Integrity
         run: php artisan route:list
+
+      - name: Create SQLite Database
+        run: touch database/database.sqlite
 
       - name: Migrate
         run: php artisan migrate:fresh --step --force --no-interaction --seed

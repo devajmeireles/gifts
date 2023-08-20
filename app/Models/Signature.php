@@ -36,7 +36,7 @@ class Signature extends Model
     public function avatar(): string
     {
         return Cache::rememberForever(
-            "avatar::{$this->id}::{$this->name}",
+            "signature::avatar::{$this->id}::{$this->name}",
             fn () => "https://ui-avatars.com/api/?name={$this->name}&background=5850EC&color=fff"
         );
     }

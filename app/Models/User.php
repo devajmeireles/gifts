@@ -7,6 +7,7 @@ use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -36,6 +37,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
     ];
+
+    public function avatar(): string
+    {
+        return Cache::rememberForever(
+            "user::avatar::{$this->id}::{$this->name}",
+            fn () => "https://ui-avatars.com/api/?name={$this->name}&background=5850EC&color=fff"
+        );
+    }
 
     public function isAdmin(): bool
     {

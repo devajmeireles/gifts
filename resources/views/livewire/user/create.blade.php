@@ -3,7 +3,7 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Usuário" blur wire:model.defer="modal">
+    <x-modal.card title="Criação de Usuário" wire:model.defer="modal">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="col-span-full">
                 <x-native-select label="Regra"

@@ -1,47 +1,40 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data x-cloak>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+      class="h-full bg-gray-100"
+      x-data="{ mobile : false }"
+      x-cloak
+>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <style>
-            [x-cloak] { display: none !important; }
-        </style>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 
-        <!-- Scripts -->
-        @wireUiScripts
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
+    @wireUiScripts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+</head>
+    <body class="font-sans antialiased h-full">
+        <x-layout.navigation />
         <x-dialog />
         <x-notifications />
-
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+        <div class="min-h-full">
+            <div class="lg:pl-72">
+                <x-layout.header />
+                <main class="max-w-full mx-auto sm:px-6 lg:px-8 py-10">
+                    <div class="px-4 sm:px-6 lg:px-8">
+                        {{ $slot }}
                     </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    {{ $slot }}
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
         @livewireScripts
     </body>

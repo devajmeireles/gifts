@@ -3,7 +3,7 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Item" blur wire:model.defer="modal">
+    <x-modal.card title="Criação de Item" wire:model.defer="modal">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <x-input label="Nome" wire:model.defer="item.name" />
 

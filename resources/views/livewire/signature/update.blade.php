@@ -5,7 +5,7 @@
                      icon="pencil"
                      wire:click="$toggle('modal')"
     />
-    <x-modal.card :title="__('Edição de Assinatura: #:id', ['id' => $signature?->id])" blur wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Assinatura: #:id', ['id' => $signature?->id])" wire:model.defer="modal">
         <div class="mb-4">
             <x-alert>
                 Por mais que seja possível editar uma assinatura, não recomendamos que faça isso.

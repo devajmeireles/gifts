@@ -1,5 +1,5 @@
 <div>
-    <x-modal.card :title="__('Edição de Categoria: #:id', ['id' => $category?->id])" blur wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Categoria: #:id', ['id' => $category?->id])" wire:model.defer="modal">
         <div class="grid grid-cols-2 gap-4">
             <div class="col-span-1">
                 <x-input label="Nome" wire:model.defer="category.name"/>

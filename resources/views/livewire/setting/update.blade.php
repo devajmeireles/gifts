@@ -4,7 +4,7 @@
                      icon="pencil"
                      wire:click="$toggle('modal')"
     />
-    <x-modal.card :title="__('Edição de Configuração: :name', ['name' => $setting?->key])" blur wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Configuração: :name', ['name' => $setting?->key])" wire:model.defer="modal">
         <div class="grid grid-cols-1 gap-4">
             <x-input disabled label="Chave" wire:model.defer="setting.key" />
             <x-input label="Valor" wire:model.defer="setting.value" />

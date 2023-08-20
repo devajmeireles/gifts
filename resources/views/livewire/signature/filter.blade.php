@@ -11,7 +11,7 @@
             </x-badge>
         @endif
     </div>
-    <x-modal.card title="Filtros" blur wire:model.defer="modal" max-width="lg">
+    <x-modal.card title="Filtros" wire:model.defer="modal" max-width="lg">
         <div class="grid grid-cols-1 gap-4">
             <x-filter.category wire:model.debounce.250ms="category"/>
 

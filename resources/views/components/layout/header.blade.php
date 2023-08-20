@@ -8,7 +8,10 @@
         </svg>
     </button>
     <div class="flex flex-1 justify-end gap-x-4 self-stretch lg:gap-x-6">
-        <div class="flex items-center gap-x-4 lg:gap-x-6">
+        <div class="flex items-center gap-2">
+            @if (session()->has('impersonate'))
+                <livewire:impersonate.logout />
+            @endif
             <div class="relative" x-data="{ profile : false }" x-on:click.outside="profile = false">
                 <button x-on:click="profile = !profile"
                         type="button"

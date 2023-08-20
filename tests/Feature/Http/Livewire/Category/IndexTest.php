@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Livewire\Category\{Delete, Index, Update};
+use App\Enums\UserRole;
+use App\Http\Livewire\Category\{Create, Delete, Index, Update};
 use App\Models\Category;
 
 use function Pest\Livewire\livewire;
@@ -88,3 +89,14 @@ it('can load method', function (array $data) {
         ],
     ],
 ]);
+
+it('cannot see buttons if is guest', function () {
+    $user = user();
+    $user->update(['role' => UserRole::Guest]);
+
+    $this->get(route('admin.categories'))
+        ->assertSeeLivewire(Index::class)
+        ->assertDontSeeLivewire(Create::class)
+        ->assertDontSeeLivewire(Update::class)
+        ->assertDontSeeLivewire(Delete::class);
+});

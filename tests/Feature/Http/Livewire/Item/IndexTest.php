@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Livewire\Item\{Delete, Index, Update};
+use App\Enums\UserRole;
+use App\Http\Livewire\Item\{Create, Delete, Index, Update};
 use App\Models\Item;
 
 use function Pest\Livewire\livewire;
@@ -117,3 +118,14 @@ it('can load method', function (array $data) {
         ],
     ],
 ]);
+
+it('cannot see buttons if is guest', function () {
+    $user = user();
+    $user->update(['role' => UserRole::Guest]);
+
+    $this->get(route('admin.items'))
+        ->assertSeeLivewire(Index::class)
+        ->assertDontSeeLivewire(Create::class)
+        ->assertDontSeeLivewire(Update::class)
+        ->assertDontSeeLivewire(Delete::class);
+});

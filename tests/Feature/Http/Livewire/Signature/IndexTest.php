@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Livewire\Signature\Index;
+use App\Enums\UserRole;
+use App\Http\Livewire\Signature\{Create, Delete, Index, Update};
 use App\Models\{Category, Item, Signature};
 
 use function Pest\Livewire\livewire;
@@ -125,4 +126,19 @@ it('can filter by date', function () {
         ])
         ->assertDontSee($first->name)
         ->assertSee($last->name);
+});
+
+it('cannot see buttons if is guest', function () {
+    Signature::factory()
+        ->forItem()
+        ->create();
+
+    $user = user();
+    $user->update(['role' => UserRole::Guest]);
+
+    $this->get(route('admin.signatures'))
+        ->assertSeeLivewire(Index::class)
+        ->assertDontSeeLivewire(Create::class)
+        ->assertDontSeeLivewire(Update::class)
+        ->assertDontSeeLivewire(Delete::class);
 });

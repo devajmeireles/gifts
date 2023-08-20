@@ -1,6 +1,8 @@
 <div>
     <div class="flex items-center justify-end mb-4 gap-2">
-        <livewire:signature.create />
+        @if (!user()->isGuest())
+            <livewire:signature.create />
+        @endif
         <livewire:signature.filter />
     </div>
     <div class="mb-4">
@@ -34,10 +36,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-end gap-1">
-                        <livewire:signature.update :signature="$signature" :key="md5('update-'.$signature->id)" />
-                        <livewire:signature.delete :signature="$signature" :key="md5('delete-'.$signature->id)" />
-                    </div>
+                    @if (!user()->isGuest())
+                        <div class="flex justify-end gap-1">
+                            <livewire:signature.update :signature="$signature" :key="md5('update-'.$signature->id)" />
+                            <livewire:signature.delete :signature="$signature" :key="md5('delete-'.$signature->id)" />
+                        </div>
+                    @endif
                 </x-card>
             </div>
         @empty

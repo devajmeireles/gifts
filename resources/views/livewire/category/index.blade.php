@@ -2,7 +2,9 @@
     @php /** @var \App\Models\Item $category */ @endphp
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-end">
-            <livewire:category.create />
+            @if (!user()->isGuest())
+                <livewire:category.create />
+            @endif
         </div>
         <x-table.filter quantity search />
         <div class="mt-4 flow-root">
@@ -43,7 +45,9 @@
             </x-table>
             <x-pagination :$items="$categories" />
         </div>
-        <livewire:category.update />
-        <livewire:category.delete />
+        @if (!user()->isGuest())
+            <livewire:category.update />
+            <livewire:category.delete />
+        @endif
     </div>
 </div>

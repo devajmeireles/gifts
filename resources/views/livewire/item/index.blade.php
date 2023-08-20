@@ -3,7 +3,9 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flow-root">
             <div class="flex justify-end">
-                <livewire:item.create />
+                @if (!user()->isGuest())
+                    <livewire:item.create />
+                @endif
             </div>
             <x-table.filter quantity search />
             <x-table :$items>
@@ -49,7 +51,9 @@
             </x-table>
             <x-pagination :$items />
         </div>
-        <livewire:item.update />
-        <livewire:item.delete />
+        @if (!user()->isGuest())
+            <livewire:item.update />
+            <livewire:item.delete />
+        @endif
     </div>
 </div>

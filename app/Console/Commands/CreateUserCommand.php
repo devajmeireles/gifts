@@ -27,7 +27,7 @@ class CreateUserCommand extends Command
             collect(UserRole::cases())
                 ->mapWithKeys(fn (UserRole $role) => [
                     $role->value => $role->name,
-                ])
+                ])->toArray()
         );
 
         spin(fn () => User::factory()

@@ -24,7 +24,7 @@ class CreateSettingCommand extends Command
         $this->components->info("Setting <bg=red>{$key}</> created successfully!");
 
         if (confirm('Do you want to create another setting?')) {
-            $this->setting();
+            $this->handle();
         }
 
         return self::SUCCESS;

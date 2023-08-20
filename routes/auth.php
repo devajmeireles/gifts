@@ -21,8 +21,14 @@ Route::middleware('auth')
     ->prefix('/admin')
     ->name('admin.')
     ->group(function () {
-        Route::put('password', PasswordController::class)->name('password.update');
+        Route::controller(PasswordController::class)
+            ->name('password.')
+            ->group(function () {
+                Route::get('/password', 'edit')->name('edit');
+                Route::patch('/password', 'update')->name('update');
+            });
 
-        Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
-            ->name('logout');
+        Route::get('logout', [
+            AuthenticatedSessionController::class, 'destroy',
+        ])->name('logout');
     });

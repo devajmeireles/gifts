@@ -2,34 +2,37 @@
 
 use Illuminate\Support\Facades\Hash;
 
-it('can update password', function () {
+use function Pest\Laravel\from;
+
+it('can update', function () {
     $user = createTestUser();
 
-    $response = $this->from(route('admin.profile.edit'))
-        ->put(route('admin.password.update'), [
+    from(route('admin.password.edit'))
+        ->patchJson(route('admin.password.update'), [
             'current_password'      => 'password',
             'password'              => 'Senh4!@#Abc',
             'password_confirmation' => 'Senh4!@#Abc',
-        ]);
-
-    $response
+        ])
+        ->assertStatus(302)
         ->assertSessionHasNoErrors()
-        ->assertRedirect(route('admin.profile.edit'));
+        ->assertRedirect(route('admin.password.edit'));
 
-    $this->assertTrue(Hash::check('Senh4!@#Abc', $user->refresh()->password));
+    expect(Hash::check('Senh4!@#Abc', $user->refresh()->password))
+        ->toBeTrue();
 });
 
 it('cannot update password using wrong password', function () {
     $user = createTestUser();
 
-    $response = $this->from(route('admin.profile.edit'))
-        ->put(route('admin.password.update'), [
+    from(route('admin.password.edit'))
+        ->patchJson(route('admin.password.update'), [
             'current_password'      => 'wrong-password',
-            'password'              => 'new-password',
-            'password_confirmation' => 'new-password',
-        ]);
+            'password'              => 'Senh4!@#Abc',
+            'password_confirmation' => 'Senh4!@#Abc',
+        ])
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['current_password']);
 
-    $response
-        ->assertSessionHasErrorsIn('updatePassword', 'current_password')
-        ->assertRedirect(route('admin.profile.edit'));
+    expect(Hash::check('Senh4!@#Abc', $user->refresh()->password))
+        ->toBeFalse();
 });

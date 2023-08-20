@@ -51,6 +51,9 @@
                     <a href="{{ route('admin.profile.edit') }}" class="block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50" role="menuitem"
                        tabindex="-1"
                        id="user-menu-item-0">Perfil</a>
+                    <a href="{{ route('admin.password.edit') }}" class="block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50" role="menuitem"
+                       tabindex="-1"
+                       id="user-menu-item-0">Senha</a>
                     <a href="{{ route('admin.logout') }}" class="block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50" role="menuitem"
                        tabindex="-1"
                        id="user-menu-item-1">Sair</a>

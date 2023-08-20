@@ -39,7 +39,7 @@
                 'text-blue-800'    => $type === 'blue',
                 'text-yellow-800'  => $type === 'yellow',
                 'text-gray-800'    => $type === 'gray',
-                'text-primary-800'  => $type === 'primary',
+                'text-primary-800' => $type === 'primary',
             ])>
                 {{ $slot }}
             </p>

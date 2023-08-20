@@ -1,23 +1,40 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+    <div class="space-y-6">
+        <x-card>
+            @if (session('status') === 'profile-updated')
+                <x-alert green>
+                    {{ __('Perfil atualizado com sucesso.') }}
+                </x-alert>
+            @endif
+            <form method="post" action="{{ route('admin.profile.update') }}" class="space-y-4" id="profile-update">
+                @csrf
+                @method('patch')
+                <div>
+                    <x-input label="Nome"
+                             id="name"
+                             name="name"
+                             type="text"
+                             class="mt-1 block w-full"
+                             :value="old('name', $user?->name)"
+                             required
+                             autofocus
+                             autocomplete="name" />
                 </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
+                <div>
+                    <x-input label="Nome de Usuário"
+                             id="username"
+                             name="username"
+                             type="text"
+                             class="mt-1 block w-full"
+                             :value="old('username', $user?->username)"
+                             disabled
+                             autocomplete="username"
+                    />
                 </div>
-            </div>
-        </div>
+                <div class="flex items-center gap-4">
+                    <x-button type="submit" label="Salvar" primary />
+                </div>
+            </form>
+        </x-card>
     </div>
 </x-app-layout>

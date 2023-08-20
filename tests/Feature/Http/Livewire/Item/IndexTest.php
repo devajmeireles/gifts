@@ -22,6 +22,25 @@ it('can list', function () {
         ->assertSee($item->category->name);
 });
 
+it('can search', function () {
+    $item = Item::factory(2)
+        ->forCategory()
+        ->create();
+
+    $one = $item->first();
+    $two = $item->last();
+
+    livewire(Index::class)
+        ->set('search', $one->name)
+        ->assertSee($one->name)
+        ->assertDontSee($two->name);
+
+    livewire(Index::class)
+        ->set('search', $two->name)
+        ->assertSee($two->name)
+        ->assertDontSee($one->name);
+});
+
 it('can paginate', function () {
     $item = Item::factory(2)
         ->forCategory()

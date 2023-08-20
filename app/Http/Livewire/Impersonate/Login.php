@@ -3,8 +3,7 @@
 namespace App\Http\Livewire\Impersonate;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\{Auth, Session};
 use Livewire\Component;
 use WireUi\Traits\Actions;
 

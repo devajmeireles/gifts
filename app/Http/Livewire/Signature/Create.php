@@ -68,7 +68,7 @@ class Create extends Component
 
         if ($this->quantity > $this->item->quantity) {
             $this->resetExcept('item', 'signature');
-            $this->notification()->error('Quantidade incompatível para assinaturas');
+            $this->notification()->error('Erro de Quantidade', 'Quantidade selecionada é superior a quantidade de itens');
 
             return;
         }

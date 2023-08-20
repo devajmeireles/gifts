@@ -1,10 +1,10 @@
-<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none sm:justify-end">
+<div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none sm:justify-end">
     <x-button label="Adicionar"
               primary
               wire:click="$toggle('modal')"
     />
     <x-modal.card title="Criação de Item" blur wire:model.defer="modal">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <x-input label="Nome" wire:model.defer="item.name" />
 
             <x-filter.category wire:model.defer="item.category_id" />
@@ -20,7 +20,7 @@
             <div class="col-span-full">
                 <x-inputs.number label="Quantidade"
                                  :min="1"
-                                 wire:model.defer="item.quantity" />
+                                 wire:model.debounce.250ms="item.quantity" />
             </div>
 
             <div class="col-span-full flex items-center gap-2">
@@ -29,12 +29,26 @@
             </div>
 
             @if ($item->is_quotable)
-                <x-input type="number"
-                         label="Valor"
-                         wire:model="item.price"
+                <div>
+                    <x-input type="number"
+                             label="Valor"
+                             wire:model.debounce.250ms="item.price"
+                    />
+                    <p class="mt-1 text-sm font-semibold text-gray-500">Insira o valor total do item</p>
+                </div>
+
+                <x-input label="Referência"
+                         wire:model.defer="item.reference"
+                         placeholder="URL de um item de modelo"
                 />
 
-                <x-input label="Referência" wire:model.defer="item.reference" />
+                @if ($item->price)
+                    <div class="col-span-full">
+                        <x-alert gray center>
+                            Valor da Cota: R$ {{ round($item->price / $item->quantity) }}
+                        </x-alert>
+                    </div>
+                @endif
             @endif
         </div>
 

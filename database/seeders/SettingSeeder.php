@@ -15,8 +15,24 @@ class SettingSeeder extends Seeder
                 'value' => 'Casamento de João & Maria',
             ],
             [
+                'key'   => 'sub_titlo_evento',
+                'value' => 'O dia mais feliz de nossas vidas',
+            ],
+            [
+                'key'   => 'local_evento',
+                'value' => 'Igreja Matriz de São José',
+            ],
+            [
                 'key'   => 'data_evento',
                 'value' => now()->addWeek()->format('d/m/Y'),
+            ],
+            [
+                'key'   => 'hora_event',
+                'value' => now()->addWeek()->format('H:i'),
+            ],
+            [
+                'key'   => 'contato_evento',
+                'value' => '(11) 99999-9999',
             ],
         ];
 

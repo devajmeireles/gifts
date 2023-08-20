@@ -26,6 +26,7 @@ class Index extends Component
     private function data(): LengthAwarePaginator
     {
         return User::query()
+            ->where('id', '!=', user()->id)
             ->search($this->search, ['name', 'username'])
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);

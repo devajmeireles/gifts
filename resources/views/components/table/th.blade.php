@@ -5,7 +5,7 @@
         'px-3'              => ! $first,
         'pl-4 pr-3 sm:pl-6' => $first,
     ]) }}>
-    <a href="#" class="group inline-flex cursor-pointer"
+    <a href="#" class="group inline-flex cursor-pointer truncate"
        @if ($sort && $column && $direction) wire:click.prevent="sort('{{ $column }}', '{{ $sort === $column ? ($direction === 'asc' ? 'desc' : 'asc') : 'desc' }}')" @endif>
 
         {{ $label ?? $slot }}

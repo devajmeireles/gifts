@@ -5,12 +5,13 @@ namespace App\Filters\Signature\Filters;
 use App\Filters\Signature\ShareableConstructor;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FilterSignatureDate
 {
     use ShareableConstructor;
 
-    public function handle(Builder $builder, Closure $next)
+    public function handle(Builder $builder, Closure $next): LengthAwarePaginator
     {
         $start = data_get($this->filters, 'start');
         $end   = data_get($this->filters, 'end');

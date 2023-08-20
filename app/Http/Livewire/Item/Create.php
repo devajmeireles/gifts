@@ -58,7 +58,7 @@ class Create extends Component
                 'integer',
             ],
             'item.price' => [
-                Rule::when($this->item?->is_quotable, [
+                Rule::when($this->item->is_quotable, [
                     'required',
                     'numeric',
                 ]),

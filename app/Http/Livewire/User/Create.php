@@ -42,7 +42,7 @@ class Create extends Component
         return view('livewire.user.create');
     }
 
-    public function updatedUser($value, $property): void
+    public function updatedUser(mixed $value, mixed $property): void
     {
         if ($property === 'name') {
             $this->user->username = str($value)->snake()->value();

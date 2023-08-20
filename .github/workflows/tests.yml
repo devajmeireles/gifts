@@ -12,6 +12,23 @@ on:
 
 jobs:
   test:
+    env:
+      DB_PORT: 3306
+      DB_HOST: 127.0.0.1
+      DB_DATABASE: testing
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
+    services:
+      mysql:
+        image: mariadb:latest
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.DB_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.DB_DATABASE }}
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true

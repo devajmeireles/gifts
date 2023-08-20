@@ -21,4 +21,9 @@ class SignatureFactory extends Factory
             'observation' => $this->faker->sentence(),
         ];
     }
+
+    public function delivery(DeliveryType $type): self
+    {
+        return $this->state(['delivery' => $type]);
+    }
 }

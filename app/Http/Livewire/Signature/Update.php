@@ -76,6 +76,7 @@ class Update extends Component
             $this->signature->item_id  = $this->selected;
 
             if ($different) {
+                //TODO: desativar item???
                 $this->item->update(['last_signed_at' => now()]);
                 $current->update(['last_signed_at' => null]);
             }

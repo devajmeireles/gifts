@@ -13,7 +13,10 @@ class SettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'key'   => $this->faker->unique()->word(),
+            'key' => str($this->faker->unique()->sentence(3))
+                ->lower()
+                ->snake()
+                ->value(),
             'value' => $this->faker->text(),
         ];
     }

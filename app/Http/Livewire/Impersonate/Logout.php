@@ -24,7 +24,7 @@ class Logout extends Component
 
     public function logout(): mixed
     {
-        if (!session()->has('impersonate')) {
+        if (!Session::has('impersonate')) {
             $this->notification()->warning('Você não está impersonando');
 
             return null;
@@ -32,6 +32,8 @@ class Logout extends Component
 
         Auth::logout();
         Auth::login(User::find(session()->get('impersonate.from')));
+
+        Session::forget('impersonate');
 
         return redirect(route('admin.dashboard'));
     }

@@ -5,7 +5,7 @@
         </x-button.circle>
         @if ($filtered)
             <x-badge flat>
-                {{ $count }} filtros
+                {{ $count }} filtro(s)
                 <x-heroicon-s-x-circle wire:click="clear"
                                        class="cursor-pointer w-4 h-4 text-red-500" />
             </x-badge>

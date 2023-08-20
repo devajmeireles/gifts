@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Impersonate;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -26,6 +27,12 @@ class Login extends Component
 
     public function login(): mixed
     {
+        if (Session::has('impersonate')) {
+            $this->notification()->warning('Você já está impersonando');
+
+            return null;
+        }
+
         if (user()->is($this->user)) {
             $this->notification()->warning('Você não pode se impersonar');
 
@@ -38,7 +45,7 @@ class Login extends Component
             return null;
         }
 
-        session()->put('impersonate', [
+        Session::put('impersonate', [
             'from' => user()->id,
             'to'   => $this->user->id,
         ]);

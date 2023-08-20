@@ -52,3 +52,28 @@ it('cannot login when logged is not admin', function () {
     get(route('admin.dashboard'))
         ->assertSee($one->name);
 });
+
+it('cannot re login', function () {
+    $admin = createTestUser();
+    $user  = createTestUser(role: UserRole::User, login: false);
+
+    livewire(Login::class, ['user' => $user])
+        ->call('login')
+        ->assertRedirect(route('admin.dashboard'))
+        ->assertSessionHas('impersonate', [
+            'from' => $admin->id,
+            'to'   => $user->id,
+        ]);
+
+    assertAuthenticatedAs($user);
+
+    get(route('admin.dashboard'))
+        ->assertSee($user->name)
+        ->assertDontSee($admin->name);
+
+    livewire(Login::class, ['user' => $admin])
+        ->call('login')
+        ->assertDispatchedBrowserEvent('wireui:notification');
+
+    assertAuthenticatedAs($user);
+});

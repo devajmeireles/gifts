@@ -20,8 +20,6 @@ class Card extends Component
 
     public function load(): void
     {
-        sleep(1);
-
         $this->quantity = (match ($this->type) {
             CardType::AllItems         => fn () => Item::count(),
             CardType::AllSignedItems   => fn () => Item::whereHas('signatures')->count(),

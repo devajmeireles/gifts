@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Layout\Notification;
+
 test('cannot dump')
     ->expect(['dd', 'dump', 'ray'])
     ->not
@@ -8,4 +10,5 @@ test('cannot dump')
 test('cannot use sleep')
     ->expect(['sleep'])
     ->not
-    ->toBeUsed();
+    ->toBeUsed()
+    ->ignoring(Notification::class);

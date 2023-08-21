@@ -15,7 +15,7 @@
                             </h1>
                         </div>
                         <div class="mx-auto max-w-2xl text-center">
-                            <p class="mt-6 text-lg leading-8 text-gray-600">
+                            <p class="mt-6 text-justify text-lg leading-8 text-gray-600">
                                 {!! Settings::get('subtitulo') !!}
                             </p>
                         </div>

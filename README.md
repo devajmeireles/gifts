@@ -71,4 +71,4 @@ Sinta-se à vontade para contribuir com melhorias através de um pull request.
 
 # Licença
 
-Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo [LICENSE](./LICENSE.md) para obter mais detalhes.

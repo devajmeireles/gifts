@@ -30,13 +30,12 @@ class CreateUserCommand extends Command
                 ])->toArray()
         );
 
-        spin(fn () => User::factory()
-            ->create([
-                'role'     => $role,
-                'name'     => $name,
-                'username' => $nick,
-                'password' => Hash::make($password),
-            ]), 'Creating user...');
+        spin(fn () => User::create([
+            'role'     => $role,
+            'name'     => $name,
+            'username' => $nick,
+            'password' => Hash::make($password),
+        ]), 'Creating user...');
 
         $this->components->info("User <bg=red>{$name}</> created successfully!");
 

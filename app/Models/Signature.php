@@ -32,14 +32,4 @@ class Signature extends Model
     {
         return $this->belongsTo(Item::class);
     }
-
-    public function scopeCountGroupByInRange(Builder $query, string $startDate, string $endDate): Builder
-    {
-        return $query->selectRaw("DATE(created_at) as date, count(*) as total")
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->groupBy('date')
-            ->orderBy('date');
-
-    }
-
 }

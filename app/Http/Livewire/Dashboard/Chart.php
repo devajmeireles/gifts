@@ -20,7 +20,7 @@ class Chart extends Component
 
     public function load(): void
     {
-        sleep(1);
+        //
     }
 
     public function getChartProperty(): array
@@ -51,7 +51,13 @@ class Chart extends Component
     private function count(): array
     {
         return Signature::query()
-            ->countGroupByInRange(now()->subMonthNoOverflow()->format('Y-m-d'), now()->format('Y-m-d'))
+            ->selectRaw("DATE(created_at) as date, COUNT(*) as total")
+            ->whereRaw("DATE(created_at) BETWEEN ? and ?", [
+                now()->clone()->subMonthNoOverflow()->format('Y-m-d'),
+                now()->format('Y-m-d'),
+            ])
+            ->groupBy('date')
+            ->orderBy('date')
             ->pluck('total', 'date')
             ->toArray();
     }

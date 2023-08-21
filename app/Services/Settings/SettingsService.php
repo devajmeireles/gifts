@@ -5,9 +5,17 @@ namespace App\Services\Settings;
 use App\Models\Setting;
 use Closure;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\LazyCollection;
 
 class SettingsService
 {
+    public function all(): LazyCollection
+    {
+        return Setting::all()
+            ->lazy()
+            ->mapWithKeys(fn (Setting $setting) => [$setting->key => $this->get($setting->key)]);
+    }
+
     public function get(string $key, mixed $default = null): ?string
     {
         $default = $default instanceof Closure ? $default() : $default;

@@ -11,6 +11,7 @@
             <x-inputs.maskable label="Telefone"
                                mask="(##) #####-####"
                                wire:model.defer="signature.phone"
+                               :emitFormatted="true"
             />
 
             <x-filter.item wire:model.debounce.250ms="selected"/>
@@ -38,7 +39,7 @@
                         <p class="text-xs text-red-500 font-semibold">
                             Este item possui um preço definido de R$ {{ $item->price() }}.
                             Ao assinar {{ $quantity }} unidades, o valor total recebido
-                            será de R$ {{ $item->price / $item->quantity * $quantity }}
+                            será de R$ {{ number_format(($item->price / $this->quantity * $quantity), 2, ',', '.') }}
                         </p>
                     </div>
                 </div>

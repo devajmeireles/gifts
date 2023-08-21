@@ -28,7 +28,7 @@
                                 {{ $item->name }}
                             </x-table.td>
                             <x-table.td><x-category.label :model="$item" /></x-table.td>
-                            <x-table.td>{{ $item->quantity }}</x-table.td>
+                            <x-table.td>{{ $item->availableQuantity() }}</x-table.td>
                             <x-table.td>{{ $item->signatures_count }}</x-table.td>
                             <x-table.td>
                                 <x-status :status="$item->is_active" />

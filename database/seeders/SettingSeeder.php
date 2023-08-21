@@ -41,48 +41,8 @@ class SettingSeeder extends Seeder
                 'type'  => 'phone',
             ],
             [
-                'key'   => 'duvida_1_titulo',
-                'value' => 'Onde vai ser o {%titulo%}?',
-                'type'  => 'text',
-            ],
-            [
-                'key'   => 'duvida_1_resposta',
-                'value' => 'Na Igreja Matriz de São José',
-                'type'  => 'textarea',
-            ],
-            [
-                'key'   => 'duvida_2_titulo',
-                'value' => 'Quando vai ser realizado o {%titulo%}?',
-                'type'  => 'text',
-            ],
-            [
-                'key'   => 'duvida_2_resposta',
-                'value' => 'No dia {%data%} às {%hora%}',
-                'type'  => 'textarea',
-            ],
-            [
-                'key'   => 'duvida_3_titulo',
-                'value' => 'Posso presentar os noivos?',
-                'type'  => 'text',
-            ],
-            [
-                'key'   => 'duvida_3_resposta',
-                'value' => 'Sim, você pode presentear os noivos escolhendo um item da lista acima',
-                'type'  => 'textarea',
-            ],
-            [
                 'key'   => 'rodape',
                 'value' => 'Laravel',
-                'type'  => 'text',
-            ],
-            [
-                'key'   => 'rodape_whatsapp',
-                'value' => '{%contato%}',
-                'type'  => 'text',
-            ],
-            [
-                'key'   => 'rodape_instagram',
-                'value' => 'https://www.instagram.com',
                 'type'  => 'text',
             ],
         ];

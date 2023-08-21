@@ -26,7 +26,7 @@ class Update extends Component
     {
         return [
             'setting.key'   => ['required', 'string', 'max:255'],
-            'setting.value' => ['required', 'string', 'max:255'],
+            'setting.value' => ['nullable', 'string', 'max:255'],
         ];
     }
 

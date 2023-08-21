@@ -45,7 +45,7 @@
                 @if ($item->price)
                     <div class="col-span-full">
                         <x-alert gray center>
-                            Valor da Cota: R$ {{ round($item->price / $item->quantity) }}
+                            Valor da Cota: R$ {{ number_format(round(($item->price / $item->availableQuantity())), 2, ',', '.') }}
                         </x-alert>
                     </div>
                 @endif

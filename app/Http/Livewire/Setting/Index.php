@@ -16,11 +16,6 @@ class Index extends Component
         'setting::index::refresh' => '$refresh',
     ];
 
-    public function boot(): void
-    {
-        $this->quantity = 25;
-    }
-
     public function render(): View
     {
         return view('livewire.setting.index', [

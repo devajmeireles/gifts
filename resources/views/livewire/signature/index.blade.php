@@ -46,16 +46,7 @@
             </div>
         @empty
             <div class="col-span-full">
-                <x-card>
-                    <div class="p-8 flex justify-center items-center">
-                        <div class="inline-flex gap-2">
-                            <p class="text-lg sm:text-2xl font-semibold leading-6">
-                                Nenhuma assinatura encontrada
-                            </p>
-                            <x-heroicon-s-face-frown class="w-8 h-8 text-primary" />
-                        </div>
-                    </div>
-                </x-card>
+                <x-empty-card />
             </div>
         @endforelse
     </div>

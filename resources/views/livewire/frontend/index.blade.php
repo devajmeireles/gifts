@@ -6,10 +6,10 @@
         <x-preloader />
     </div>
     @if (!$filtered && $data)
-        <div wire:loading.remove wire:target="item" class="grid grid-cols-3 gap-4" wire:key="category">
+        <div wire:loading.remove wire:target="item" class="grid grid-cols-2 sm:grid-cols-3 gap-4" wire:key="category">
             @php /** @var \App\Models\Category $category */ @endphp
             @forelse ($data as $category)
-                <div class="col-span-1">
+                <div class="col-span-full sm:col-span-1">
                     <x-card>
                         <div @class(['p-4', 'cursor-pointer' => $category->items_count > 0]) @if ($category->items_count > 0) wire:click="item({{ $category->id }})" @endif>
                             <p class="text-2xl font-semibold uppercase text-primary">
@@ -47,7 +47,7 @@
                      type="search"
             />
         </div>
-        <div wire:loading.remove wire:target="category" class="grid grid-cols-3 gap-4 mt-4" wire:key="item">
+        <div wire:loading.remove wire:target="category" class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4" wire:key="item">
             @php /** @var \App\Models\Item $item */ @endphp
             @forelse ($data as $item)
                 <div class="col-span-1">

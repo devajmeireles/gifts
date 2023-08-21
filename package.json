@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@alpinejs/mask": "^3.12.3",
-        "apexcharts": "^3.41.1"
+        "apexcharts": "^3.41.1",
+        "tippy.js": "^6.3.7"
     }
 }

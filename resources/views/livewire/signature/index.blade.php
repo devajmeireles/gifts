@@ -1,6 +1,6 @@
 <div>
     <div class="flex items-center justify-end mb-4 gap-2">
-        @if (!user()->isGuest())
+        @if (!($guest = user()->isGuest()))
             <livewire:signature.create />
         @endif
         @if ($signatures->isNotEmpty())
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (!user()->isGuest())
+                    @if (!$guest)
                         <div class="flex justify-end gap-1">
                             <livewire:signature.update :signature="$signature" :key="md5('update-'.$signature->id)" />
                             <livewire:signature.delete :signature="$signature" :key="md5('delete-'.$signature->id)" />

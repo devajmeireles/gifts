@@ -2,20 +2,22 @@
 
 namespace App\Http\Livewire\Frontend;
 
-use App\Models\{Category, Item};
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\{Builder, Collection};
 use Livewire\Component;
 
 class Index extends Component
 {
-    public bool $filtered = false;
-
     public ?Category $category;
+
+    public ?Collection $data = null;
+
+    public bool $filtered = false;
 
     public int $limit = 9;
 
-    public ?Collection $data = null;
+    public ?string $search = null;
 
     protected $listeners = [
         'frontend::reset' => 'category',
@@ -37,12 +39,18 @@ class Index extends Component
             ->get();
     }
 
+    public function updatedSearch(): void
+    {
+        $this->item($this->category);
+    }
+
     public function item(Category $category): void
     {
         $this->filtered = true;
         $this->category = $category;
 
         $this->data = $category->items()
+            ->search($this->search, 'name')
             ->with('signatures')
             ->active()
             ->limit($this->limit)

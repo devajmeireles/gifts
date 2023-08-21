@@ -33,7 +33,7 @@
         </div>
     @endif
     @if ($filtered && $data)
-        <div class="flex flex-col items-center">
+        <div class="flex items-center gap-2">
             <p class="text-4xl text-primary font-bold uppercase">
                 {{ $category->name }}
             </p>
@@ -41,9 +41,15 @@
                 <p class="text-md text-gray-600">{{ $category->description }}</p>
             @endif
         </div>
-        <div wire:loading.remove wire:target="category" class="grid grid-cols-3 gap-4" wire:key="item">
+        <div class="mt-2">
+            <x-input wire:model.debounce.500ms="search"
+                     placeholder="Procure por algo..."
+                     type="search"
+            />
+        </div>
+        <div wire:loading.remove wire:target="category" class="grid grid-cols-3 gap-4 mt-4" wire:key="item">
             @php /** @var \App\Models\Item $item */ @endphp
-            @foreach ($data as $item)
+            @forelse ($data as $item)
                 <div class="col-span-1">
                     <x-card>
                         <div class="p-4">
@@ -62,7 +68,11 @@
                         <livewire:frontend.signature :item="$item" :key="md5('signature-'.$item->id)" />
                     </x-card>
                 </div>
-            @endforeach
+            @empty
+                <div class="col-span-full">
+                    <x-empty-card text="Ops! Não encontramos o item que você está procurando. 😢"/>
+                </div>
+            @endforelse
         </div>
         <div class="flex justify-start mt-4">
             <x-button wire:loading.remove

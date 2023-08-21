@@ -21,7 +21,7 @@
     <x-card wire:loading.remove>
         <div class="ml-4 p-2">
             <div class="flex items-center justify-start">
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 rounded p-2 bg-primary-100">
                     <p class="text-3xl font-bold text-primary-600">
                         {{ $this->quantity }}
                     </p>

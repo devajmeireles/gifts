@@ -19,8 +19,6 @@ class SetupCommand extends Command
     public function handle(): int
     {
         spin(function () {
-            sleep(1);
-
             try {
                 Process::run(['php', 'artisan', 'key:generate']);
             } catch (Throwable $e) {
@@ -29,8 +27,6 @@ class SetupCommand extends Command
         }, 'Preparing application...');
 
         spin(function () {
-            sleep(1);
-
             try {
                 Process::run(['php', 'artisan', 'migrate:fresh', '--step']);
             } catch (Throwable $e) {

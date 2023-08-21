@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Layout;
 
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Notifications\DatabaseNotification;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -12,7 +13,7 @@ class Notification extends Component
 {
     use Actions;
 
-    public array $notifications = [];
+    public ?Collection $notifications = null;
 
     protected $listeners = [
         'notification::load' => 'load',
@@ -25,14 +26,10 @@ class Notification extends Component
 
     public function load(): void
     {
-        sleep(1);
-
-        $this->notifications = [];
-
-        DatabaseNotification::get()
+        $this->notifications = DatabaseNotification::get()
             ->lazy()
             ->each(fn (DatabaseNotification $notification) => $notification->markAsRead())
-            ->each(fn (DatabaseNotification $notification) => $this->notifications[] = $notification->toArray());
+            ->collect();
     }
 
     public function clear(): void
@@ -42,7 +39,7 @@ class Notification extends Component
 
             $this->notification()->success('Notificações apagadas com sucesso!');
 
-            $this->notifications = [];
+            $this->notifications = null;
 
             return;
         } catch (Exception $e) {

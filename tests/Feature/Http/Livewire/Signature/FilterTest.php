@@ -65,3 +65,5 @@ it('cannot filter using zero filters', function () {
         ->assertDispatchedBrowserEvent('wireui:notification')
         ->assertNotEmitted('signature::index::filter');
 });
+
+it('can filter for inexistent result')->todo();

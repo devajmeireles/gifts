@@ -5,7 +5,7 @@
         </x-button.circle>
         @if ($filtered)
             <x-badge flat>
-                {{ $count }} filtro(s)
+                {{ $count }} filtro
                 <x-heroicon-s-x-circle wire:click="clear"
                                        class="cursor-pointer w-4 h-4 text-red-500" />
             </x-badge>
@@ -14,21 +14,6 @@
     <x-modal.card title="Filtros" wire:model.defer="modal" max-width="lg">
         <div class="grid grid-cols-1 gap-4">
             <x-filter.category wire:model.debounce.250ms="category"/>
-
-            <x-filter.item :$category
-                           wire:model.defer="item"
-                           :active="false"
-            />
-
-            <x-datetime-picker label="Data Inicial"
-                               :max="now()"
-                               wire:model.defer="start"
-            />
-
-            <x-datetime-picker label="Data Final"
-                               :max="now()"
-                               wire:model.defer="end"
-            />
         </div>
         <x-slot name="footer">
             <div class="flex justify-end gap-x-4">

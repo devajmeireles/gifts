@@ -2,7 +2,7 @@
 
 namespace App\Filters\Signature\Filters;
 
-use App\Filters\Signature\ShareableConstructor;
+use App\Filters\Traits\ShareableConstructor;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -16,7 +16,7 @@ class FilterSignatureCategory
         if (($category = data_get($this->filters, 'category')) !== null) {
             $builder->whereHas(
                 'item',
-                fn (Builder $builder) => $builder->where('category_id', $category)
+                fn (Builder $builder) => $builder->where('category_id', '=', $category)
             );
         }
 

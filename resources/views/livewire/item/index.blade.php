@@ -1,9 +1,12 @@
 <div>
     @php /** @var \App\Models\Item $item */ @endphp
     <div class="px-4 sm:px-6 lg:px-8">
-        <div class="flex items-end justify-end">
+        <div class="flex items-end justify-end gap-2">
             @if (!($guest = user()->isGuest()))
                 <livewire:item.create />
+            @endif
+            @if ($items->isNotEmpty())
+                <livewire:item.filter />
             @endif
         </div>
         @if ($items->isNotEmpty())

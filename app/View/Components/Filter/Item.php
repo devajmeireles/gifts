@@ -10,7 +10,8 @@ class Item extends Component
 {
     public function __construct(
         public string $label = 'Item',
-        public ?string $placeholder = 'Procure um item'
+        public ?string $placeholder = 'Procure um item',
+        public bool $active = true,
     ) {
         //
     }

@@ -1,4 +1,5 @@
 <div class="flex justify-end gap-1">
+    @php use \App\Enums\DeliveryType; @endphp
     <x-button xs
               primary
               class="w-full"
@@ -23,11 +24,20 @@
                                    :emitFormatted="true"
                 />
             </div>
-            <div class="col-span-full">
-                <x-input label="Item Selecionado"
-                         value="{{ $item?->name }}"
-                         disabled
+            <x-input label="Item Selecionado"
+                     value="{{ $item?->name }}"
+                     disabled
+            />
+            <div class="col-span-1">
+                <x-native-select label="Tipo de Entrega"
+                                 :options="DeliveryType::toSelect()"
+                                 wire:model.debounce.250ms="delivery"
+                                 option-label="label"
+                                 option-value="id"
                 />
+                @if ($delivery)
+                    <p class="text-sm text-gray-600 font-semibold">{{ DeliveryType::from($delivery)->tip() }}</p>
+                @endif
             </div>
             @if ($item && $item->availableQuantity() > 1)
                 <div class="col-span-full space-y-2">
@@ -36,7 +46,7 @@
                                      :min="1"
                                      :max="$item->availableQuantity()"
                     />
-                    <p class="text-sm font-semibold text-gray-600">
+                    <p class="text-sm font-semibold text-primary">
                         {{ $item->availableQuantity() }} unidades disponíveis
                         @if ($item->is_quotable)
                             <b>(cotas)</b>

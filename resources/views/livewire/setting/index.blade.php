@@ -14,7 +14,7 @@
                     @forelse ($settings as $setting)
                         <x-table.tr>
                             <x-table.td>{{ $setting->key }}</x-table.td>
-                            <x-table.td>{{ $setting->value }}</x-table.td>
+                            <x-table.td>{{ str($setting->value)->limit(30) }}</x-table.td>
                             <x-table.td buttons>
                                 <livewire:setting.update :setting="$setting" :key="md5('update-'.$setting->id)" />
                             </x-table.td>

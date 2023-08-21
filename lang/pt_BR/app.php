@@ -2,8 +2,12 @@
 
 return [
     'delivery_type' => [
-        'locally' => 'Em Mãos',
-        'remote'  => 'Remotamente',
+        'inperson' => 'Presencialmente',
+        'remotely' => 'Remotamente',
+        'tip'      => [
+            'in_person' => 'Indica que você irá ao evento',
+            'remotely'  => 'A entrega será combinada',
+        ],
     ],
 
     'dashboard' => [

@@ -10,7 +10,7 @@
                 <div class="py-24 sm:py-30">
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="flex justify-center">
-                            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                            <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-6xl">
                                 {!! Settings::get('titulo') !!}
                             </h1>
                         </div>

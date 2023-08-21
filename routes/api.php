@@ -41,7 +41,10 @@ Route::prefix('/search')
 
         Route::get('/item', function (Request $request) {
             return Item::query()
-                ->active()
+                ->when(
+                    $request->boolean('active'),
+                    fn (Builder $query) => $query->active()
+                )
                 ->when(
                     $category = $request->get('category'),
                     fn (Builder $query) => $query->where('category_id', '=', $category),

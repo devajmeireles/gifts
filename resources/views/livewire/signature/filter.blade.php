@@ -19,7 +19,7 @@
                       placeholder="Procure um item"
                       :async-data="[
                         'api'    => route('api.search.item'),
-                        'params' => ['category' => $category],
+                        'params' => ['category' => $category, 'active' => false],
                       ]"
                       option-label="name"
                       option-value="id"

@@ -45,6 +45,16 @@ class SettingSeeder extends Seeder
                 'value' => 'Laravel',
                 'type'  => 'text',
             ],
+            [
+                'key'   => 'recebimento_evento',
+                'value' => 'Recebemos a assinatura do seu presente! Como você escolheu entregar o presente no evento gostaríamos de te lembrar os detalhes sobre o evento. O evento ocorrerá em {%local%}, as {%hora%} do dia {%data%}. Esperamos por você. Obrigado!',
+                'type'  => 'textarea',
+            ],
+            [
+                'key'   => 'recebimento_remotamente',
+                'value' => 'Recebemos a assinatura do seu presente! Entraremos em contato com você pelo número informado em breve. Obrigado!',
+                'type'  => 'textarea',
+            ],
         ];
 
         foreach ($settings as $setting) {

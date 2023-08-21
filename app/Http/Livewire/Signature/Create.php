@@ -2,12 +2,11 @@
 
 namespace App\Http\Livewire\Signature;
 
+use App\Actions\Signature\CreateSignature;
 use App\Enums\DeliveryType;
-use App\Models\{Item, Signature};
-use App\Notifications\SignatureCreated;
+use App\Models\{Item, Signature, Signature as Model};
 use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -67,33 +66,8 @@ class Create extends Component
 
         $this->signature->delivery = DeliveryType::from($this->delivery);
 
-        if ($this->quantity > $this->item->quantity) {
-            $this->resetExcept('item', 'signature');
-            $this->notification()->error('Erro de Quantidade', 'Quantidade selecionada é superior a quantidade de itens');
-
-            return;
-        }
-
         try {
-            $this->item->signatures()
-                ->createMany(
-                    Collection::times($this->quantity, fn () => $this->signature->toArray())
-                        ->toArray()
-                );
-
-            $this->resetExcept('item', 'signature');
-
-            if ($this->item->signatures()->count() === $this->item->quantity) {
-                $this->item->is_active = false;
-            }
-
-            $this->item->last_signed_at = now();
-            $this->item->save();
-
-            user()->notify(new SignatureCreated($this->item, $this->signature, $this->quantity));
-
-            $this->signature = new Signature();
-            $this->item      = new Item();
+            app(CreateSignature::class)->execute($this->item, $this->signature, $this->quantity);
 
             $this->emitUp('signature::index::refresh');
             $this->notification()->success('Assinatura criada com sucesso!');
@@ -101,8 +75,18 @@ class Create extends Component
             return;
         } catch (Exception $e) {
             report($e);
+        } finally {
+            $this->signature();
         }
 
         $this->notification()->error('Erro ao criar assinatura!');
+    }
+
+    private function signature(): void
+    {
+        $this->resetExcept('item', 'signature');
+
+        $this->signature = new Model();
+        $this->item      = new Item();
     }
 }

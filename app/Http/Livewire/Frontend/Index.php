@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Frontend;
 
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\{Builder, Collection};
 use Livewire\Component;
 
 class Index extends Component
@@ -32,7 +32,7 @@ class Index extends Component
         $this->item     = false;
 
         $this->data = Category::with('items')
-            ->withCount('items')
+            ->withCount(['items' => fn (Builder $query) => $query->active()])
             ->active()
             ->limit($this->limit)
             ->get();

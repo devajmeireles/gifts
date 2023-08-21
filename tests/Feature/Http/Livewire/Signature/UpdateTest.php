@@ -16,7 +16,7 @@ it('can update', function () {
     livewire(Update::class, ['signature' => $signature])
         ->set('signature.name', $name = 'Foo Bar')
         ->set('signature.phone', $phone = '123456789')
-        ->set('delivery', DeliveryType::Remote->value)
+        ->set('delivery', DeliveryType::Remotely->value)
         ->set('selected', $signature->item_id)
         ->set('signature.observation', $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
         ->call('update')
@@ -25,7 +25,7 @@ it('can update', function () {
     expect($signature->refresh())
         ->name->toBe($name)
         ->phone->toBe($phone)
-        ->delivery->toBe(DeliveryType::Remote)
+        ->delivery->toBe(DeliveryType::Remotely)
         ->observation->toBe($observation);
 });
 
@@ -41,7 +41,7 @@ it('can update and change item', function () {
     livewire(Update::class, ['signature' => $signature])
         ->set('signature.name', $name = 'Foo Bar')
         ->set('signature.phone', $phone = '123456789')
-        ->set('delivery', DeliveryType::Remote->value)
+        ->set('delivery', DeliveryType::Remotely->value)
         ->set('selected', $item->id)
         ->set('signature.observation', $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
         ->call('update')
@@ -66,13 +66,13 @@ it('cannot update using unavailable item', function () {
 
     $signature = Signature::factory()
         ->forItem()
-        ->delivery(DeliveryType::Locally)
+        ->delivery(DeliveryType::InPerson)
         ->create();
 
     livewire(Update::class, ['signature' => $signature])
         ->set('signature.name', 'Foo Bar')
         ->set('signature.phone', '123456789')
-        ->set('delivery', DeliveryType::Remote->value)
+        ->set('delivery', DeliveryType::Remotely->value)
         ->set('selected', $item->id)
         ->set('signature.observation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
         ->call('update')
@@ -81,7 +81,7 @@ it('cannot update using unavailable item', function () {
     expect($signature->refresh())
         ->name->not->toBe('Foo Bar')
         ->phone->not->toBe('123456789')
-        ->delivery->not->toBe(DeliveryType::Remote)
+        ->delivery->not->toBe(DeliveryType::Remotely)
         ->observation->not->toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 });
 
@@ -97,7 +97,7 @@ it('can update to new item disabling to be reused', function () {
     livewire(Update::class, ['signature' => $signature])
         ->set('signature.name', 'Foo Bar')
         ->set('signature.phone', '123456789')
-        ->set('delivery', DeliveryType::Remote->value)
+        ->set('delivery', DeliveryType::Remotely->value)
         ->set('selected', $item->id)
         ->set('signature.observation', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
         ->call('update')

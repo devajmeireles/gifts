@@ -27,11 +27,12 @@ class Index extends Component
     {
         return Item::with(['category', 'signatures'])
             ->withCount('signatures')
-            ->search($this->search, [
+            ->search(
+                $this->search,
                 'name',
                 'description',
                 'reference',
-            ])
+            )
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }

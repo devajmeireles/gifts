@@ -27,7 +27,7 @@ class Index extends Component
     {
         return User::query()
             ->where('id', '!=', user()->id)
-            ->search($this->search, ['name', 'username'])
+            ->search($this->search, 'name', 'username')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }

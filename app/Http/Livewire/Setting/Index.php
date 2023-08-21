@@ -26,7 +26,7 @@ class Index extends Component
     private function data(): LengthAwarePaginator
     {
         return Setting::query()
-            ->search($this->search, ['key', 'value'])
+            ->search($this->search, 'key', 'value')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }

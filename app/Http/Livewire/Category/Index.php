@@ -26,7 +26,7 @@ class Index extends Component
     private function data(): LengthAwarePaginator
     {
         return Category::withCount('items')
-            ->search($this->search, ['name', 'description'])
+            ->search($this->search, 'name', 'description')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }

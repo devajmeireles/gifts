@@ -26,6 +26,7 @@ it('can list', function () {
 it('can search', function () {
     $item = Item::factory(2)
         ->forCategory()
+        ->activated()
         ->create();
 
     $one = $item->first();

@@ -2,16 +2,16 @@
 
 namespace App\Http\Livewire\Frontend;
 
-use App\Models\Category;
+use App\Models\{Category, Item};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\{Builder, Collection};
 use Livewire\Component;
 
 class Index extends Component
 {
-    public bool $category = true;
+    public bool $filtered = false;
 
-    public bool $item = false;
+    public ?Category $category;
 
     public int $limit = 9;
 
@@ -28,8 +28,7 @@ class Index extends Component
 
     public function category(): void
     {
-        $this->category = true;
-        $this->item     = false;
+        $this->filtered = false;
 
         $this->data = Category::with('items')
             ->withCount(['items' => fn (Builder $query) => $query->active()])
@@ -40,8 +39,8 @@ class Index extends Component
 
     public function item(Category $category): void
     {
-        $this->category = false;
-        $this->item     = true;
+        $this->filtered = true;
+        $this->category = $category;
 
         $this->data = $category->items()
             ->with('signatures')

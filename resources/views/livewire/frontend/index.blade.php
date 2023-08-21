@@ -5,7 +5,7 @@
     <div class="justify-center" wire:loading.flex wire:target="item">
         <x-preloader />
     </div>
-    @if ($category && $data)
+    @if (!$filtered && $data)
         <div wire:loading.remove wire:target="item" class="grid grid-cols-3 gap-4" wire:key="category">
             @php /** @var \App\Models\Category $category */ @endphp
             @forelse ($data as $category)
@@ -32,7 +32,15 @@
             @endforelse
         </div>
     @endif
-    @if ($item && $data)
+    @if ($filtered && $data)
+        <div class="flex flex-col items-center">
+            <p class="text-4xl text-primary font-bold uppercase">
+                {{ $category->name }}
+            </p>
+            @if ($category->description)
+                <p class="text-md text-gray-600">{{ $category->description }}</p>
+            @endif
+        </div>
         <div wire:loading.remove wire:target="category" class="grid grid-cols-3 gap-4" wire:key="item">
             @php /** @var \App\Models\Item $item */ @endphp
             @foreach ($data as $item)

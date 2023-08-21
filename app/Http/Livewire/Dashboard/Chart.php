@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Dashboard;
 use App\Models\Signature;
 use Carbon\{CarbonInterval, CarbonPeriod};
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 
 /**
@@ -25,14 +26,13 @@ class Chart extends Component
     public function getChartProperty(): array
     {
         return collect($this->dates())
-            ->mapWithKeys(function (string $date) {
-                $index = explode('-', $date);
-                $index = $index[2] . "/" . $index[1];
-
+            ->merge($this->count())
+            ->mapWithKeys(function (int $value, string $date) {
                 return [
-                    $index => $this->count($date),
+                    Carbon::parse($date)->format('d/m') => $value,
                 ];
             })->toArray();
+
     }
 
     private function dates(): array
@@ -43,19 +43,16 @@ class Chart extends Component
             CarbonInterval::days()
         );
 
-        $dates = [];
-
-        foreach ($period as $date) {
-            $dates[] = $date->format('Y-m-d');
-        }
-
-        return $dates;
+        return collect($period->toArray())
+            ->mapWithKeys(fn ($date) => [$date->format('Y-m-d') => 0])
+            ->toArray();
     }
 
-    private function count(string $date): int
+    private function count(): array
     {
         return Signature::query()
-            ->whereDate('created_at', $date)
-            ->count();
+            ->countGroupByInRange(now()->subMonthNoOverflow()->format('Y-m-d'), now()->format('Y-m-d'))
+            ->pluck('total', 'date')
+            ->toArray();
     }
 }

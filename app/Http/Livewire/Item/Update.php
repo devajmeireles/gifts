@@ -52,14 +52,14 @@ class Update extends Component
 
         $this->modal = false;
 
-        if ($this->item->quantity < $this->item->signatures->count()) {
-            $this->notification()->error(
-                'Erro ao atualizar item!',
-                'A quantidade de assinaturas é maior que a quantidade selecionada de itens.'
-            );
+        if ($this->item->quantity < ($signatures = $this->item->signatures->count())) {
+            $this->notification()->error('Erro ao atualizar item!', "O item possui $signatures assinaturas.");
 
             return;
         }
+
+        $original              = $this->item->getOriginal('quantity');
+        $this->item->is_active = ($this->item->quantity > $original) || $this->item->availableQuantity() > $original || !($original === $signatures);
 
         try {
             $this->item->save();

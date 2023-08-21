@@ -55,6 +55,7 @@
                         <div class="p-4">
                             <p class="text-2xl font-semibold uppercase text-primary">
                                 {{ $item->name }}
+{{--                                TODO: testar--}}
                                 @if ($item->description)
                                     <x-tooltip :text="$item->description" />
                                 @endif

@@ -40,7 +40,7 @@ class Update extends Component
             'item.category_id' => ['required', Rule::exists('categories', 'id')],
             'item.name'        => ['required', 'string', 'max:255', Rule::unique('items', 'name')->ignore($this->item->id)],
             'item.description' => ['nullable', 'max:255'],
-            'item.reference'   => ['nullable', 'string', 'max:255'],
+            'item.reference'   => ['nullable', 'url'],
             'item.quantity'    => ['required', 'integer'],
             'item.price'       => [Rule::when($this->item->is_quotable, ['required', 'numeric', ])],
             'item.is_quotable' => ['nullable', 'boolean'],

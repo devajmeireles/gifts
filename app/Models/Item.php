@@ -31,7 +31,6 @@ class Item extends Model
 
     protected $casts = [
         'quantity'       => 'integer',
-        'price'          => 'decimal:2',
         'is_quotable'    => 'boolean',
         'is_active'      => 'boolean',
         'last_signed_at' => 'datetime',

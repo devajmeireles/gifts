@@ -34,7 +34,7 @@ class SetupCommand extends Command
 
         spin(function () {
             try {
-                Process::run(['php', 'artisan', 'migrate:fresh', '-seed', '--step']);
+                Process::run(['php', 'artisan', 'migrate:fresh', '--seed', '--step']);
             } catch (Throwable $e) {
                 error("Error: {$e->getMessage()}");
             }

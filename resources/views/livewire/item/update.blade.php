@@ -7,13 +7,19 @@
                 <x-filter.category wire:model.defer="item.category_id" />
             @endif
 
-            <div class="col-span-full">
-                <x-textarea label="Descrição"
-                            wire:model.defer="item.description"
-                            class="resize-none"
-                            rows="8"
-                />
-            </div>
+            @if (!$description)
+                <p class="text-sm text-primary font-semibold cursor-pointer" wire:click="$toggle('description')">Definir descrição no item</p>
+            @endif
+
+            @if ($item && $item->description || $description)
+                <div class="col-span-full">
+                    <x-textarea label="Descrição"
+                                wire:model.defer="item.description"
+                                class="resize-none"
+                                rows="8"
+                    />
+                </div>
+            @endif
 
             <div class="col-span-full">
                 <x-inputs.number label="Quantidade"

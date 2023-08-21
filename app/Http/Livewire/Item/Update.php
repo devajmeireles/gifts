@@ -17,6 +17,8 @@ class Update extends Component
 
     public bool $modal = false;
 
+    public bool $description = false;
+
     protected $listeners = [
         'item::update::load' => 'load',
     ];

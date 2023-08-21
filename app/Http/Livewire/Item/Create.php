@@ -17,6 +17,8 @@ class Create extends Component
 
     public bool $modal = false;
 
+    public bool $description = false;
+
     protected array $validationAttributes = [
         'item.category_id' => 'categoria',
         'item.name'        => 'nome',

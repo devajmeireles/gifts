@@ -63,3 +63,5 @@ it('can view category with multiples item', function () {
         ->call('category')
         ->assertSee('5 itens nesta categoria');
 });
+
+it('can view in correct order')->todo();

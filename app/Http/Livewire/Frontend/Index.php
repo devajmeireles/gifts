@@ -20,12 +20,23 @@ class Index extends Component
     public ?string $search = null;
 
     protected $listeners = [
-        'frontend::reset' => 'category',
+        'frontend::reset'      => 'category',
+        'frontend::load::more' => 'item',
     ];
 
     public function render(): View
     {
         return view('livewire.frontend.index');
+    }
+
+    //TODO: testar
+    public function more(): void
+    {
+        $this->limit += 9;
+
+        $this->emitSelf('frontend::load::more', [
+            'category' => $this->category,
+        ]);
     }
 
     public function category(): void
@@ -35,7 +46,7 @@ class Index extends Component
         $this->data = Category::with('items')
             ->withCount(['items' => fn (Builder $query) => $query->active()]) // @phpstan-ignore-line
             ->active()
-            ->limit($this->limit)
+            ->oldest('name')
             ->get();
     }
 
@@ -53,7 +64,8 @@ class Index extends Component
             ->search($this->search, 'name')
             ->with('signatures')
             ->active()
-            ->limit($this->limit)
+            ->take($this->limit)
+            ->oldest('name')
             ->get();
     }
 }

@@ -36,7 +36,7 @@
                                 <x-status :status="$item->is_active" />
                             </x-table.td>
                             <x-table.td buttons>
-                                @if ($guest)
+                                @if (!$guest)
                                     <x-button.circle primary
                                                      icon="pencil"
                                                      wire:click="update({{ $item->id }})"

@@ -4,8 +4,8 @@ namespace App\Http\Livewire\Layout;
 
 use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 

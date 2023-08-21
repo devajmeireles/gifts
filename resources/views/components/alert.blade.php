@@ -6,6 +6,7 @@
     'gray'    => null,
     'outline' => null,
     'center'  => null,
+    'justify' => null,
 ])
 
 @php
@@ -43,6 +44,8 @@
         <div class="ml-3">
             <p @class([
                 'text-sm font-medium',
+                'text-center'      => $center,
+                'text-justify'     => $justify,
                 'text-green-800'   => $type === 'green',
                 'text-red-800'     => $type === 'red',
                 'text-blue-800'    => $type === 'blue',

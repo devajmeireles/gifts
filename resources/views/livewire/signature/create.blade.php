@@ -33,15 +33,11 @@
                 </div>
             @endif
 
-            @if ($item?->is_quotable && $item?->price > 0)
+            @if ($item && $item->is_quotable && $item->price)
                 <div class="col-span-full">
-                    <div class="flex justify-center">
-                        <p class="text-xs text-red-500 font-semibold">
-                            Este item possui um preço definido de R$ {{ $item->price() }}.
-                            Ao assinar {{ $quantity }} unidades, o valor total recebido
-                            será de R$ {{ number_format(($item->price / $this->quantity * $quantity), 2, ',', '.') }}
-                        </p>
-                    </div>
+                    <x-alert outline center>
+                        <b>Este item possui cotas (R$ {{ $item->price() }}).</b> {{ $quantity }} unidade(s), custará R$ {{ $item->priceQuoted($quantity) }}
+                    </x-alert>
                 </div>
             @endif
 

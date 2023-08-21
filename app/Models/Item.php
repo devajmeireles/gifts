@@ -47,10 +47,6 @@ class Item extends Model
 
     public function price(): ?string
     {
-        if (!$this->price) {
-            return null;
-        }
-
         return number_format($this->price, 2, ',', '.');
     }
 
@@ -66,7 +62,17 @@ class Item extends Model
 
     public function availableQuantity(): int
     {
-        return $this->quantity - $this->signatures->count();
+        return ($this->quantity - $this->signatures->count());
+    }
+
+    public function quotePrice(bool $realQuantity = true): string
+    {
+        return number_format(round(($this->price / ($realQuantity ? $this->availableQuantity() : $this->quantity))), 2, ',', '.');
+    }
+
+    public function priceQuoted(int $quantity, bool $realQuantity = true): string
+    {
+        return number_format((($this->price / ($realQuantity ? $this->availableQuantity() : $this->quantity) * $quantity)), 2, ',', '.');
     }
 
     public function scopeActive(Builder $builder): Builder

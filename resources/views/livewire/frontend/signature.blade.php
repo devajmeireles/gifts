@@ -56,9 +56,9 @@
             @endif
             @if ($item && $item->is_quotable)
                 <div class="col-span-full space-y-2">
-                    <x-alert center>
-                       <b class="uppercase">Este item possui cota!</b> Ao assinar a quantidade acima selecionada ({{ $quantity }}),
-                        o valor total que deverá ser entregue como presente será o valor de R$ {{ number_format(($item->price / $item->availableQuantity() * $quantity), 2, ',', '.') }}
+                    <x-alert outline justify>
+                       <b class="uppercase">Este item possui cotas!</b> Ao assinar a quantidade de {{ $quantity }} unidade(s)
+                        o valor total que deverá ser entregue como presente será o valor de R$ {{ $item->priceQuoted($quantity, false) }}
                     </x-alert>
                 </div>
             @endif

@@ -1,13 +1,15 @@
 <div>
     @php /** @var \App\Models\Item $item */ @endphp
     <div class="px-4 sm:px-6 lg:px-8">
-        <div class="flow-root">
-            <div class="flex justify-end">
-                @if (!user()->isGuest())
-                    <livewire:item.create />
-                @endif
-            </div>
+        <div class="flex items-end justify-end">
+            @if (!user()->isGuest())
+                <livewire:item.create />
+            @endif
+        </div>
+        @if ($items->isNotEmpty())
             <x-table.filter quantity search />
+        @endif
+        <div class="mt-4 flow-root">
             <x-table :$items>
                 <x-table.thead>
                     <x-table.tr>
@@ -49,8 +51,8 @@
                     @endforelse
                 </x-table.tbody>
             </x-table>
-            <x-pagination :$items />
         </div>
+        <x-pagination :$items />
         @if (!user()->isGuest())
             <livewire:item.update />
             <livewire:item.delete />

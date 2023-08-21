@@ -1,4 +1,4 @@
-<div>
+<div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none sm:justify-end">
     <x-button label="Adicionar"
               primary
               wire:click="$toggle('modal')"

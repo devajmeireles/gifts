@@ -6,7 +6,9 @@
                 <livewire:category.create />
             @endif
         </div>
-        <x-table.filter quantity search />
+        @if ($categories->isNotEmpty())
+            <x-table.filter quantity search />
+        @endif
         <div class="mt-4 flow-root">
             <x-table :items="$categories">
                 <x-table.thead>

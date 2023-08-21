@@ -1,11 +1,13 @@
 <div>
     @php /** @var \App\Models\User $user */ @endphp
     <div class="px-4 sm:px-6 lg:px-8">
-        <div class="flow-root">
-            <div class="flex justify-end">
-                <livewire:user.create />
-            </div>
-            <x-table.filter quantity search />
+        <div class="flex items-end justify-end">
+            <livewire:user.create />
+            @if ($users->isNotEmpty())
+                <x-table.filter quantity search />
+            @endif
+        </div>
+        <div class="mt-4 flow-root">
             <x-table :items="$users">
                 <x-table.thead>
                     <x-table.tr>

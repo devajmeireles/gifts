@@ -22,12 +22,12 @@
         <div class="ml-4 p-2">
             <div class="flex items-center justify-start">
                 <div class="flex-shrink-0">
-                    <p class="text-3xl font-semibold text-primary-800">
+                    <p class="text-3xl font-bold text-primary-600">
                         {{ $this->quantity }}
                     </p>
                 </div>
                 <div class="ml-4">
-                    <h3 class="text-md font-semibold leading-6 text-primary">
+                    <h3 class="font-semibold leading-6 text-md text-primary">
                         {{ $this->type->translate() }}
                     </h3>
                 </div>

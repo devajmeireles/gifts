@@ -36,7 +36,7 @@
             @if ($item && $item->is_quotable && $item->price)
                 <div class="col-span-full">
                     <x-alert outline center>
-                        <b>Este item possui cotas (R$ {{ $item->price() }}).</b> {{ $quantity }} unidade(s), custará R$ {{ $item->priceQuoted($quantity) }}
+                        <b>Este item possui cotas (R$ {{ $item->price() }}).</b> {{ $quantity }} unidade(s), custará R$ {{ $item->priceQuoted($quantity, false) }}
                     </x-alert>
                 </div>
             @endif

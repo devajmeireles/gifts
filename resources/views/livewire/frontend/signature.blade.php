@@ -36,7 +36,7 @@
                                  option-value="id"
                 />
                 @if ($delivery)
-                    <p class="text-sm text-gray-600 font-semibold">{{ DeliveryType::from($delivery)->tip() }}</p>
+                    <p class="text-sm font-semibold text-primary">{{ DeliveryType::from($delivery)->tip() }}</p>
                 @endif
             </div>
             @if ($item && $item->availableQuantity() > 1)
@@ -46,19 +46,17 @@
                                      :min="1"
                                      :max="$item->availableQuantity()"
                     />
-                    <p class="text-sm font-semibold text-primary">
-                        {{ $item->availableQuantity() }} unidades disponíveis
-                        @if ($item->is_quotable)
-                            <b>(cotas)</b>
-                        @endif
+                    <p class="text-sm font-semibold underline decoration-dotted text-primary">
+                        {{ $item->availableQuantity() }} cotas disponíveis
                     </p>
                 </div>
             @endif
             @if ($item && $item->is_quotable)
+                @php($available = $item->availableQuantity())
                 <div class="col-span-full space-y-2">
                     <x-alert outline justify>
-                       <b class="uppercase">Este item possui cotas!</b> Ao assinar a quantidade de {{ $quantity }} unidade(s)
-                        o valor total que deverá ser entregue como presente será o valor de R$ {{ $item->priceQuoted($quantity, false) }}
+                        Ao assinar {{ $quantity }} unidade(s) o valor total que deverá ser entregue
+                        como presente será o valor de R$ {{ $item->priceQuoted($quantity, false) }} porque este item possui cotas <b class="underline decoration-dotted">(cotas disponíveis: {{ $available }}).</b>
                     </x-alert>
                 </div>
             @endif

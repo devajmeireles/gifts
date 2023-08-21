@@ -36,7 +36,7 @@ class Index extends Component
 
     private function data(): LengthAwarePaginator
     {
-        return Pipeline::send(Signature::with('item'))
+        return Pipeline::send(Signature::with('item.signatures'))
             ->through([
                 new FilterSignatureCategory($this->filters),
                 new FilterSignatureItem($this->filters),

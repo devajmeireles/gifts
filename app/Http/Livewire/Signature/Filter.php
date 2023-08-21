@@ -4,9 +4,12 @@ namespace App\Http\Livewire\Signature;
 
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class Filter extends Component
 {
+    use Actions;
+
     public bool $modal = false;
 
     public bool $filtered = false;
@@ -35,14 +38,7 @@ class Filter extends Component
 
     public function filter(): void
     {
-        $this->emitUp('signature::index::filter', [
-            'category' => $this->category,
-            'item'     => $this->item,
-            'start'    => $this->start,
-            'end'      => $this->end,
-        ]);
-
-        $this->filtered = true;
+        $this->modal = false;
 
         $this->count = collect([
             $this->category,
@@ -51,7 +47,20 @@ class Filter extends Component
             $this->end,
         ])->filter()->count();
 
-        $this->modal = false;
+        if ($this->count === 0) {
+            $this->notification()->error('Ops!', 'Selecione ao menos um filtro.');
+
+            return;
+        }
+
+        $this->emitUp('signature::index::filter', [
+            'category' => $this->category,
+            'item'     => $this->item,
+            'start'    => $this->start,
+            'end'      => $this->end,
+        ]);
+
+        $this->filtered = true;
     }
 
     public function clear(): void

@@ -30,6 +30,8 @@ class Item extends Model
     ];
 
     protected $casts = [
+        'quantity'       => 'integer',
+        'price'          => 'decimal:2',
         'is_quotable'    => 'boolean',
         'is_active'      => 'boolean',
         'last_signed_at' => 'datetime',
@@ -47,11 +49,7 @@ class Item extends Model
 
     public function price(): ?string
     {
-        if (!$this->price) {
-            return null;
-        }
-
-        return number_format($this->price, 2, ',', '.');
+        return number_format((float) $this->price, 2, ',', '.');
     }
 
     public function signed(): bool
@@ -66,7 +64,17 @@ class Item extends Model
 
     public function availableQuantity(): int
     {
-        return $this->quantity - $this->signatures->count();
+        return ($this->quantity - $this->signatures->count());
+    }
+
+    public function quotePrice(bool $realQuantity = true): string
+    {
+        return number_format(round(($this->price / ($realQuantity ? $this->availableQuantity() : $this->quantity))), 2, ',', '.');
+    }
+
+    public function priceQuoted(int $quantity, bool $realQuantity = true): string
+    {
+        return number_format((($this->price / ($realQuantity ? $this->availableQuantity() : $this->quantity) * $quantity)), 2, ',', '.');
     }
 
     public function scopeActive(Builder $builder): Builder

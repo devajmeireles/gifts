@@ -2,7 +2,7 @@
     @php /** @var \App\Models\Item $item */ @endphp
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-end">
-            @if (!user()->isGuest())
+            @if (!($guest = user()->isGuest()))
                 <livewire:item.create />
             @endif
         </div>
@@ -36,14 +36,16 @@
                                 <x-status :status="$item->is_active" />
                             </x-table.td>
                             <x-table.td buttons>
-                                <x-button.circle primary
-                                                 icon="pencil"
-                                                 wire:click="update({{ $item->id }})"
-                                />
-                                <x-button.circle primary
-                                                 icon="trash"
-                                                 wire:click="delete({{ $item->id }})"
-                                />
+                                @if (!$guest)
+                                    <x-button.circle primary
+                                                     icon="pencil"
+                                                     wire:click="update({{ $item->id }})"
+                                    />
+                                    <x-button.circle primary
+                                                     icon="trash"
+                                                     wire:click="delete({{ $item->id }})"
+                                    />
+                                @endif
                             </x-table.td>
                         </x-table.tr>
                     @empty

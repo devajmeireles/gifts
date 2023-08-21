@@ -1,6 +1,6 @@
 <div>
-    <div class="flex items-center justify-end mb-4 gap-2">
-        @if (!user()->isGuest())
+    <div class="mb-4 flex items-center justify-end gap-2">
+        @if (!($guest = user()->isGuest()))
             <livewire:signature.create />
         @endif
         @if ($signatures->isNotEmpty())
@@ -16,7 +16,7 @@
             />
         </div>
     @endif
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @php /** @var \App\Models\Signature $signature */ @endphp
         @forelse ($signatures as $signature)
             <div class="col-span-full sm:col-span-1">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (!user()->isGuest())
+                    @if (!$guest)
                         <div class="flex justify-end gap-1">
                             <livewire:signature.update :signature="$signature" :key="md5('update-'.$signature->id)" />
                             <livewire:signature.delete :signature="$signature" :key="md5('delete-'.$signature->id)" />

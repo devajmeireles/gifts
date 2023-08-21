@@ -3,10 +3,10 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-end">
             <livewire:user.create />
-            @if ($users->isNotEmpty())
-                <x-table.filter quantity search />
-            @endif
         </div>
+        @if ($users->isNotEmpty())
+            <x-table.filter quantity search />
+        @endif
         <div class="mt-4 flow-root">
             <x-table :items="$users">
                 <x-table.thead>

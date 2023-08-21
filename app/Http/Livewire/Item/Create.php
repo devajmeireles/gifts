@@ -42,7 +42,7 @@ class Create extends Component
         if ($value && Category::count() === 0) {
             $this->dialog()->info(
                 'Sem categoria cadastrada!',
-                'Você precisa cadastrar uma categoria antes de criar um item.'
+                'Cadastre uma categoria para criar itens.',
             );
 
             $this->modal = false;

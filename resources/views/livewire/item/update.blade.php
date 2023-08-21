@@ -18,7 +18,10 @@
             <div class="col-span-full">
                 <x-inputs.number label="Quantidade"
                                  :min="1"
-                                 wire:model.defer="item.quantity" />
+                                 wire:model.debounce.250ms="item.quantity" />
+                @if ($item && $item->is_quotable)
+                    <p class="text-sm text-primary font-semibold">Cotas Assinadas: {{ $item->signatures->count() }}</p>
+                @endif
             </div>
 
             <div class="col-span-full flex items-center gap-2">
@@ -26,13 +29,22 @@
                 <x-toggle label="Cotas" lg wire:model.debounce.250ms="item.is_quotable" />
             </div>
 
-            @if ($item?->is_quotable)
+            @if ($item && $item->is_quotable)
                 <x-input type="number"
                          label="Valor"
                          wire:model="item.price"
                 />
 
                 <x-input label="Referência" wire:model.defer="item.reference" />
+            @endif
+
+            @if ($item && $item->price)
+                <div class="col-span-full">
+                    <x-alert outline center>
+                        Valor da Cota: R$ {{ $item->quotePrice(false) }}
+                        <p class="text-xs text-primary font-semibold">(quantidade ({{ $item->quantity }}) / valor ({{ $item->price }}))</p>
+                    </x-alert>
+                </div>
             @endif
         </div>
 

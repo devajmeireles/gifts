@@ -21,7 +21,7 @@
                                wire:model.defer="signature.phone"
             />
 
-            <x-filter.item wire:model.debounce.250ms="selected"/>
+            <x-filter.item wire:model.debounce.250ms="selected" :active="false"/>
 
             <x-native-select label="Tipo de Entrega"
                              :options="DeliveryType::toSelect()"
@@ -32,12 +32,17 @@
 
             @if ($item && $signature->item->isNot($item))
                 <div class="col-span-full">
-                    <div class="flex justify-center">
-                        <p class="text-xs text-red-500 font-semibold">
-                            Ao trocar o item da assinatura, uma única quantidade do
-                            novo item será consumido para esta assinatura.
-                        </p>
-                    </div>
+                    <x-alert outline center>
+                        Troca de item de assinatura consumirá uma única unidade do item.
+                    </x-alert>
+                </div>
+            @endif
+
+            @if ($item && $item->is_quotable && $item->availableQuantity() > 1)
+                <div class="col-span-full">
+                    <x-alert outline center>
+                        <b>Este item possui cotas (R$ {{ $item->price() }}).</b> {{ $quantity }} unidade custará R$ {{ $item->priceQuoted($quantity, false) }}
+                    </x-alert>
                 </div>
             @endif
 

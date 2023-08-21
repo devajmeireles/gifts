@@ -34,7 +34,7 @@
                              label="Valor"
                              wire:model.debounce.250ms="item.price"
                     />
-                    <p class="mt-1 text-sm font-semibold text-gray-500">Insira o valor total do item</p>
+                    <p class="mt-1 text-sm font-semibold text-gray-500">valor total, exemplo: 1550 = R$ 15,50</p>
                 </div>
 
                 <x-input label="Referência"
@@ -44,8 +44,9 @@
 
                 @if ($item->price)
                     <div class="col-span-full">
-                        <x-alert gray center>
-                            Valor da Cota: R$ {{ number_format(round(($item->price / $item->availableQuantity())), 2, ',', '.') }}
+                        <x-alert outline center>
+                            Valor da Cota: R$ {{ $item->quotePrice() }}
+                            <p class="text-xs text-primary font-semibold">(quantidade disponível ({{ $item->availableQuantity() }}) / valor total)</p>
                         </x-alert>
                     </div>
                 @endif

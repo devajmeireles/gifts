@@ -40,7 +40,7 @@ it('can filter by category', function () {
 });
 
 it('can filter by date', function () {
-    $category = Category::factory()
+    Category::factory()
         ->activated()
         ->create();
 
@@ -57,4 +57,11 @@ it('can filter by date', function () {
             'start'    => $start,
             'end'      => $end,
         ]);
+});
+
+it('cannot filter using zero filters', function () {
+    livewire(Filter::class)
+        ->call('filter')
+        ->assertDispatchedBrowserEvent('wireui:notification')
+        ->assertNotEmitted('signature::index::filter');
 });

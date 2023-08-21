@@ -24,19 +24,37 @@ trait InteractWithSignatureCreation
 
     public function rules(): array
     {
-        $default = [
-            'signature.name'        => ['required', 'string', 'min:3', 'max:255'],
-            'signature.phone'       => ['nullable', 'string', 'min:3', 'max:255'],
-            'delivery'              => ['required', Rule::enum(DeliveryType::class)],
-            'quantity'              => ['required', 'numeric', 'min:1'],
-            'signature.observation' => ['nullable', 'string', 'min:3', 'max:255'],
+        $rules = [
+            'signature.name' => [
+                'required',
+                'string',
+                'min:2',
+                'max:255',
+            ],
+            'signature.phone' => [
+                'string',
+                'min:7',
+                'max:255',
+                Rule::when($this instanceof Signature, ['required'], ['nullable']),
+            ],
+            'delivery' => [
+                'required',
+                Rule::enum(DeliveryType::class),
+            ],
+            'quantity' => [
+                'required',
+                'numeric',
+                'min:1',
+            ],
+            'signature.observation' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:255',
+            ],
         ];
 
-        if ($this instanceof Create) {
-            $default = array_merge($default, ['selected' => ['required']]);
-        }
-
-        return $default;
+        return array_merge($rules, $this instanceof Create ? ['selected' => ['required']] : []);
     }
 
     public function create(): void

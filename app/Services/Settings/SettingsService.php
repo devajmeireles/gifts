@@ -45,9 +45,15 @@ class SettingsService
         }
 
         foreach ($matches[1] as $match) {
+            $value = $this->get($match);
+
+            if ($match === 'data') {
+                $value = rescue(fn () => now()->parse($value)->format('d/m/Y'), report: false);
+            }
+
             $result = str_replace(
                 "{%{$match}%}",
-                $this->get($match),
+                $value,
                 $result
             );
         }

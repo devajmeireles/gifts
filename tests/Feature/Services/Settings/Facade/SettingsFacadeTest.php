@@ -51,10 +51,13 @@ it('can mock', function () {
 });
 
 it('can get subsequently', function () {
+    $now = now();
+
     Settings::set('CONTATO', $phone = '(11) 99999-9999');
     Settings::set('RUA', $street = 'Rua dos Bobos, 0');
-    Settings::set('LOCAL', 'O evento ocorrerá na minha casa ({%rua%}). Se tiver dúvidas de como chegar, ligue para {%contato%}');
+    Settings::set('DATA', $now->format('Y-m-d'));
+    Settings::set('LOCAL', 'O evento ocorrerá na minha casa ({%rua%}), dia: {%data%}. Se tiver dúvidas de como chegar, ligue para {%contato%}');
 
     expect(Settings::get('local'))
-        ->toBe("O evento ocorrerá na minha casa ($street). Se tiver dúvidas de como chegar, ligue para $phone");
+        ->toBe("O evento ocorrerá na minha casa ($street), dia: {$now->format('d/m/Y')}. Se tiver dúvidas de como chegar, ligue para $phone");
 });

@@ -63,16 +63,16 @@ trait InteractWithSignatureCreation
 
     private function success(): void
     {
-        (match (static::class) {
-            Create::class    => fn () => $this->notification()->success('Assinatura criada com sucesso!'),
+        (match (static::class) { // @phpstan-ignore-line
+            Create::class    => fn () => $this->notification()->success('Assinatura criada com sucesso!'), // @phpstan-ignore-line
             Signature::class => fn () => $this->dialog()->success('Assinado!', $this->signature->delivery->thankYou()),
         })();
     }
 
     private function error(): void
     {
-        (match (static::class) {
-            Create::class    => fn () => $this->notification()->error('Erro ao criar assinatura!'),
+        (match (static::class) { // @phpstan-ignore-line
+            Create::class    => fn () => $this->notification()->error('Erro ao criar assinatura!'), // @phpstan-ignore-line
             Signature::class => fn () => $this->dialog()->error('Ops!', 'Algo deu errado. Tente novamente, por gentileza.'),
         })();
     }

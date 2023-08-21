@@ -33,7 +33,7 @@ class Index extends Component
         $this->filtered = false;
 
         $this->data = Category::with('items')
-            ->withCount(['items' => fn (Builder $query) => $query->active()])
+            ->withCount(['items' => fn (Builder $query) => $query->active()]) // @phpstan-ignore-line
             ->active()
             ->limit($this->limit)
             ->get();

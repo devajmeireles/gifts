@@ -19,6 +19,9 @@
                 <x-inputs.number label="Quantidade"
                                  :min="1"
                                  wire:model.debounce.250ms="item.quantity" />
+                @if ($item && $item->is_quotable)
+                    <p class="text-sm text-primary font-semibold">Cotas Assinadas: {{ $item->signatures->count() }}</p>
+                @endif
             </div>
 
             <div class="col-span-full flex items-center gap-2">

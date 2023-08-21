@@ -21,7 +21,7 @@
                                wire:model.defer="signature.phone"
             />
 
-            <x-filter.item wire:model.debounce.250ms="selected"/>
+            <x-filter.item wire:model.debounce.250ms="selected" :active="false"/>
 
             <x-native-select label="Tipo de Entrega"
                              :options="DeliveryType::toSelect()"

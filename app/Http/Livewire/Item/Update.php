@@ -58,14 +58,23 @@ class Update extends Component
             return;
         }
 
-        $original              = $this->item->getOriginal('quantity');
-        $this->item->is_active = ($this->item->quantity > $original) || $this->item->availableQuantity() > $original || !($original === $signatures);
+        $original = $this->item->getOriginal('quantity');
+
+        if (!$this->item->isDirty('is_active')) {
+            $this->item->is_active = ($this->item->quantity > $original) || $this->item->availableQuantity() > $original || !($original === $signatures);
+        }
 
         try {
             $this->item->save();
 
             $this->emitUp('item::index::refresh');
-            $this->notification()->success('Item atualizado com sucesso!');
+
+            $this->notification()->success(
+                'Item atualizado com sucesso!',
+                $this->item->is_active && $this->item->availableQuantity() === 0
+                    ? 'Indisponível <b>(quantidade esgotada)</b>'
+                    : ''
+            );
 
             return;
         } catch (Exception $e) {

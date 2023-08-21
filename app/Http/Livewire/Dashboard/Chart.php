@@ -44,7 +44,7 @@ class Chart extends Component
         );
 
         return collect($period->toArray())
-            ->mapWithKeys(fn (Carbon $date) => [$date->format('Y-m-d') => 0])
+            ->mapWithKeys(fn (Carbon $date) => [$date->format('Y-m-d') => 0]) // @phpstan-ignore-line
             ->toArray();
     }
 

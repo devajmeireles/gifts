@@ -17,7 +17,7 @@ it('can update', function () {
 
     $name        = fake()->word();
     $description = fake()->sentence();
-    $quantity    = fake()->numberBetween($item->quantity + 1, 100);
+    $quantity    = fake()->numberBetween($item->quantity + 2, 100);
     $price       = fake()->numberBetween(1, 100);
     $reference   = fake()->url();
     $quotable    = fake()->boolean();

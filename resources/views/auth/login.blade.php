@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout wrap>
     <form method="POST" class="p-2" action="{{ route('admin.login') }}">
         @csrf
         <div>

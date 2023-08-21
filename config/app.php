@@ -174,7 +174,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Settings' => \App\Services\Settings\Facades\Settings::class,
     ])->toArray(),
 
 ];

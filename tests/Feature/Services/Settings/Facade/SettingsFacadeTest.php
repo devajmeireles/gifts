@@ -5,18 +5,25 @@ use App\Services\Settings\Facades\Settings;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-it('can set', function () {
+it('can set', function (string $type) {
     $key   = 'TITULO_EVENTO';
     $value = 'Evento de teste';
 
-    expect(Settings::set($key, $value))
+    expect(Settings::set($key, $value, $type))
         ->toBeInstanceOf(Setting::class);
 
     assertDatabaseHas('settings', [
         'key'   => $key,
         'value' => $value,
+        'type'  => $type,
     ]);
-});
+})->with([
+    ['text'],
+    ['textarea'],
+    ['phone'],
+    ['date'],
+    ['time'],
+]);
 
 it('can get', function () {
     $setting = Setting::factory()
@@ -41,4 +48,13 @@ it('can mock', function () {
 
     expect(Settings::get('foo'))
         ->toBe('bar');
+});
+
+it('can get subsequently', function () {
+    Settings::set('CONTATO', $phone = '(11) 99999-9999');
+    Settings::set('RUA', $street = 'Rua dos Bobos, 0');
+    Settings::set('LOCAL', 'O evento ocorrerá na minha casa ({%rua%}). Se tiver dúvidas de como chegar, ligue para {%contato%}');
+
+    expect(Settings::get('local'))
+        ->toBe("O evento ocorrerá na minha casa ($street). Se tiver dúvidas de como chegar, ligue para $phone");
 });

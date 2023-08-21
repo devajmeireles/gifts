@@ -14,8 +14,7 @@ class SettingFactory extends Factory
     {
         return [
             'key' => str($this->faker->unique()->sentence(3))
-                ->lower()
-                ->snake()
+                ->upper()
                 ->value(),
             'value' => $this->faker->text(),
         ];

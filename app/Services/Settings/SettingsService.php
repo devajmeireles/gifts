@@ -8,16 +8,19 @@ use Illuminate\Support\Facades\Cache;
 
 class SettingsService
 {
-    public function get(string $key, mixed $default = null): mixed
+    public function get(string $key, mixed $default = null): ?string
     {
         $default = $default instanceof Closure ? $default() : $default;
+        $key     = strtoupper($key);
 
-        return Cache::rememberForever("settings::{$key}", function () use ($key, $default) {
+        $get = Cache::rememberForever("settings::{$key}", function () use ($key, $default) {
             return Setting::firstWhere('key', '=', $key)?->value ?? $default;
         });
+
+        return $get ? $this->parse($get) : null;
     }
 
-    public function set(string $key, mixed $value): Setting
+    public function set(string $key, mixed $value, string $type = 'string'): Setting
     {
         Cache::forget("settings::{$key}");
 
@@ -25,6 +28,30 @@ class SettingsService
             'key' => strtoupper($key),
         ], [
             'value' => $value,
+            'type'  => $type,
         ]);
+    }
+
+    private function parse(string $result): string
+    {
+        if (!str($result)->contains('%')) {
+            return $result;
+        }
+
+        preg_match_all('/\{%(.*?)%\}/', $result, $matches);
+
+        if (empty($matches[1])) {
+            return $result;
+        }
+
+        foreach ($matches[1] as $match) {
+            $result = str_replace(
+                "{%{$match}%}",
+                $this->get($match),
+                $result
+            );
+        }
+
+        return $result;
     }
 }

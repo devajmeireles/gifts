@@ -37,7 +37,7 @@ class Update extends Component
         $this->modal = false;
 
         try {
-            Settings::set($this->setting->key, $this->setting->value);
+            Settings::set($this->setting->key, $this->setting->value, $this->setting->type);
 
             $this->notification()->success('Configuração atualizada com sucesso!');
             $this->emitUp('setting::index::refresh');

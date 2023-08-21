@@ -1,3 +1,5 @@
+@props(['wrap' => null])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -15,11 +17,16 @@
         @livewireStyles
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col justify-center items-center bg-gray-100">
-            <div class="w-full sm:max-w-lg mt-6 px-6 py-6 bg-white shadow-md overflow-hidden rounded-lg">
-                {{ $slot }}
+        @if ($wrap)
+            <div class="min-h-screen flex flex-col justify-center items-center bg-gray-100">
+                <div class="w-full sm:max-w-lg mt-6 px-6 py-6 bg-white shadow-md overflow-hidden rounded-lg">
+                    @endif
+                        {{ $slot }}
+                    @if ($wrap)
+                </div>
             </div>
-        </div>
+        @endif
         @livewireScripts
     </body>
 </html>
+

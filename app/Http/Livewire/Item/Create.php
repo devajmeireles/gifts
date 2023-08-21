@@ -72,14 +72,14 @@ class Create extends Component
         try {
             $this->item->save();
 
-            $this->item();
-
             $this->emitUp('item::index::refresh');
             $this->notification()->success('Item criado com sucesso!');
 
             return;
         } catch (Exception $e) {
             report($e);
+        } finally {
+            $this->item();
         }
 
         $this->notification()->error('Erro ao criar item!');

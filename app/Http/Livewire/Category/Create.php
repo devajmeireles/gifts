@@ -59,14 +59,14 @@ class Create extends Component
             $this->category->color = Badge::from($this->color);
             $this->category->save();
 
-            $this->category();
-
             $this->emitUp('category::index::refresh');
             $this->notification()->success('Categoria criada com sucesso!');
 
             return;
         } catch (Exception $e) {
             report($e);
+        } finally {
+            $this->category();
         }
 
         $this->notification()->error('Erro ao criar categoria!');

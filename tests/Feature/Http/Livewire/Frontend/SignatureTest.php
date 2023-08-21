@@ -1,16 +1,16 @@
 <?php
 
 use App\Enums\DeliveryType;
-use App\Http\Livewire\Signature\Create;
+use App\Http\Livewire\Frontend\Signature;
 use App\Models\Item;
 
 use App\Notifications\SignatureCreated;
-use Illuminate\Support\Facades\Notification;
+use Database\Seeders\SettingSeeder;
 
 use function Pest\Laravel\{assertDatabaseCount, assertDatabaseEmpty, assertDatabaseHas};
 use function Pest\Livewire\livewire;
 
-beforeEach(fn () => createTestUser());
+beforeEach(fn () => $this->seed(SettingSeeder::class));
 
 it('can create one', function () {
     Notification::fake();
@@ -23,11 +23,11 @@ it('can create one', function () {
         ->activated()
         ->create();
 
-    livewire(Create::class)
+    livewire(Signature::class)
         ->set('signature.name', $name)
         ->set('signature.phone', $phone)
         ->set('delivery', $remote = DeliveryType::Remotely->value)
-        ->set('selected', $item->id)
+        ->set('item', $item)
         ->set('signature.observation', $observation)
         ->call('create')
         ->assertHasNoErrors();
@@ -55,11 +55,11 @@ it('can create multiples', function () {
         ->activated()
         ->create(['quantity' => 5]);
 
-    livewire(Create::class)
+    livewire(Signature::class)
         ->set('signature.name', $name)
         ->set('signature.phone', $phone)
-        ->set('delivery', $remote = DeliveryType::Remotely->value)
-        ->set('selected', $item->id)
+        ->set('delivery', DeliveryType::Remotely->value)
+        ->set('item', $item)
         ->set('quantity', 5)
         ->set('signature.observation', $observation)
         ->call('create')
@@ -83,11 +83,11 @@ it('can create with quotas', function () {
         ->quotable(5)
         ->create();
 
-    livewire(Create::class)
+    livewire(Signature::class)
         ->set('signature.name', $name)
         ->set('signature.phone', $phone)
         ->set('delivery', $remote = DeliveryType::Remotely->value)
-        ->set('selected', $item->id)
+        ->set('item', $item)
         ->set('quantity', 5)
         ->set('signature.observation', $observation)
         ->call('create')
@@ -113,15 +113,15 @@ it('cannot create out of quantity', function () {
         ->activated()
         ->create(['quantity' => 2]);
 
-    livewire(Create::class)
+    livewire(Signature::class)
         ->set('signature.name', $name)
         ->set('signature.phone', $phone)
         ->set('delivery', DeliveryType::Remotely->value)
-        ->set('selected', $item->id)
+        ->set('item', $item)
         ->set('quantity', 3)
         ->set('signature.observation', $observation)
         ->call('create')
-        ->assertDispatchedBrowserEvent('wireui:notification');
+        ->assertDispatchedBrowserEvent('wireui:dialog');
 
     assertDatabaseEmpty('signatures');
 
@@ -139,15 +139,15 @@ it('cannot create with inactivated item', function () {
         ->inactivated()
         ->create(['quantity' => 5]);
 
-    livewire(Create::class)
+    livewire(Signature::class)
         ->set('signature.name', $name)
         ->set('signature.phone', $phone)
         ->set('delivery', DeliveryType::Remotely->value)
-        ->set('selected', $item->id)
+        ->set('item', $item)
         ->set('quantity', 3)
         ->set('signature.observation', $observation)
         ->call('create')
-        ->assertDispatchedBrowserEvent('wireui:notification');
+        ->assertDispatchedBrowserEvent('wireui:dialog');
 
     assertDatabaseEmpty('signatures');
 

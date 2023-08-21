@@ -32,6 +32,9 @@ it('can search', function () {
     $one = $item->first();
     $two = $item->last();
 
+    $one->update(['name' => 'First Item']);
+    $two->update(['name' => 'Second Item']);
+
     livewire(Index::class)
         ->set('search', $one->name)
         ->assertSee($one->name)

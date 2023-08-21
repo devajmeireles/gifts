@@ -9,6 +9,7 @@ use App\Http\Livewire\Signature\Create;
 use App\Models\{Item, Signature as Model};
 use Exception;
 use Illuminate\Validation\Rule;
+use WireUi\Actions\{Dialog, Notification};
 
 trait InteractWithSignatureCreation
 {
@@ -44,6 +45,18 @@ trait InteractWithSignatureCreation
 
         $this->signature->delivery = DeliveryType::from($this->delivery);
 
+        if (!$this->item->is_active) {
+            $this->type()->error('Ops!', 'O item selecionado não está mais disponível.');
+
+            return;
+        }
+
+        if ($this->quantity > ($available = $this->item->availableQuantity())) {
+            $this->type()->error('Ops!', "Este item possui apenas $available unidade(s) disponívei(s).");
+
+            return;
+        }
+
         try {
             app(CreateSignature::class)->execute($this->item, $this->signature, $this->quantity);
 
@@ -74,6 +87,14 @@ trait InteractWithSignatureCreation
         (match (static::class) { // @phpstan-ignore-line
             Create::class    => fn () => $this->notification()->error('Erro ao criar assinatura!'), // @phpstan-ignore-line
             Signature::class => fn () => $this->dialog()->error('Ops!', 'Algo deu errado. Tente novamente, por gentileza.'),
+        })();
+    }
+
+    private function type(): Notification|Dialog // @phpstan-ignore-line
+    {
+        return (match (static::class) { // @phpstan-ignore-line
+            Create::class    => fn () => $this->notification(), // @phpstan-ignore-line
+            Signature::class => fn () => $this->dialog()
         })();
     }
 

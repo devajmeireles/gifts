@@ -60,8 +60,7 @@ npm install && npm run build
 
 ## Possíveis Adicionais Futuros
 
-1. Notificações via E-mail.
-2. Integração com PIX da PagHiper.
+1. Integração com PIX.
 
 ## Contribuições
 

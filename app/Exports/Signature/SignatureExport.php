@@ -4,9 +4,9 @@ namespace App\Exports\Signature;
 
 use App\Models\Signature;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithMapping};
 
-class SignatureExport implements FromCollection
+class SignatureExport implements FromCollection, WithMapping, WithHeadings
 {
     public function __construct(
         protected SignatureExportable $exportable
@@ -16,7 +16,8 @@ class SignatureExport implements FromCollection
 
     public function collection(): Collection
     {
-        $data     = $this->exportable->toArray();
+        $data = $this->exportable->toArray();
+
         $category = data_get($data, 'category');
         $item     = data_get($data, 'item');
         $start    = data_get($data, 'start');
@@ -52,7 +53,7 @@ class SignatureExport implements FromCollection
             $row->item->name,
             $row->item->category->name,
             $row->name,
-            $row->phone,
+            $row->phone ?? 'N/A',
             $row->delivery->translate(),
             $row->observation ?? 'N/A',
             $row->created_at->format('d/m/Y H:i:s'),

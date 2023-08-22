@@ -63,11 +63,10 @@ class Filter extends Component
 
     public function export(): BinaryFileResponse
     {
-        $category = $this->category;
+        $category    = $this->category;
+        $this->modal = false;
 
-        $this->filtered = false;
-        $this->count    = 0;
-        $this->modal    = false;
+        $this->clear();
 
         $file = sprintf('itens-%s.xlsx', now()->format('Y-m-d_H:i:s'));
 

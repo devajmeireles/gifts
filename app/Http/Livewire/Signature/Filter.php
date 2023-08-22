@@ -81,14 +81,23 @@ class Filter extends Component
 
     public function export(): BinaryFileResponse
     {
+        $category = $this->category;
+        $item     = $this->item;
+        $start    = $this->start;
+        $end      = $this->end;
+
+        $this->clear();
+
+        $this->modal = false;
+
         $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i:s'));
 
         return Excel::download(
             new SignatureExport(SignatureExportable::make([
-                'category' => $this->category,
-                'item'     => $this->item,
-                'start'    => $this->start,
-                'end'      => $this->end,
+                'category' => $category,
+                'item'     => $item,
+                'start'    => $start,
+                'end'      => $end,
             ])),
             $file
         );

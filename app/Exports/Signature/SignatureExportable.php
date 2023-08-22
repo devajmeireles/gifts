@@ -2,23 +2,20 @@
 
 namespace App\Exports\Signature;
 
-use App\Models\{Category, Item};
+use App\Exports\Traits\Makeable;
 use Illuminate\Contracts\Support\Arrayable;
 
 class SignatureExportable implements Arrayable
 {
+    use Makeable;
+
     public function __construct(
-        protected readonly ?Category $category = null,
-        protected readonly ?Item     $item = null,
-        protected readonly ?string   $start = null,
-        protected readonly ?string   $end = null,
+        protected readonly ?int    $category = null,
+        protected readonly ?int    $item = null,
+        protected readonly ?string $start = null,
+        protected readonly ?string $end = null,
     ) {
         //
-    }
-
-    public static function make(...$parameters): self
-    {
-        return new static(...$parameters);
     }
 
     public function toArray(): array

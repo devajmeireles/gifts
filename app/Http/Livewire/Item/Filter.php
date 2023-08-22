@@ -63,11 +63,17 @@ class Filter extends Component
 
     public function export(): BinaryFileResponse
     {
+        $category = $this->category;
+
+        $this->filtered = false;
+        $this->count    = 0;
+        $this->modal    = false;
+
         $file = sprintf('itens-%s.xlsx', now()->format('Y-m-d_H:i:s'));
 
         return Excel::download(
             new ItemExport(ItemExportable::make([
-                'category' => $this->category,
+                'category' => $category,
             ])),
             $file
         );

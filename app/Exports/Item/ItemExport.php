@@ -18,7 +18,7 @@ class ItemExport implements FromCollection, WithMapping, WithHeadings
     {
         $category = data_get($this->exportable->toArray(), 'category');
 
-        return Signature::with('item.category')
+        return Item::with(['category', 'signatures'])
             ->when($category, fn ($query) => $query->where('category_id', '=', $category))
             ->get();
     }

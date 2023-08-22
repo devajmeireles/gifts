@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $production = $this->app->isProduction();
 
-        if ($production && str_contains(config('app.url'), 'https')) {
+        if ($production) {
             URL::forceScheme('https');
         }
 

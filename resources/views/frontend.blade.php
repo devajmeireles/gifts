@@ -1,6 +1,13 @@
 <x-guest-layout>
     <div class="bg-white">
         <main class="isolate">
+            @if (auth()->check())
+                <div class="p-2">
+                    <x-button.circle sm primary href="{{ route('admin.dashboard') }}">
+                        <x-heroicon-s-arrow-up-right class="h-6 w-6 text-white" />
+                    </x-button.circle>
+                </div>
+            @endif
             <div class="relative pt-14">
                 <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                      aria-hidden="true">

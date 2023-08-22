@@ -89,7 +89,7 @@
                       icon="arrow-left"
                       wire:click="category"
             />
-            @if ($data->count() > 9)
+            @if ($data->isNotEmpty())
                 <x-button wire:loading.remove
                           wire:target="category"
                           sm

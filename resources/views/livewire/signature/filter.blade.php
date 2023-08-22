@@ -30,12 +30,7 @@
                                wire:model.debounce.250ms="end"
             />
 
-            <x-export :route="route('admin.signatures.export', [
-                'category' => $category,
-                'item'     => $item,
-                'start'    => $start,
-                'end'      => $end,
-            ])" />
+            <x-export wire:click="export" />
         </div>
         <x-slot name="footer">
             <div class="flex justify-end gap-x-4">

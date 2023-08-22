@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Signature;
 
+use App\Exports\Signature\{SignatureExport, SignatureExportable};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use WireUi\Traits\Actions;
 
 class Filter extends Component
@@ -74,5 +77,20 @@ class Filter extends Component
         $this->count    = 0;
 
         $this->emitUp('signature::index::refresh');
+    }
+
+    public function export(): BinaryFileResponse
+    {
+        $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i:s'));
+
+        return Excel::download(
+            new SignatureExport(SignatureExportable::make([
+                'category' => $this->category,
+                'item'     => $this->item,
+                'start'    => $this->start,
+                'end'      => $this->end,
+            ])),
+            $file
+        );
     }
 }

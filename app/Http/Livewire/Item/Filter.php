@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\Item;
 
+use App\Exports\Item\{ItemExport, ItemExportable};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use WireUi\Traits\Actions;
 
 class Filter extends Component
@@ -56,5 +59,17 @@ class Filter extends Component
         $this->count    = 0;
 
         $this->emitUp('item::index::refresh');
+    }
+
+    public function export(): BinaryFileResponse
+    {
+        $file = sprintf('itens-%s.xlsx', now()->format('Y-m-d_H:i:s'));
+
+        return Excel::download(
+            new ItemExport(ItemExportable::make([
+                'category' => $this->category,
+            ])),
+            $file
+        );
     }
 }

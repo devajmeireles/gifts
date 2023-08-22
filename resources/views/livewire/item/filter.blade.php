@@ -15,7 +15,7 @@
         <div class="grid grid-cols-1 gap-4">
             <x-filter.category wire:model.debounce.250ms="category"/>
 
-            <x-export :route="route('admin.items.export', $category)" />
+            <x-export wire:click="export" />
         </div>
         <hr>
         <x-slot name="footer">

@@ -2,25 +2,31 @@
 
 namespace App\Exports\Signature;
 
-use App\Models\{Category, Item, Signature};
+use App\Models\Signature;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class SignatureExport implements FromCollection
 {
     public function __construct(
-        protected readonly ?Category $category = null,
-        protected readonly ?Item $item = null,
-        protected readonly ?string $start = null,
-        protected readonly ?string $end = null,
+        protected SignatureExportable $exportable
     ) {
         //
     }
 
     public function collection(): Collection
     {
-        return Signature::with(['item.category'])
-            ->when($this->category, fn ($query) => $query->where('category_id', '=', $this->category->id))
+        $data     = $this->exportable->toArray();
+        $category = data_get($data, 'category');
+        $item     = data_get($data, 'item');
+        $start    = data_get($data, 'start');
+        $end      = data_get($data, 'end');
+
+        return Signature::with('item.category')
+            ->when($category, fn ($query) => $query->where('category_id', '=', $category))
+            ->when($item, fn ($query) => $query->where('item_id', '=', $item))
+            ->when($start, fn ($query) => $query->whereDate('created_at', '>=', $start))
+            ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
             ->get();
     }
 

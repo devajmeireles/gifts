@@ -60,10 +60,8 @@ npm install && npm run build
 
 ## Possíveis Adicionais Futuros
 
-1. Notificações via Slack, WhatsApp ou E-mail.
+1. Notificações via E-mail.
 2. Integração com PIX da PagHiper.
-3. Exportações de Listas de Itens e Assinaturas via Excel.
-
 
 ## Contribuições
 

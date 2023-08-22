@@ -13,6 +13,14 @@ enum DeliveryType: int
     case InPerson = 1;
     case Remotely = 2;
 
+    public function translate(): string
+    {
+        return match ($this) {
+            self::InPerson => __('app.delivery_type.inperson'),
+            self::Remotely => __('app.delivery_type.remotely'),
+        };
+    }
+
     public function thankYou(): string
     {
         return match ($this) {

@@ -4,12 +4,13 @@ use App\Enums\UserRole;
 use App\Http\Livewire\Category\{Create, Delete, Index, Update};
 use App\Models\Category;
 
+use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
 it('can render component', function () {
-    $this->get(route('admin.categories'))
+    get(route('admin.categories'))
         ->assertSeeLivewire(Index::class);
 });
 
@@ -94,7 +95,7 @@ it('cannot see buttons if is guest', function () {
     $user = user();
     $user->update(['role' => UserRole::Guest]);
 
-    $this->get(route('admin.categories'))
+    get(route('admin.categories'))
         ->assertSeeLivewire(Index::class)
         ->assertDontSeeLivewire(Create::class)
         ->assertDontSeeLivewire(Update::class)

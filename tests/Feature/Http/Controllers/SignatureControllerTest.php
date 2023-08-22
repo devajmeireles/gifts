@@ -7,7 +7,7 @@ use function Pest\Laravel\get;
 it('can access', function () {
     createTestUser();
 
-    get(route('admin.signatures'))
+    get(route('admin.signatures.index'))
         ->assertOk()
         ->assertSeeLivewire(Index::class);
 });

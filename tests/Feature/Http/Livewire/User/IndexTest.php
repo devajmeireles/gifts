@@ -3,12 +3,13 @@
 use App\Http\Livewire\User\Index;
 use App\Models\{Item, User};
 
+use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
 it('can render component', function () {
-    $this->get(route('admin.users'))
+    get(route('admin.users'))
         ->assertSeeLivewire(Index::class);
 });
 

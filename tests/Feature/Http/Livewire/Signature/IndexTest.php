@@ -4,12 +4,13 @@ use App\Enums\UserRole;
 use App\Http\Livewire\Signature\{Create, Delete, Index, Update};
 use App\Models\{Category, Item, Signature};
 
+use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
 
 it('can render component', function () {
-    $this->get(route('admin.signatures'))
+    get(route('admin.signatures.index'))
         ->assertSeeLivewire(Index::class);
 });
 
@@ -136,7 +137,7 @@ it('cannot see buttons if is guest', function () {
     $user = user();
     $user->update(['role' => UserRole::Guest]);
 
-    $this->get(route('admin.signatures'))
+    get(route('admin.signatures.index'))
         ->assertSeeLivewire(Index::class)
         ->assertDontSeeLivewire(Create::class)
         ->assertDontSeeLivewire(Update::class)

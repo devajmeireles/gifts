@@ -25,9 +25,23 @@ Route::middleware('auth')
                 Route::delete('/profile', 'destroy')->name('destroy');
             });
 
-        Route::get('/items', ItemController::class)->name('items');
+        Route::controller(ItemController::class)
+            ->prefix('/items')
+            ->name('items.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/export', 'export')->name('export');
+            });
+
         Route::get('/categories', CategoryController::class)->name('categories');
-        Route::get('/signatures', SignatureController::class)->name('signatures');
+
+        Route::controller(SignatureController::class)
+            ->prefix('/signatures')
+            ->name('signatures.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/export', 'export')->name('export');
+            });
 
         Route::middleware(UnauthorizeSettingsPageAccess::class)
             ->get('/settings', SettingsController::class)

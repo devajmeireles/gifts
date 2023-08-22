@@ -8,9 +8,9 @@
                                               :active="request()->routeIs('admin.dashboard')"
                                               label="Página Inicial"
                     />
-                    <x-layout.navigation.link :route="route('admin.items')"
+                    <x-layout.navigation.link :route="route('admin.items.index')"
                                               icon="gift"
-                                              :active="request()->routeIs('admin.items')"
+                                              :active="request()->routeIs('admin.items.index')"
                                               label="Itens"
                     />
                     <x-layout.navigation.link :route="route('admin.categories')"
@@ -18,9 +18,9 @@
                                               :active="request()->routeIs('admin.categories')"
                                               label="Categorias"
                     />
-                    <x-layout.navigation.link :route="route('admin.signatures')"
+                    <x-layout.navigation.link :route="route('admin.signatures.index')"
                                               icon="pencil"
-                                              :active="request()->routeIs('admin.signatures')"
+                                              :active="request()->routeIs('admin.signatures.index')"
                                               label="Assinaturas"
                     />
                 </ul>

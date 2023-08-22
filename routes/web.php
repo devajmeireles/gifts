@@ -30,7 +30,7 @@ Route::middleware('auth')
             ->name('items.')
             ->group(function () {
                 Route::get('/', 'index')->name('index');
-                Route::get('/export/{category?}', 'export')->name('export');
+                Route::get('/export', 'export')->name('export');
             });
 
         Route::get('/categories', CategoryController::class)->name('categories');

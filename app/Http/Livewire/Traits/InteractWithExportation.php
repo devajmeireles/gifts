@@ -2,15 +2,13 @@
 
 namespace App\Http\Livewire\Traits;
 
-use App\Http\Livewire\{Item, Signature};
-use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Routing\Redirector;
 
 trait InteractWithExportation
 {
     abstract public function clear(): void;
 
-    public function export(): BinaryFileResponse
+    public function export(): Redirector
     {
         $exportable = $this->exportable();
 
@@ -18,17 +16,6 @@ trait InteractWithExportation
 
         $this->modal = false;
 
-        return Excel::download(
-            $exportable,
-            sprintf('%s-%s.xlsx', $this->name(), now()->format('Y-m-d_H:i:s'))
-        );
-    }
-
-    private function name(): string
-    {
-        return match (self::class) {
-            Signature\Filter::class => 'assinaturas',
-            Item\Filter::class      => 'itens',
-        };
+        return redirect(route('admin.items.export', [...$exportable]));
     }
 }

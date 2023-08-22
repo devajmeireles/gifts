@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class Filter extends Component implements ShouldExport, MustExportItem
+class Filter extends Component implements ShouldExport
 {
     use Actions;
     use InteractWithExportation;
@@ -62,8 +62,11 @@ class Filter extends Component implements ShouldExport, MustExportItem
         $this->emitUp('item::index::refresh');
     }
 
-    public function exportable(): ItemExport
+    public function exportable(): array
     {
-        return new ItemExport($this->category);
+        return [
+            'category' => $this->category,
+        ];
     }
 }
+

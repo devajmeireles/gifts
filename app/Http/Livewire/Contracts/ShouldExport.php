@@ -6,5 +6,5 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 interface ShouldExport
 {
-    public function export(): BinaryFileResponse;
+    public function exportable(): array;
 }

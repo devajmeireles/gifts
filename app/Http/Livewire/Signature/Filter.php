@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Signature;
 use App\Exports\Contracts\ShouldExport;
 use App\Http\Livewire\Traits\InteractWithExportation;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -27,6 +28,14 @@ class Filter extends Component implements ShouldExport
 
     public ?string $end = null;
 
+    public function mount(): void
+    {
+        $cache = Cache::get('signature::index::filter');
+
+        $this->filtered = ($count = collect($cache)->count()) > 0;
+        $this->count    = $count;
+    }
+
     public function render(): View
     {
         return view('livewire.signature.filter');
@@ -35,7 +44,7 @@ class Filter extends Component implements ShouldExport
     public function updatedModal(): void
     {
         if (!$this->modal) {
-            $this->category = null;
+            $this->resetExcept('modal');
         }
     }
 
@@ -43,40 +52,36 @@ class Filter extends Component implements ShouldExport
     {
         $this->modal = false;
 
-        $this->count = collect([
-            $this->category,
-            $this->item,
-            $this->start,
-            $this->end,
-        ])->filter()->count();
+        $collect = collect([
+            'category' => $this->category,
+            'item'     => $this->item,
+            'start'    => $this->start,
+            'end'      => $this->end,
+        ])->filter();
 
-        if ($this->count === 0) {
+        if ($collect->isEmpty()) {
             $this->notification()->error('Ops!', 'Selecione ao menos um filtro.');
 
             return;
         }
 
-        $this->emitUp('signature::index::filter', [
-            'category' => $this->category,
-            'item'     => $this->item,
-            'start'    => $this->start,
-            'end'      => $this->end,
-        ]);
-
         $this->filtered = true;
+        $this->count    = $collect->count();
+
+        $filters = [...$collect->toArray()];
+
+        $this->emitUp('signature::index::filter', $filters);
+
+        Cache::put('signature::index::filter', $filters);
     }
 
     public function clear(): void
     {
-        $this->category = null;
-        $this->item     = null;
-        $this->start    = null;
-        $this->end      = null;
-
-        $this->filtered = false;
-        $this->count    = 0;
+        $this->reset();
 
         $this->emitUp('signature::index::refresh');
+
+        Cache::forget('signature::index::filter');
     }
 
     public function exportable(): array

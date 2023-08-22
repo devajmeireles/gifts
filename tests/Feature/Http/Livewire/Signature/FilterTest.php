@@ -20,10 +20,7 @@ it('can filter by item', function () {
         ->set('item', $item->id)
         ->call('filter')
         ->assertEmittedUp('signature::index::filter', [
-            'category' => null,
-            'item'     => $item->id,
-            'start'    => null,
-            'end'      => null,
+            'item' => $item->id,
         ]);
 });
 
@@ -37,9 +34,6 @@ it('can filter by category', function () {
         ->call('filter')
         ->assertEmittedUp('signature::index::filter', [
             'category' => $category->id,
-            'item'     => null,
-            'start'    => null,
-            'end'      => null,
         ]);
 });
 
@@ -56,10 +50,8 @@ it('can filter by date', function () {
         ->set('end', $end)
         ->call('filter')
         ->assertEmittedUp('signature::index::filter', [
-            'category' => null,
-            'item'     => null,
-            'start'    => $start,
-            'end'      => $end,
+            'start' => $start,
+            'end'   => $end,
         ]);
 });
 

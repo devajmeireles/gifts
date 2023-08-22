@@ -6,6 +6,7 @@ use App\Filters\Traits\ShareableConstructor;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class FilterCategoryItem
 {
@@ -13,7 +14,9 @@ class FilterCategoryItem
 
     public function handle(Builder $builder, Closure $next): LengthAwarePaginator
     {
-        if (($category = data_get($this->filters, 'category')) !== null) {
+        $category = data_get($this->filters, 'category', Cache::get('item::index::filter'));
+
+        if ($category) {
             $builder->where('category_id', '=', $category);
         }
 

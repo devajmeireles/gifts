@@ -6,6 +6,7 @@ use App\Filters\Traits\ShareableConstructor;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class FilterSignatureCategory
 {
@@ -13,12 +14,15 @@ class FilterSignatureCategory
 
     public function handle(Builder $builder, Closure $next): LengthAwarePaginator
     {
-        if (($category = data_get($this->filters, 'category')) !== null) {
-            $builder->whereHas(
+        $category = data_get($this->filters, 'category', Cache::get('signature::index::filter')['category'] ?? null);
+
+        $builder->when(
+            $category,
+            fn (Builder $builder) => $builder->whereHas(
                 'item',
                 fn (Builder $builder) => $builder->where('category_id', '=', $category)
-            );
-        }
+            )
+        );
 
         return $next($builder);
     }

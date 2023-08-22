@@ -16,8 +16,6 @@ trait InteractWithExportation
 
         $this->clear();
 
-        $this->modal = false;
-
         $route = $this instanceof Filter
             ? 'admin.items.export'
             : 'admin.signatures.export';

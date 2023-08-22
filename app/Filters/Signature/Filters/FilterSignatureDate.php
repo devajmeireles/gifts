@@ -2,7 +2,7 @@
 
 namespace App\Filters\Signature\Filters;
 
-use App\Filters\Signature\ShareableConstructor;
+use App\Filters\Traits\ShareableConstructor;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;

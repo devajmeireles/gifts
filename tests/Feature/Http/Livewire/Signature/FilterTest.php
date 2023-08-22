@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Signature\Filter;
+use App\Http\Livewire\Signature\{Filter, Index};
 use App\Models\{Category, Item, Signature};
 
 use function Pest\Livewire\livewire;
@@ -64,4 +64,87 @@ it('cannot filter using zero filters', function () {
         ->call('filter')
         ->assertDispatchedBrowserEvent('wireui:notification')
         ->assertNotEmitted('signature::index::filter');
+});
+
+it('can view filtered by item', function () {
+    $one = Item::factory()
+        ->forCategory()
+        ->activated()
+        ->create();
+
+    $two = Item::factory()
+        ->activated()
+        ->create();
+
+    Signature::factory()
+        ->for($one)
+        ->create();
+
+    Signature::factory()
+        ->for($two)
+        ->create();
+
+    livewire(Index::class)
+        ->call('filter', [
+            'item' => $one->id,
+        ])
+        ->assertSee($one->name)
+        ->assertDontSee($two->name);
+});
+
+it('can view filtered by category', function () {
+    $one = Item::factory()
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $two = Item::factory()
+        ->activated()
+        ->create();
+
+    Signature::factory()
+        ->for($one)
+        ->create();
+
+    Signature::factory()
+        ->for($two)
+        ->create();
+
+    livewire(Index::class)
+        ->call('filter', [
+            'category' => $category->id,
+        ])
+        ->assertSee($one->name)
+        ->assertDontSee($two->name);
+});
+
+it('can view filtered by dates', function () {
+    $one = Item::factory()
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $two = Item::factory()
+        ->activated()
+        ->create();
+
+    Signature::factory()
+        ->for($one)
+        ->create([
+            'created_at' => now()->subDays(10),
+        ]);
+
+    Signature::factory()
+        ->for($two)
+        ->create([
+            'created_at' => now()->addDays(5),
+        ]);
+
+    livewire(Index::class)
+        ->call('filter', [
+            'start' => now()->subDays(10)->format('Y-m-d'),
+            'end'   => now()->subDays(1)->format('Y-m-d'),
+        ])
+        ->assertSee($one->name)
+        ->assertDontSee($two->name);
 });

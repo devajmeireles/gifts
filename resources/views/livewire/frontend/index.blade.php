@@ -5,8 +5,11 @@
     <div class="justify-center" wire:loading.flex wire:target="item">
         <x-preloader />
     </div>
+    <div class="justify-center" wire:loading.flex wire:target="more">
+        <x-preloader />
+    </div>
     @if (!$filtered && $data)
-        <div wire:loading.remove wire:target="item" class="grid grid-cols-2 sm:grid-cols-3 gap-4" wire:key="category">
+        <div wire:loading.remove wire:target="item" class="grid grid-cols-2 gap-4 sm:grid-cols-3" wire:key="category">
             @php /** @var \App\Models\Category $category */ @endphp
             @forelse ($data as $category)
                 <div class="col-span-full sm:col-span-1">
@@ -34,11 +37,11 @@
     @endif
     @if ($filtered && $data)
         <div class="flex items-center gap-2">
-            <p class="text-4xl text-primary font-bold uppercase">
+            <p class="text-4xl font-bold uppercase text-primary">
                 {{ $category->name }}
             </p>
             @if ($category->description)
-                <p class="text-md text-gray-600">{{ $category->description }}</p>
+                <p class="text-gray-600 text-md">{{ $category->description }}</p>
             @endif
         </div>
         <div class="mt-2">
@@ -47,7 +50,7 @@
                      type="search"
             />
         </div>
-        <div wire:loading.remove wire:target="category" class="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4" wire:key="item">
+        <div wire:loading.remove wire:target="category" class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3" wire:key="item">
             @php /** @var \App\Models\Item $item */ @endphp
             @forelse ($data as $item)
                 <div class="col-span-1">
@@ -55,6 +58,9 @@
                         <div class="p-4">
                             <p class="text-2xl font-semibold uppercase text-primary">
                                 {{ $item->name }}
+                                @if ($item->description)
+                                    <x-tooltip :text="$item->description" />
+                                @endif
                             </p>
                             <p class="text-sm leading-6 text-gray-600">
                                 {!! trans_choice(
@@ -74,7 +80,7 @@
                 </div>
             @endforelse
         </div>
-        <div class="flex justify-start mt-4">
+        <div class="mt-4 flex justify-start gap-2">
             <x-button wire:loading.remove
                       wire:target="category"
                       sm
@@ -83,6 +89,16 @@
                       icon="arrow-left"
                       wire:click="category"
             />
+            @if ($data->count() > 9)
+                <x-button wire:loading.remove
+                          wire:target="category"
+                          sm
+                          green
+                          label="Carregar Mais"
+                          icon="plus"
+                          wire:click="more"
+                />
+            @endif
         </div>
     @endif
 </div>

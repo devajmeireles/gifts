@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filters\Signature;
+namespace App\Filters\Traits;
 
 trait ShareableConstructor
 {

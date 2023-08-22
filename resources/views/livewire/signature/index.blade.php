@@ -3,9 +3,7 @@
         @if (!($guest = user()->isGuest()))
             <livewire:signature.create />
         @endif
-        @if ($signatures->isNotEmpty())
-            <livewire:signature.filter />
-        @endif
+        <livewire:signature.filter />
     </div>
     @if ($signatures->isNotEmpty())
         <div class="mb-4">

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Filters\Signature\Filters;
+namespace App\Filters\Item;
 
 use App\Filters\Traits\ShareableConstructor;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class FilterSignatureItem
+class FilterCategoryItem
 {
     use ShareableConstructor;
 
     public function handle(Builder $builder, Closure $next): LengthAwarePaginator
     {
-        if (($item = data_get($this->filters, 'item')) !== null) {
-            $builder->where('item_id', '=', $item);
+        if (($category = data_get($this->filters, 'category')) !== null) {
+            $builder->where('category_id', '=', $category);
         }
 
         return $next($builder);

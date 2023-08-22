@@ -10,7 +10,7 @@
             <x-filter.category wire:model.defer="item.category_id" />
 
             @if (!$description)
-                <p class="text-sm text-primary font-semibold cursor-pointer" wire:click="$toggle('description')">Definir descrição no item</p>
+                <p class="text-sm text-primary font-semibold cursor-pointer" wire:click="$toggle('description')">Definir descrição do item</p>
             @endif
 
             @if ($description)

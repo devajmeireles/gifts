@@ -8,7 +8,7 @@
             @endif
 
             @if (!$description)
-                <p class="text-sm text-primary font-semibold cursor-pointer" wire:click="$toggle('description')">Definir descrição no item</p>
+                <p class="text-sm text-primary font-semibold cursor-pointer" wire:click="$toggle('description')">Definir descrição do item</p>
             @endif
 
             @if ($item && $item->description || $description)

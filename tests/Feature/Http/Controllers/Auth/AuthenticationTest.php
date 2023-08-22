@@ -1,7 +1,5 @@
 <?php
 
-use App\Providers\RouteServiceProvider;
-
 it('can see login page', function () {
     $response = $this->get(route('admin.login'));
 

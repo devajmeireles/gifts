@@ -12,7 +12,12 @@ class AuthenticatedSessionController extends Controller
 {
     public function create(): View
     {
-        return view('auth.login');
+        $demo = config('app.demo');
+
+        return view('auth.login', [
+            'username' => $demo ? 'demo' : '',
+            'password' => $demo ? 'demo' : '',
+        ]);
     }
 
     public function store(LoginRequest $request): RedirectResponse

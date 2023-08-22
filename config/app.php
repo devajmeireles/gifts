@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,4 +177,11 @@ return [
         'Settings' => \App\Services\Settings\Facades\Settings::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Demonstration Mode
+    |--------------------------------------------------------------------------
+    |
+    */
+    'demo' => (bool) env('APP_DEMO', false),
 ];

@@ -17,7 +17,7 @@ it('can authenticate', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertRedirect(route('admin.dashboard'));
 });
 
 it('cannot authenticate using wrong password', function () {

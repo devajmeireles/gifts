@@ -102,6 +102,19 @@ it('can create with quotas', function () {
     Notification::assertSentTo($item, SignatureCreated::class);
 });
 
+it('can view item reference', function () {
+    $item = Item::factory()
+        ->activated()
+        ->quotable(1)
+        ->create(['reference' => $url = fake()->url()]);
+
+    livewire(Signature::class)
+        ->set('item', $item)
+        ->set('modal', true)
+        ->assertSee($url)
+        ->assertSee('Veja um modelo do item desejado clicando aqui.');
+});
+
 it('cannot create out of quantity', function () {
     Notification::fake();
 

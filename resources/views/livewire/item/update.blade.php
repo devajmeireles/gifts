@@ -44,7 +44,6 @@
                 <x-input label="Referência" wire:model.defer="item.reference" />
             @endif
 
-{{--            TODO: test --}}
             @if ($item && $item->is_quotable && $item->price > 0)
                 <div class="col-span-full">
                     <x-alert outline center>

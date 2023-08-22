@@ -29,7 +29,6 @@ class Index extends Component
         return view('livewire.frontend.index');
     }
 
-    //TODO: testar
     public function more(): void
     {
         $this->limit += 9;

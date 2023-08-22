@@ -64,4 +64,79 @@ it('can view category with multiples item', function () {
         ->assertSee('5 itens nesta categoria');
 });
 
-it('can view in correct order')->todo();
+it('can view item', function () {
+    $items = Item::factory(2)
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $first = $items->first();
+    $last  = $items->last();
+
+    livewire(Index::class)
+        ->call('item', $category)
+        ->assertSee([
+            $first->name,
+            $last->name,
+        ]);
+});
+
+it('can view description', function () {
+    $items = Item::factory(2)
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $first = $items->first();
+    $last  = $items->last();
+
+    $first->update(['description' => Lorem::text()]);
+    $last->update(['description' => null]);
+
+    livewire(Index::class)
+        ->call('item', $category)
+        ->assertSee($first->description)
+        ->assertDontSee($last->description);
+});
+
+it('cal load more', function () {
+    $items = Item::factory(2)
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $first = $items->first();
+    $last  = $items->last();
+
+    $first->update(['name' => 'Abcdef']);
+    $last->update(['name' => 'Bcdefg']);
+
+    livewire(Index::class)
+        ->set('limit', 1)
+        ->call('item', $category)
+        ->assertSee($first->name)
+        ->call('more')
+        ->assertEmitted('frontend::load::more')
+        ->call('item', $category)
+        ->assertSee($last->name);
+});
+
+it('can view in correct order', function () {
+    $items = Item::factory(2)
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $first = $items->first();
+    $last  = $items->last();
+
+    $first->update(['name' => 'Abcdef']);
+    $last->update(['name' => 'Bcdefg']);
+
+    livewire(Index::class)
+        ->call('item', $category)
+        ->assertSeeInOrder([
+            $first->name,
+            $last->name,
+        ]);
+});

@@ -6,7 +6,6 @@ use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-//TODO: testar
 class Filter extends Component
 {
     use Actions;

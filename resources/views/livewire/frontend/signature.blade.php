@@ -58,7 +58,6 @@
                         Ao assinar {{ $quantity }} unidade(s) o valor total que deverá ser entregue
                         como presente será o valor de R$ {{ $item->priceQuoted($quantity, false) }} porque este item possui cotas <b class="underline decoration-dotted">(cotas disponíveis: {{ $available }}).</b>
                     </x-alert>
-{{--                    TODO: testar--}}
                     @if ($item->reference)
                         <div class="flex justify-center items-center">
                             <a href="{{ $item->reference }}" target="_blank" class="text-sm text-primary font-semibold">

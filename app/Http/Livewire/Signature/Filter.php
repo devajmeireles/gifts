@@ -3,15 +3,16 @@
 namespace App\Http\Livewire\Signature;
 
 use App\Exports\Signature\{SignatureExport, SignatureExportable};
+use App\Http\Livewire\Contracts\{MustExportSignature, ShouldExport};
+use App\Http\Livewire\Traits\InteractWithExportation;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Maatwebsite\Excel\Facades\Excel;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use WireUi\Traits\Actions;
 
-class Filter extends Component
+class Filter extends Component implements ShouldExport, MustExportSignature
 {
     use Actions;
+    use InteractWithExportation;
 
     public bool $modal = false;
 
@@ -79,27 +80,13 @@ class Filter extends Component
         $this->emitUp('signature::index::refresh');
     }
 
-    public function export(): BinaryFileResponse
+    public function exportable(): SignatureExport
     {
-        $category = $this->category;
-        $item     = $this->item;
-        $start    = $this->start;
-        $end      = $this->end;
-
-        $this->clear();
-
-        $this->modal = false;
-
-        $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i:s'));
-
-        return Excel::download(
-            new SignatureExport(SignatureExportable::make([
-                'category' => $category,
-                'item'     => $item,
-                'start'    => $start,
-                'end'      => $end,
-            ])),
-            $file
-        );
+        return new SignatureExport(SignatureExportable::make([
+            'category' => $this->category,
+            'item'     => $this->item,
+            'start'    => $this->start,
+            'end'      => $this->end,
+        ]));
     }
 }

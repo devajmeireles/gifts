@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Signature;
 
-use App\Exports\Signature\{SignatureExport, SignatureExportable};
+use App\Exports\Signature\SignatureExport;
 use App\Http\Livewire\Contracts\{MustExportSignature, ShouldExport};
 use App\Http\Livewire\Traits\InteractWithExportation;
 use Illuminate\Contracts\View\View;
@@ -82,11 +82,6 @@ class Filter extends Component implements ShouldExport, MustExportSignature
 
     public function exportable(): SignatureExport
     {
-        return new SignatureExport(SignatureExportable::make([
-            'category' => $this->category,
-            'item'     => $this->item,
-            'start'    => $this->start,
-            'end'      => $this->end,
-        ]));
+        return new SignatureExport($this->category, $this->item, $this->start, $this->end);
     }
 }

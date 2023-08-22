@@ -9,17 +9,15 @@ use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithMapping};
 class ItemExport implements FromCollection, WithMapping, WithHeadings
 {
     public function __construct(
-        protected readonly ItemExportable $exportable
+        protected readonly ?int $category = null
     ) {
         //
     }
 
     public function collection(): Collection
     {
-        $category = data_get($this->exportable->toArray(), 'category');
-
         return Item::with(['category', 'signatures'])
-            ->when($category, fn ($query) => $query->where('category_id', '=', $category))
+            ->when($this->category, fn ($query) => $query->where('category_id', '=', $this->category))
             ->get();
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Item;
 
-use App\Exports\Item\{ItemExport, ItemExportable};
+use App\Exports\Item\ItemExport;
 use App\Http\Livewire\Contracts\{MustExportItem, ShouldExport};
 use App\Http\Livewire\Traits\InteractWithExportation;
 use Illuminate\Contracts\View\View;
@@ -64,8 +64,6 @@ class Filter extends Component implements ShouldExport, MustExportItem
 
     public function exportable(): ItemExport
     {
-        return new ItemExport(ItemExportable::make([
-            'category' => $this->category,
-        ]));
+        return new ItemExport($this->category);
     }
 }

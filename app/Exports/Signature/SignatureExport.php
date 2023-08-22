@@ -9,25 +9,21 @@ use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithMapping};
 class SignatureExport implements FromCollection, WithMapping, WithHeadings
 {
     public function __construct(
-        protected SignatureExportable $exportable
+        protected readonly ?int $category = null,
+        protected readonly ?int $item = null,
+        protected readonly ?string $start = null,
+        protected readonly ?string $end = null,
     ) {
         //
     }
 
     public function collection(): Collection
     {
-        $data = $this->exportable->toArray();
-
-        $category = data_get($data, 'category');
-        $item     = data_get($data, 'item');
-        $start    = data_get($data, 'start');
-        $end      = data_get($data, 'end');
-
         return Signature::with('item.category')
-            ->when($category, fn ($query) => $query->where('category_id', '=', $category))
-            ->when($item, fn ($query) => $query->where('item_id', '=', $item))
-            ->when($start, fn ($query) => $query->whereDate('created_at', '>=', $start))
-            ->when($end, fn ($query) => $query->whereDate('created_at', '<=', $end))
+            ->when($this->category, fn ($query) => $query->where('category_id', '=', $this->category))
+            ->when($this->item, fn ($query) => $query->where('item_id', '=', $this->item))
+            ->when($this->start, fn ($query) => $query->whereDate('created_at', '>=', $this->start))
+            ->when($this->end, fn ($query) => $query->whereDate('created_at', '<=', $this->end))
             ->get();
     }
 

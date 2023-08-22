@@ -32,20 +32,22 @@ class Login extends Component
             return null;
         }
 
-        if (user()->is($this->user)) {
+        $user = user();
+
+        if ($user->is($this->user)) {
             $this->notification()->warning('Você não pode se impersonar');
 
             return null;
         }
 
-        if (!user()->isAdmin()) {
-            $this->notification()->warning('Somente admins. podem se impersonar');
+        if (!$user->isAdmin()) {
+            $this->notification()->warning('Somente admins. podem impersonar');
 
             return null;
         }
 
         Session::put('impersonate', [
-            'from' => user()->id,
+            'from' => $user->id,
             'to'   => $this->user->id,
         ]);
 

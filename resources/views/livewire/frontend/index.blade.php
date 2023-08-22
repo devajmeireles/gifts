@@ -1,26 +1,31 @@
 <div wire:init="category">
     <div class="justify-center" wire:loading.flex wire:target="category">
-        <x-preloader />
+        <x-preloader/>
     </div>
     <div class="justify-center" wire:loading.flex wire:target="item">
-        <x-preloader />
+        <x-preloader/>
     </div>
     <div class="justify-center" wire:loading.flex wire:target="more">
-        <x-preloader />
+        <x-preloader overlay/>
     </div>
     @if (!$filtered && $data)
-        <div wire:loading.remove wire:target="item" class="grid grid-cols-2 gap-4 sm:grid-cols-3" wire:key="category">
+        <div wire:key="category"
+             wire:loading.remove
+             wire:target="item"
+             class="grid grid-cols-2 gap-4 sm:grid-cols-3"
+        >
             @php /** @var \App\Models\Category $category */ @endphp
             @forelse ($data as $category)
-                <div class="col-span-full sm:col-span-1">
+                <div class="col-span-full sm:col-span-1" id="{{ uniqid() }}">
                     <x-card>
-                        <div @class(['p-4', 'cursor-pointer' => $category->items_count > 0]) @if ($category->items_count > 0) wire:click="item({{ $category->id }})" @endif>
+                        <div
+                            @class(['p-4', 'cursor-pointer' => $category->items_count > 0]) @if ($category->items_count > 0) wire:click="item({{ $category->id }})" @endif>
                             <p class="text-2xl font-semibold uppercase text-primary">
                                 {{ $category->name }}
                             </p>
                             <p class="text-sm leading-6 text-gray-600">
                                 {{ trans_choice(
-                                    '{0} Nenhum item nesta categoria|{1} 1 item nesta categoria|[2,*] :count itens nesta categoria',
+                                    '{0} Nenhum item nesta categoria|{1} 1 item|[2,*] :count itens',
                                     $category->items_count ?? 0, [
                                         'count' => $category->items_count ?? 0
                                 ]) }}
@@ -46,20 +51,24 @@
         </div>
         <div class="mt-2">
             <x-input wire:model.debounce.500ms="search"
-                     placeholder="Procure por algo..."
+                     placeholder="Procure por algum item..."
                      type="search"
             />
         </div>
-        <div wire:loading.remove wire:target="category" class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3" wire:key="item">
+        <div wire:key="item"
+             wire:loading.remove
+             wire:target="category"
+             class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3"
+        >
             @php /** @var \App\Models\Item $item */ @endphp
             @forelse ($data as $item)
-                <div class="col-span-1">
+                <div class="col-span-1" id="{{ uniqid() }}">
                     <x-card>
                         <div class="p-4">
                             <p class="text-2xl font-semibold uppercase text-primary">
                                 {{ $item->name }}
                                 @if ($item->description)
-                                    <x-tooltip :text="$item->description" />
+                                    <x-tooltip :text="$item->description"/>
                                 @endif
                             </p>
                             <p class="text-sm leading-6 text-gray-600">
@@ -71,7 +80,7 @@
                                 ]) !!}
                             </p>
                         </div>
-                        <livewire:frontend.signature :item="$item" :key="md5('signature-'.$item->id)" />
+                        <livewire:frontend.signature :item="$item" :key="md5('signature-'.$item->id)"/>
                     </x-card>
                 </div>
             @empty
@@ -81,24 +90,20 @@
             @endforelse
         </div>
         <div class="mt-4 flex justify-start gap-2">
-            <x-button wire:loading.remove
-                      wire:target="category"
-                      sm
-                      primary
-                      label="Voltar"
-                      icon="arrow-left"
-                      wire:click="category"
-            />
-            @if ($data->isNotEmpty())
-                <x-button wire:loading.remove
-                          wire:target="category"
-                          sm
-                          green
-                          label="Carregar Mais"
-                          icon="plus"
-                          wire:click="more"
+            <div class="space-x-2">
+                <x-frontend.float-button primary
+                                         wire:loading.remove
+                                         wire:target="category"
+                                         wire:click="category"
                 />
-            @endif
+                @if ($data->isNotEmpty())
+                    <x-frontend.float-button green
+                                             wire:loading.remove
+                                             wire:target="category"
+                                             wire:click="more"
+                    />
+                @endif
+            </div>
         </div>
     @endif
 </div>

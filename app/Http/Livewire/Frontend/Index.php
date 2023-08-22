@@ -40,7 +40,7 @@ class Index extends Component
 
     public function category(): void
     {
-        $this->filtered = false;
+        $this->reset('filtered', 'limit', 'search');
 
         $this->data = Category::with('items')
             ->withCount(['items' => fn (Builder $query) => $query->active()]) // @phpstan-ignore-line

@@ -141,6 +141,87 @@ it('cannot create out of quantity', function () {
     Notification::assertNothingSentTo($item);
 });
 
+it('can create and inactive item due single quantity', function () {
+    Notification::fake();
+
+    $name        = 'John Doe';
+    $phone       = '123456789';
+    $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+    $item = Item::factory()
+        ->quotable(1)
+        ->activated()
+        ->create();
+
+    expect($item->is_active)->toBeTrue();
+
+    livewire(Signature::class)
+        ->set('signature.name', $name)
+        ->set('signature.phone', $phone)
+        ->set('delivery', $remote = DeliveryType::Remotely->value)
+        ->set('item', $item)
+        ->set('signature.observation', $observation)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    assertDatabaseHas('signatures', [
+        'name'        => $name,
+        'phone'       => $phone,
+        'item_id'     => $item->id,
+        'delivery'    => $remote,
+        'observation' => $observation,
+    ]);
+
+    Notification::assertCount(1);
+    Notification::assertSentTo($item, SignatureCreated::class);
+
+    expect($item->refresh()->is_active)->toBeFalse();
+});
+
+it('can create and dont inactive item due multiples quantity', function () {
+    Notification::fake();
+
+    $name        = 'John Doe';
+    $phone       = '123456789';
+    $observation = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+    $item = Item::factory()
+        ->quotable(2)
+        ->activated()
+        ->create();
+
+    $quantity = $item->quantity;
+
+    expect($item->is_active)->toBeTrue();
+
+    livewire(Signature::class)
+        ->set('signature.name', $name)
+        ->set('signature.phone', $phone)
+        ->set('delivery', $remote = DeliveryType::Remotely->value)
+        ->set('item', $item)
+        ->set('signature.observation', $observation)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    assertDatabaseHas('signatures', [
+        'name'        => $name,
+        'phone'       => $phone,
+        'item_id'     => $item->id,
+        'delivery'    => $remote,
+        'observation' => $observation,
+    ]);
+
+    Notification::assertCount(1);
+    Notification::assertSentTo($item, SignatureCreated::class);
+
+    $item = $item->refresh();
+
+    expect($item->is_active)
+        ->toBeTrue()
+        ->and($item->quantity)
+        ->toBe($quantity);
+});
+
 it('cannot create with inactivated item', function () {
     Notification::fake();
 

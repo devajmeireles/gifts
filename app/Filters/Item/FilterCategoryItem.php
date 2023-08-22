@@ -16,9 +16,7 @@ class FilterCategoryItem
     {
         $category = data_get($this->filters, 'category', Cache::get('item::index::filter'));
 
-        if ($category) {
-            $builder->where('category_id', '=', $category);
-        }
+        $builder->when($category, fn (Builder $builder) => $builder->where('category_id', '=', $category));
 
         return $next($builder);
     }

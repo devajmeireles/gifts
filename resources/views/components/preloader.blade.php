@@ -1,5 +1,7 @@
+@props(['overlay' => null])
+
 <div class="flex items-center justify-center">
-    <div class="bg-white bg-opacity-75" aria-hidden="true">
+    <div @class(['bg-white bg-opacity-75', 'fixed inset-0 z-50' => $overlay !== null])  aria-hidden="true">
         <div class="flex h-full items-center justify-center">
             <svg class="h-12 w-12 animate-spin text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none"
                  viewBox="0 0 24 24">

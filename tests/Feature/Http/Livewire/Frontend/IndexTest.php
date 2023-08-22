@@ -47,22 +47,22 @@ it('can view category with single item', function () {
 
     livewire(Index::class)
         ->call('category')
-        ->assertSee('1 item nesta categoria');
+        ->assertSee('1 item');
 });
 
-it('can view category with multiples item', function () {
+it('can view category with multiples item', function (int $quantity) {
     $category = Category::factory()
         ->activated()
         ->create();
 
-    Item::factory(5)
+    Item::factory($quantity)
         ->for($category)
         ->create();
 
     livewire(Index::class)
         ->call('category')
-        ->assertSee('5 itens nesta categoria');
-});
+        ->assertSee("$quantity itens");
+})->with([5, 10, 15, 20, 30, 50, 100]);
 
 it('can view item', function () {
     $items = Item::factory(2)
@@ -79,6 +79,30 @@ it('can view item', function () {
             $first->name,
             $last->name,
         ]);
+});
+
+it('can back to the initial view', function () {
+    $items = Item::factory(2)
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $first = $items->first();
+    $last  = $items->last();
+
+    livewire(Index::class)
+        ->call('item', $category)
+        ->assertSee([
+            $first->name,
+            $last->name,
+        ])
+        ->call('more')
+        ->assertEmitted('frontend::load::more')
+        ->assertSet('limit', 18)
+        ->call('category')
+        ->assertSet('filtered', false)
+        ->assertSet('limit', 9)
+        ->assertSet('search', null);
 });
 
 it('can view description', function () {

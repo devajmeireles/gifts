@@ -18,10 +18,7 @@ class CreateSignature
         $item->signatures()
             ->createMany(Collection::times($quantity, fn () => $signature->toArray())->toArray());
 
-        if ($item->signatures()->count() === $item->quantity) {
-            $item->is_active = false;
-        }
-
+        $item->is_active      = $item->available();
         $item->last_signed_at = now();
         $item->save();
         $item->notify(new SignatureCreated($item, $signature, $quantity));

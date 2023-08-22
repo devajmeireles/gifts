@@ -53,17 +53,17 @@ class Item extends Model
 
     public function signed(): bool
     {
-        return !$this->is_active && !is_null($this->last_signed_at) && $this->signatures->count() >= $this->quantity;
+        return !$this->is_active && !is_null($this->last_signed_at) && $this->signatures()->count() >= $this->quantity;
     }
 
     public function available(): bool
     {
-        return $this->signatures->count() < $this->quantity;
+        return $this->signatures()->count() < $this->quantity;
     }
 
     public function availableQuantity(): int
     {
-        return ($this->quantity - $this->signatures->count());
+        return ($this->quantity - $this->signatures()->count());
     }
 
     public function quotePrice(bool $realQuantity = true): string

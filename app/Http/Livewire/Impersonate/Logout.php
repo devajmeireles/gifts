@@ -24,14 +24,14 @@ class Logout extends Component
 
     public function logout(): mixed
     {
-        if (!Session::has('impersonate')) {
+        if (($impersonate = Session::get('impersonate')) === null) {
             $this->notification()->warning('Você não está impersonando');
 
             return null;
         }
 
         Auth::logout();
-        Auth::login(User::find(session()->get('impersonate.from')));
+        Auth::login(User::find($impersonate['from']));
 
         Session::forget('impersonate');
 

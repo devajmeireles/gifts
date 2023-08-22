@@ -91,6 +91,16 @@ it('can load method', function (array $data) {
     ],
 ]);
 
+it('can filter for empty results', function () {
+    Category::factory()
+        ->create(['name' => 'First Category']);
+
+    livewire(Index::class)
+        ->set('search', 'Second Category')
+        ->assertSee('Nenhum registro encontrado.')
+        ->assertSee('Quantidade');
+});
+
 it('cannot see buttons if is guest', function () {
     $user = user();
     $user->update(['role' => UserRole::Guest]);

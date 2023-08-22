@@ -1,8 +1,6 @@
 <div>
     <div class="px-4 sm:px-6 lg:px-8">
-        @if ($settings->isNotEmpty())
-            <x-table.filter quantity search />
-        @endif
+        <x-table.filter quantity search />
         <x-table :items="$settings">
             <x-table.thead>
                 <x-table.tr>

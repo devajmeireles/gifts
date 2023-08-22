@@ -134,3 +134,13 @@ it('cannot see buttons if is guest', function () {
         ->assertDontSeeLivewire(Update::class)
         ->assertDontSeeLivewire(Delete::class);
 });
+
+it('can filter for empty results', function () {
+    Item::factory()
+        ->create(['name' => 'First Item']);
+
+    livewire(Index::class)
+        ->set('search', 'Second Item')
+        ->assertSee('Nenhum registro encontrado.')
+        ->assertSee('Quantidade');
+});

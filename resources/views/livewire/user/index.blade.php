@@ -4,9 +4,7 @@
         <div class="flex items-end justify-end">
             <livewire:user.create />
         </div>
-        @if ($users->isNotEmpty())
-            <x-table.filter quantity search />
-        @endif
+        <x-table.filter quantity search />
         <div class="mt-4 flow-root">
             <x-table :items="$users">
                 <x-table.thead>

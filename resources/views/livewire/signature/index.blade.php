@@ -5,15 +5,13 @@
         @endif
         <livewire:signature.filter />
     </div>
-    @if ($signatures->isNotEmpty())
-        <div class="mb-4">
-            <x-input type="text"
-                     placeholder="Pesquise alguma coisa..."
-                     class="w-full"
-                     wire:model.debounce.250ms="search"
-            />
-        </div>
-    @endif
+    <div class="mb-4">
+        <x-input type="text"
+                 placeholder="Pesquise alguma coisa..."
+                 class="w-full"
+                 wire:model.debounce.250ms="search"
+        />
+    </div>
     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @php /** @var \App\Models\Signature $signature */ @endphp
         @forelse ($signatures as $signature)

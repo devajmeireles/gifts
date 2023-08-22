@@ -9,9 +9,7 @@
                 <livewire:item.filter />
             @endif
         </div>
-        @if ($items->isNotEmpty())
-            <x-table.filter quantity search />
-        @endif
+        <x-table.filter quantity search />
         <div class="mt-4 flow-root">
             <x-table :$items>
                 <x-table.thead>

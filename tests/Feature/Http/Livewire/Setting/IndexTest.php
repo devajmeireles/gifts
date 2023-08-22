@@ -80,3 +80,13 @@ it('can sort', function () {
         ->set('direction', 'desc')
         ->assertSeeInOrder([$two->key, $one->key]);
 });
+
+it('can filter for empty results', function () {
+    Setting::factory()
+        ->create(['key' => 'First Setting']);
+
+    livewire(Index::class)
+        ->set('search', 'Second Setting')
+        ->assertSee('Nenhum registro encontrado.')
+        ->assertSee('Quantidade');
+});

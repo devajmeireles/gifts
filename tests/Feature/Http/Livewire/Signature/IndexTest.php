@@ -143,3 +143,14 @@ it('cannot see buttons if is guest', function () {
         ->assertDontSeeLivewire(Update::class)
         ->assertDontSeeLivewire(Delete::class);
 });
+
+it('can filter for empty results', function () {
+    Signature::factory()
+        ->forItem()
+        ->create(['name' => 'First Signature']);
+
+    livewire(Index::class)
+        ->set('search', 'Second Signature')
+        ->assertSee('Nenhuma assinatura encontrada')
+        ->assertSee('Pesquise alguma coisa...');
+});

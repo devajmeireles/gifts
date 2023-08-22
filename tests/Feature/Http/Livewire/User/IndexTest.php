@@ -101,3 +101,14 @@ it('can sort', function () {
         ->set('direction', 'desc')
         ->assertSeeInOrder([$two->name, $one->name]);
 });
+
+it('can filter for empty results', function () {
+    User::factory()
+        ->admin()
+        ->create(['name' => 'First User', 'username' => 'first-user']);
+
+    livewire(Index::class)
+        ->set('search', 'Second User')
+        ->assertSee('Nenhum registro encontrado.')
+        ->assertSee('Quantidade');
+});

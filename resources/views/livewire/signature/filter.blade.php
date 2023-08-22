@@ -7,7 +7,7 @@
             <x-badge flat>
                 {{ $count }} filtro(s)
                 <x-heroicon-s-x-circle wire:click="clear"
-                                       class="cursor-pointer w-4 h-4 text-red-500" />
+                                       class="h-4 w-4 cursor-pointer text-red-500" />
             </x-badge>
         @endif
     </div>
@@ -16,19 +16,26 @@
             <x-filter.category wire:model.debounce.250ms="category"/>
 
             <x-filter.item :$category
-                           wire:model.defer="item"
+                           wire:model.debounce.250ms="item"
                            :active="false"
             />
 
             <x-datetime-picker label="Data Inicial"
                                :max="now()"
-                               wire:model.defer="start"
+                               wire:model.debounce.250ms="start"
             />
 
             <x-datetime-picker label="Data Final"
                                :max="now()"
-                               wire:model.defer="end"
+                               wire:model.debounce.250ms="end"
             />
+
+            <x-export :route="route('admin.signatures.export', [
+                'category' => $category,
+                'item'     => $item,
+                'start'    => $start,
+                'end'      => $end,
+            ])" />
         </div>
         <x-slot name="footer">
             <div class="flex justify-end gap-x-4">

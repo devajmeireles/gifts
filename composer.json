@@ -13,6 +13,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^2.12",
+        "maatwebsite/excel": "^3.1",
         "wireui/wireui": "^1.17"
     },
     "require-dev": {

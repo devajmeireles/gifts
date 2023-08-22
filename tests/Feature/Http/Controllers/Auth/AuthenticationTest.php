@@ -1,27 +1,27 @@
 <?php
 
-it('can see login page', function () {
-    $response = $this->get(route('admin.login'));
+use function Pest\Laravel\{get, post};
 
-    $response->assertStatus(200);
+it('can see login page', function () {
+    get(route('admin.login'))
+        ->assertSee('Acessar');
 });
 
 it('can authenticate', function () {
     $user = createTestUser(login: false);
 
-    $response = $this->post(route('admin.login'), [
+    $response = post(route('admin.login'), [
         'username' => $user->username,
         'password' => 'password',
-    ]);
+    ])->assertRedirect(route('admin.dashboard'));
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('admin.dashboard'));
 });
 
 it('cannot authenticate using wrong password', function () {
     $user = createTestUser(login: false);
 
-    $this->post(route('admin.login'), [
+    post(route('admin.login'), [
         'username' => $user->username,
         'password' => 'wrong-password',
     ]);

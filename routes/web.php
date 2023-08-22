@@ -40,7 +40,7 @@ Route::middleware('auth')
             ->name('signatures.')
             ->group(function () {
                 Route::get('/', 'index')->name('index');
-                Route::get('/export/{category?}/{item?}/{start?}/{end?}', 'export')->name('export');
+                Route::get('/export', 'export')->name('export');
             });
 
         Route::middleware(UnauthorizeSettingsPageAccess::class)

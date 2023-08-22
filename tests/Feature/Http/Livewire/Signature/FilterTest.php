@@ -1,8 +1,12 @@
 <?php
 
+use App\Exports\Signature\SignatureExport;
 use App\Http\Livewire\Signature\{Filter, Index};
 use App\Models\{Category, Item, Signature};
 
+use Maatwebsite\Excel\Facades\Excel;
+
+use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 beforeEach(fn () => createTestUser());
@@ -147,4 +151,141 @@ it('can view filtered by dates', function () {
         ])
         ->assertSee($one->name)
         ->assertDontSee($two->name);
+});
+
+it('can generate export by item', function () {
+    Excel::fake();
+
+    $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i'));
+
+    $one = Item::factory()
+        ->forCategory()
+        ->activated()
+        ->create();
+
+    $one = Signature::factory()
+        ->for($one)
+        ->create();
+
+    $two = Signature::factory()
+        ->forItem()
+        ->create();
+
+    get(route('admin.signatures.export', ['item' => $one->id]));
+
+    Excel::assertDownloaded($file, function (SignatureExport $export) use ($one, $two) {
+        return $export->collection()->contains($one) &&
+            $export->collection()->doesntContain($two);
+    });
+});
+
+it('can generate export by category', function () {
+    Excel::fake();
+
+    $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i'));
+
+    $item = Item::factory()
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $one = Signature::factory()
+        ->for($item)
+        ->create();
+
+    $two = Signature::factory()
+        ->forItem()
+        ->create();
+
+    get(route('admin.signatures.export', ['category' => $category->id]));
+
+    Excel::assertDownloaded($file, function (SignatureExport $export) use ($one, $two) {
+        return $export->collection()->contains($one) &&
+            $export->collection()->doesntContain($two);
+    });
+});
+
+it('can generate export by category and item', function () {
+    Excel::fake();
+
+    $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i'));
+
+    /** first */
+    $first = Item::factory()
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $one = Signature::factory()
+        ->for($first)
+        ->create();
+
+    /** second */
+    $second = Item::factory()
+        ->forCategory()
+        ->activated()
+        ->create();
+
+    $two = Signature::factory()
+        ->for($second)
+        ->create();
+
+    get(route('admin.signatures.export', ['category' => $category->id, 'item' => $first->id]));
+
+    Excel::assertDownloaded($file, function (SignatureExport $export) use ($one, $two) {
+        return $export->collection()->contains($one) &&
+            $export->collection()->doesntContain($two);
+    });
+});
+
+it('can generate export by dates', function () {
+    Excel::fake();
+
+    $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i'));
+
+    /** first */
+    $first = Item::factory()
+        ->for($category = Category::factory()->activated()->create())
+        ->activated()
+        ->create();
+
+    $one = Signature::factory()
+        ->for($first)
+        ->create([
+            'created_at' => now()->subDays(10),
+        ]);
+
+    /** second */
+    $second = Item::factory()
+        ->forCategory()
+        ->activated()
+        ->create();
+
+    $two = Signature::factory()
+        ->for($second)
+        ->create([
+            'created_at' => now()->addDays(5),
+        ]);
+
+    get(route('admin.signatures.export', [
+        'start' => now()->subDays(10)->format('Y-m-d'),
+        'end'   => now()->subDay()->format('Y-m-d'),
+    ]));
+
+    Excel::assertDownloaded($file, function (SignatureExport $export) use ($one, $two) {
+        return $export->collection()->contains($one) &&
+            $export->collection()->doesntContain($two);
+    });
+});
+
+it('can generate empty export', function () {
+    Excel::fake();
+
+    $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i'));
+
+    get(route('admin.signatures.export'));
+
+    Excel::assertDownloaded($file, function (SignatureExport $export) {
+        return $export->collection()->isEmpty();
+    });
 });

@@ -3,6 +3,7 @@
 namespace App\Exports\Item;
 
 use App\Models\{Category, Item, Signature};
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithMapping};
 
@@ -17,7 +18,7 @@ class ItemExport implements FromCollection, WithMapping, WithHeadings
     public function collection(): Collection
     {
         return Item::with(['category', 'signatures'])
-            ->when($this->category, fn ($query) => $query->where('category_id', '=', $this->category))
+            ->when($this->category, fn (Builder $query) => $query->where('category_id', '=', $this->category))
             ->get();
     }
 
@@ -25,8 +26,8 @@ class ItemExport implements FromCollection, WithMapping, WithHeadings
     {
         return [
             '#',
-            'Categoria',
             'Nome',
+            'Categoria',
             'Descrição',
             'Referência',
             'Quantidade',
@@ -44,8 +45,8 @@ class ItemExport implements FromCollection, WithMapping, WithHeadings
         /** @var Item $row */
         return [
             $row->id,
-            $row->category->name,
             $row->name,
+            $row->category->name,
             $row->description ?? 'N/A',
             $row->reference,
             $row->quantity,

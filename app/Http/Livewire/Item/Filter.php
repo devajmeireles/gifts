@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Item;
 
-use App\Exports\Item\ItemExport;
-use App\Http\Livewire\Contracts\{MustExportItem, ShouldExport};
+use App\Exports\Contracts\ShouldExport;
 use App\Http\Livewire\Traits\InteractWithExportation;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -69,4 +68,3 @@ class Filter extends Component implements ShouldExport
         ];
     }
 }
-

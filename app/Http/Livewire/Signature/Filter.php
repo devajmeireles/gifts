@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire\Signature;
 
-use App\Exports\Signature\SignatureExport;
-use App\Http\Livewire\Contracts\{MustExportSignature, ShouldExport};
+use App\Exports\Contracts\ShouldExport;
 use App\Http\Livewire\Traits\InteractWithExportation;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
-class Filter extends Component implements ShouldExport, MustExportSignature
+class Filter extends Component implements ShouldExport
 {
     use Actions;
     use InteractWithExportation;
@@ -80,8 +79,13 @@ class Filter extends Component implements ShouldExport, MustExportSignature
         $this->emitUp('signature::index::refresh');
     }
 
-    public function exportable(): SignatureExport
+    public function exportable(): array
     {
-        return new SignatureExport($this->category, $this->item, $this->start, $this->end);
+        return [
+            'category' => $this->category,
+            'item'     => $this->item,
+            'start'    => $this->start,
+            'end'      => $this->end,
+        ];
     }
 }

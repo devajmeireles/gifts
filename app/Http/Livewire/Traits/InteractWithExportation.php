@@ -2,13 +2,15 @@
 
 namespace App\Http\Livewire\Traits;
 
+use App\Http\Livewire\Item\Filter;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 
 trait InteractWithExportation
 {
     abstract public function clear(): void;
 
-    public function export(): Redirector
+    public function export(): Redirector|RedirectResponse
     {
         $exportable = $this->exportable();
 
@@ -16,6 +18,10 @@ trait InteractWithExportation
 
         $this->modal = false;
 
-        return redirect(route('admin.items.export', [...$exportable]));
+        $route = $this instanceof Filter
+            ? 'admin.items.export'
+            : 'admin.signatures.export';
+
+        return redirect(route($route, [...$exportable]));
     }
 }

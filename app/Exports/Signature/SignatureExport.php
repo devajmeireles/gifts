@@ -3,14 +3,15 @@
 namespace App\Exports\Signature;
 
 use App\Models\Signature;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithMapping};
 
 class SignatureExport implements FromCollection, WithMapping, WithHeadings
 {
     public function __construct(
-        protected readonly ?int $category = null,
-        protected readonly ?int $item = null,
+        protected readonly ?int    $category = null,
+        protected readonly ?int    $item = null,
         protected readonly ?string $start = null,
         protected readonly ?string $end = null,
     ) {
@@ -20,10 +21,16 @@ class SignatureExport implements FromCollection, WithMapping, WithHeadings
     public function collection(): Collection
     {
         return Signature::with('item.category')
-            ->when($this->category, fn ($query) => $query->where('category_id', '=', $this->category))
-            ->when($this->item, fn ($query) => $query->where('item_id', '=', $this->item))
-            ->when($this->start, fn ($query) => $query->whereDate('created_at', '>=', $this->start))
-            ->when($this->end, fn ($query) => $query->whereDate('created_at', '<=', $this->end))
+            ->when(
+                $this->category,
+                fn (Builder $query) => $query->whereHas(
+                    'item',
+                    fn (Builder $query) => $query->where('category_id', '=', $this->category)
+                )
+            )
+            ->when($this->item, fn (Builder $query) => $query->where('item_id', '=', $this->item))
+            ->when($this->start, fn (Builder $query) => $query->whereDate('created_at', '>=', $this->start))
+            ->when($this->end, fn (Builder $query) => $query->whereDate('created_at', '<=', $this->end))
             ->get();
     }
 

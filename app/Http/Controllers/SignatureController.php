@@ -7,6 +7,7 @@ use App\Models\{Category, Item};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class SignatureController extends Controller
 {
@@ -15,9 +16,9 @@ class SignatureController extends Controller
         return view('signatures');
     }
 
-    public function export(Request $request)
+    public function export(Request $request): BinaryFileResponse
     {
-        $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i:s'));
+        $file = sprintf('assinaturas-%s.xlsx', now()->format('Y-m-d_H:i'));
 
         return Excel::download(new SignatureExport(...$request->query()), $file);
     }

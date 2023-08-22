@@ -54,8 +54,6 @@ it('can generate export', function () {
 
     $file = sprintf('itens-%s.xlsx', now()->format('Y-m-d_H:i'));
 
-    Excel::fake();
-
     $one = Item::factory()
         ->for($category = Category::factory()->activated()->create())
         ->activated()
@@ -67,11 +65,24 @@ it('can generate export', function () {
 
     get(route('admin.items.export', ['category' => $category->id]));
 
-    Excel::assertDownloaded($file, function (ItemExport $export) use ($one) {
-        return $export->collection()->contains($one);
+    Excel::assertDownloaded($file, function (ItemExport $export) use ($one, $two) {
+        return $export->collection()->contains($one) &&
+            $export->collection()->doesntContain($two);
     });
+});
 
-    Excel::assertDownloaded($file, function (ItemExport $export) use ($two) {
-        return $export->collection()->doesntContain($two);
+it('can generate empty export', function () {
+    Excel::fake();
+
+    $file = sprintf('itens-%s.xlsx', now()->format('Y-m-d_H:i'));
+
+    $category = Category::factory()
+        ->activated()
+        ->create();
+
+    get(route('admin.items.export', ['category' => $category->id]));
+
+    Excel::assertDownloaded($file, function (ItemExport $export) {
+        return $export->collection()->isEmpty();
     });
 });

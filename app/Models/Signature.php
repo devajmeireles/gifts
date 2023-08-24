@@ -33,8 +33,8 @@ class Signature extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public function presences(): BelongsToMany
+    public function presence(): BelongsTo
     {
-        return $this->belongsToMany(Presence::class);
+        return $this->belongsTo(Presence::class);
     }
 }

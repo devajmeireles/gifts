@@ -56,10 +56,7 @@
                                                  icon="pencil"
                                                  wire:click="update({{ $presence->id }})"
                                 />
-                                <x-button.circle primary
-                                                 icon="trash"
-                                                 wire:click="delete({{ $presence->id }})"
-                                />
+                                <livewire:presence.delete :presence="$presence" :key="md5('presence-'.$presence->id)" />
                             </x-table.td>
                         </x-table.tr>
                     @empty

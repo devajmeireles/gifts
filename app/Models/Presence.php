@@ -5,8 +5,11 @@ namespace App\Models;
 use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany, HasMany};
 
+/**
+ * @mixin IdeHelperPresence
+ */
 class Presence extends Model
 {
     use HasFactory;
@@ -23,8 +26,8 @@ class Presence extends Model
         'is_confirmed' => 'boolean',
     ];
 
-    public function signatures(): BelongsToMany
+    public function signatures(): HasMany
     {
-        return $this->belongsToMany(Signature::class);
+        return $this->hasMany(Signature::class);
     }
 }

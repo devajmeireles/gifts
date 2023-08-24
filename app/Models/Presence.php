@@ -16,6 +16,11 @@ class Presence extends Model
         'name',
         'phone',
         'is_confirmed',
+        'observation',
+    ];
+
+    protected $casts = [
+        'is_confirmed' => 'boolean',
     ];
 
     public function signatures(): BelongsToMany

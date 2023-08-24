@@ -19,9 +19,9 @@
     @php /** @var \App\Models\Presence $presence */ @endphp
     <div>
         <div class="flex items-end justify-end gap-2">
-{{--            @if (!($guest = user()->isGuest()))--}}
-{{--                <livewire:item.create />--}}
-{{--            @endif--}}
+            @if (!($guest = user()->isGuest()))
+                <livewire:presence.create />
+            @endif
 {{--            @if ($items->isNotEmpty())--}}
 {{--                <livewire:item.filter />--}}
 {{--            @endif--}}

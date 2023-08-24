@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\DeliveryType;
-use App\Models\{Item, Signature};
+use App\Models\{Item, Presence, Signature};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

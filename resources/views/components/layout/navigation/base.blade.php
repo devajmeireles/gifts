@@ -23,6 +23,11 @@
                                               :active="request()->routeIs('admin.signatures.index')"
                                               label="Assinaturas"
                     />
+                    <x-layout.navigation.link :route="route('admin.presences')"
+                                              icon="user-group"
+                                              :active="request()->routeIs('admin.presences')"
+                                              label="Presenças"
+                    />
                 </ul>
             </li>
             @if (!user()->isGuest())

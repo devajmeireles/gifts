@@ -6,7 +6,7 @@ use App\Enums\DeliveryType;
 use App\Models\Traits\{HasAvatar, Searchable};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
 
 /**
  * @mixin IdeHelperSignature
@@ -31,5 +31,10 @@ class Signature extends Model
     public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);
+    }
+
+    public function presences(): BelongsToMany
+    {
+        return $this->belongsToMany(Presence::class);
     }
 }

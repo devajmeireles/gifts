@@ -20,23 +20,23 @@
     <div>
         <div class="flex items-end justify-end gap-2">
             @if (!($guest = user()->isGuest()))
-                <livewire:presence.create />
+                <livewire:presence.create/>
             @endif
-{{--            @if ($items->isNotEmpty())--}}
-{{--                <livewire:item.filter />--}}
-{{--            @endif--}}
+            {{--            @if ($items->isNotEmpty())--}}
+            {{--                <livewire:item.filter />--}}
+            {{--            @endif--}}
         </div>
-        <x-table.filter quantity search />
+        <x-table.filter quantity search/>
         <div class="mt-4 flow-root">
             <x-table>
                 <x-table.thead>
                     <x-table.tr>
-                        <x-table.th column="id" :$sort :$direction first label="#" />
-                        <x-table.th column="name" :$sort :$direction label="Nome" />
-                        <x-table.th column="phone" :$sort :$direction label="Telefone" />
-                        <x-table.th label="Assinaturas" />
-                        <x-table.th label="Presença" />
-                        <x-table.th />
+                        <x-table.th column="id" :$sort :$direction first label="#"/>
+                        <x-table.th column="name" :$sort :$direction label="Nome"/>
+                        <x-table.th column="phone" :$sort :$direction label="Telefone"/>
+                        <x-table.th label="Assinaturas"/>
+                        <x-table.th label="Presença"/>
+                        <x-table.th/>
                     </x-table.tr>
                 </x-table.thead>
                 <x-table.tbody>
@@ -51,24 +51,25 @@
                                     {{ $presence->is_confirmed ? 'Confirmada' : 'Não Confirmada' }}
                                 </x-badge>
                             </x-table.td>
-                            <x-table.td buttons>
+                            <x-table.td class="inline-flex gap-1" buttons>
                                 <x-button.circle primary
                                                  icon="pencil"
                                                  wire:click="update({{ $presence->id }})"
                                 />
-                                <livewire:presence.delete :presence="$presence" :key="md5('presence-'.$presence->id)" />
+                                <livewire:presence.delete :presence="$presence"
+                                                          :key="md5('delete-'.$presence->id)"
+                                />
                             </x-table.td>
                         </x-table.tr>
                     @empty
-                        <x-table.empty />
+                        <x-table.empty/>
                     @endforelse
                 </x-table.tbody>
             </x-table>
         </div>
-        <x-pagination :items="$presences" />
-{{--        @if (!user()->isGuest())--}}
-{{--            <livewire:item.update />--}}
-{{--            <livewire:item.delete />--}}
-{{--        @endif--}}
+        <x-pagination :items="$presences"/>
+        @if (!$guest)
+            <livewire:presence.update/>
+        @endif
     </div>
 </div>

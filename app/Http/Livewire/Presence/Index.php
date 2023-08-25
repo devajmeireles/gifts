@@ -30,4 +30,9 @@ class Index extends Component
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }
+
+    public function update(Presence $presence): void
+    {
+        $this->emitTo(Update::class, 'presence::update::load', $presence);
+    }
 }

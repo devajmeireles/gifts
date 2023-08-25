@@ -7,6 +7,7 @@ use App\Enums\DeliveryType;
 use App\Http\Livewire\Frontend\Signature;
 use App\Http\Livewire\Signature\Create;
 use App\Models\{Item, Signature as Model};
+use App\Notifications\SignatureCreated;
 use Exception;
 use Illuminate\Validation\Rule;
 use WireUi\Actions\{Dialog, Notification};
@@ -77,6 +78,8 @@ trait InteractWithSignatureCreation
 
         try {
             app(CreateSignature::class)->execute($this->item, $this->signature, $this->quantity);
+
+            $this->item->notify(new SignatureCreated($this->signature, $this->quantity));
 
             $this->emitUp('signature::index::refresh');
             $this->emitUp('frontend::reset');

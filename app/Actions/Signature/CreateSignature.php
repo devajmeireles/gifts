@@ -3,7 +3,6 @@
 namespace App\Actions\Signature;
 
 use App\Models\{Item, Signature};
-use App\Notifications\SignatureCreated;
 use Exception;
 use Illuminate\Support\Collection;
 use Throwable;
@@ -13,7 +12,7 @@ class CreateSignature
     /** @throws Exception|Throwable */
     public function execute(Item $item, Signature $signature, int $quantity = 1): bool
     {
-        $this->validations($item, $signature, $quantity);
+        $this->validations($item, $quantity);
 
         $item->signatures()
             ->createMany(Collection::times($quantity, fn () => $signature->toArray())->toArray());
@@ -21,13 +20,12 @@ class CreateSignature
         $item->is_active      = $item->available();
         $item->last_signed_at = now();
         $item->save();
-        $item->notify(new SignatureCreated($item, $signature, $quantity));
 
         return true;
     }
 
     /** @throws Exception|Throwable */
-    private function validations(Item $item, Signature $signature, int $quantity = 1): void
+    private function validations(Item $item, int $quantity = 1): void
     {
         throw_if(!$item->is_active, new Exception("Item ({$item->id}) não está ativo"));
 

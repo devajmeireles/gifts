@@ -27,7 +27,7 @@ class SettingsService
         return Setting::updateOrCreate([
             'key' => strtoupper($key),
         ], [
-            'value' => $value,
+            'value' => $type === 'boolean' ? (bool) $value : $value,
             'type'  => $type,
         ]);
     }

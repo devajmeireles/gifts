@@ -17,6 +17,11 @@ class Update extends Component
 
     public bool $modal = false;
 
+    public function mount(): void
+    {
+        $this->setting->value = $this->setting->type === 'boolean' ? (bool)$this->setting->value : $this->setting->value;
+    }
+
     public function render(): View
     {
         return view('livewire.setting.update');
@@ -26,7 +31,7 @@ class Update extends Component
     {
         return [
             'setting.key'   => ['required', 'string', 'max:255'],
-            'setting.value' => ['nullable', 'string', 'max:255'],
+            'setting.value' => ['nullable', 'max:255'],
         ];
     }
 

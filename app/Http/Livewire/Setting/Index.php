@@ -16,6 +16,12 @@ class Index extends Component
         'setting::index::refresh' => '$refresh',
     ];
 
+    public function boot(): void
+    {
+        $this->sort      = 'id';
+        $this->direction = 'asc';
+    }
+
     public function render(): View
     {
         return view('livewire.setting.index', [

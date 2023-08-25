@@ -26,6 +26,7 @@ class CreateSettingCommand extends Command
                 'date'     => 'date',
                 'time'     => 'time',
                 'phone'    => 'phone (text, masked)',
+                'boolean'  => 'boolean',
             ]
         );
 

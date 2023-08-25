@@ -24,6 +24,11 @@
                                    wire:model.defer="setting.value"
                                    :emitFormatted="true"
                 />
+            @elseif ($setting->type === 'boolean')
+                <x-toggle md
+                          label="Valor"
+                          wire:model.defer="setting.value"
+                />
             @else
                 <x-input :type="$setting?->type"
                          label="Valor"

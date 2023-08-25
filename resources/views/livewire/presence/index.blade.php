@@ -45,7 +45,7 @@
                             <x-table.td first>{{ $presence->id }}</x-table.td>
                             <x-table.td>{{ $presence->name }}</x-table.td>
                             <x-table.td>{{ $presence->phone }}</x-table.td>
-                            <x-table.td>{{ $presence->signatures?->count() }}</x-table.td>
+                            <x-table.td>{{ $presence->signatures_count }}</x-table.td>
                             <x-table.td>
                                 <x-badge flat :color="$presence->is_confirmed ? 'green' : 'red'">
                                     {{ $presence->is_confirmed ? 'Confirmada' : 'Não Confirmada' }}

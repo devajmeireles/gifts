@@ -1,7 +1,5 @@
 <?php
 
-beforeEach(fn () => createTestUser());
-
 it('can render component')->todo();
 
 it('can list')->todo();

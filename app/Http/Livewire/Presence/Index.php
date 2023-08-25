@@ -25,7 +25,7 @@ class Index extends Component
 
     private function data(): LengthAwarePaginator
     {
-        return Presence::with('signatures')
+        return Presence::withCount('signatures')
             ->search($this->search, 'name', 'phone')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);

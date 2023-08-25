@@ -18,6 +18,7 @@ class Signature extends Model
     use HasAvatar;
 
     protected $fillable = [
+        'presence_id',
         'name',
         'phone',
         'delivery',

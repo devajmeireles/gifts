@@ -7,7 +7,7 @@ use App\Services\Settings\SettingsService;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static mixed get(string $key, mixed $default = null)
+ * @method static string|null get(string $key, mixed $default = null)
  * @method static Setting set(string $key, mixed $value, string $type = 'string')
  * @see SettingsService
  */

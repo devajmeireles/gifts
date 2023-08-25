@@ -2,7 +2,9 @@
 
 namespace App\Actions\Signature;
 
-use App\Models\{Item, Signature};
+use App\Enums\DeliveryType;
+use App\Models\{Item, Presence, Signature};
+use App\Services\Settings\Facades\Settings;
 use Exception;
 use Illuminate\Support\Collection;
 use Throwable;
@@ -14,8 +16,10 @@ class CreateSignature
     {
         $this->validations($item, $quantity);
 
+        $presence = $this->presence($signature);
+
         $item->signatures()
-            ->createMany(Collection::times($quantity, fn () => $signature->toArray())->toArray());
+            ->createMany(Collection::times($quantity, fn () => array_merge($signature->toArray(), $presence))->toArray());
 
         $item->is_active      = $item->available();
         $item->last_signed_at = now();
@@ -30,5 +34,26 @@ class CreateSignature
         throw_if(!$item->is_active, new Exception("Item ({$item->id}) não está ativo"));
 
         throw_if($quantity > $item->availableQuantity(), new Exception("Quantidade selecionada ($quantity) é superior a quantidade de itens ({$item->quantity})"));
+    }
+
+    private function presence(Signature $signature): array
+    {
+        if (!(bool) Settings::get('converter_assinaturas_em_presenca')) {
+            return [];
+        }
+
+        //TODO: criar um alerta dentro do modal de settings que indique essa condição
+        if ($signature->delivery !== DeliveryType::InPerson) {
+            return [];
+        }
+
+        $presence = Presence::create([
+            'name'         => $signature->name,
+            'phone'        => $signature->phone,
+            'is_confirmed' => true,
+            'observation'  => 'Presença criada via assinatura',
+        ]);
+
+        return ['presence_id' => $presence->id];
     }
 }

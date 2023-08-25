@@ -153,3 +153,7 @@ it('cannot create with inactivated item', function () {
 
     Notification::assertNothingSentTo($item);
 });
+
+it('can create signatures and presence')->todo();
+
+it('cannot create signatures and presence if delivery type is not in person')->todo();

@@ -9,10 +9,11 @@ return new class () extends Migration {
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('phone', 20)->nullable();
             $table->boolean('is_confirmed');
             $table->text('observation')->nullable();
+            $table->json('signatures')->nullable();
             $table->timestamps();
         });
     }

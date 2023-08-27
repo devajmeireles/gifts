@@ -1,5 +1,5 @@
 <div>
-    <div class="grid grid-cols-3 mb-4">
+    <div class="grid sm:grid-cols-3 mb-4 gap-4">
         <div class="col-span-1">
             <x-card>
                 Confirmados
@@ -22,9 +22,6 @@
             @if (!($guest = user()->isGuest()))
                 <livewire:presence.create/>
             @endif
-            {{--            @if ($items->isNotEmpty())--}}
-            {{--                <livewire:item.filter />--}}
-            {{--            @endif--}}
         </div>
         <x-table.filter quantity search/>
         <div class="mt-4 flow-root">

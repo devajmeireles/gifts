@@ -46,9 +46,9 @@ class Update extends Component
     {
         return [
             'presence.name'         => ['required', 'string', 'max:255', Rule::unique('presences', 'name')->ignore($this->presence->id)],
-            'presence.phone'        => ['nullable', 'string', 'max:20'], //TODO: sincronizar regras
+            'presence.phone'        => ['nullable', 'string', 'max:20'],
             'presence.is_confirmed' => ['required', 'boolean'],
-            'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])], //TODO: verificar outros Rule::when
+            'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])],
         ];
     }
 

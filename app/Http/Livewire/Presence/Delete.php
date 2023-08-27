@@ -25,8 +25,6 @@ class Delete extends Component
 
     public function confirmation(): void
     {
-        //TODO: por uma mensagem diferente se tiver assinaturas
-
         $this->dialog()->confirm([
             'title'       => 'Confirmação!',
             'description' => 'Deseja realmente deletar esta assinatura?',

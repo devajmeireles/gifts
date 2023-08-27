@@ -4,6 +4,13 @@
               wire:click="$toggle('modal')"
     />
     <x-modal.card title="Criação de Presença" wire:model.defer="modal">
+        @if ($response = session()->get('response'))
+            <div class="mb-4 uppercase">
+                <x-alert :type="$response['type']" center>
+                    <b>{{ $response['message'] }}</b>
+                </x-alert>
+            </div>
+        @endif
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <x-input label="Nome" wire:model.defer="presence.name"/>
 

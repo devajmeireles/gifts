@@ -40,9 +40,9 @@ class Create extends Component
     {
         return [
             'presence.name'         => ['required', 'string', 'max:255', Rule::unique('presences', 'name')],
-            'presence.phone'        => ['nullable', 'string', 'max:20'], //TODO: sincronizar regras
+            'presence.phone'        => ['nullable', 'string', 'max:20'],
             'presence.is_confirmed' => ['required', 'boolean'],
-            'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])], //TODO: verificar outros Rule::when
+            'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])],
         ];
     }
 
@@ -50,13 +50,15 @@ class Create extends Component
     {
         $this->validate();
 
-        $this->modal = false;
-
         try {
             $this->presence->save();
 
             $this->emitUp('presence::index::refresh');
-            $this->notification()->success('Presença criada com sucesso!');
+
+            session()->flash('response', [
+                'type'    => 'green',
+                'message' => 'Presença criada com sucesso!',
+            ]);
 
             return;
         } catch (Exception $e) {
@@ -65,7 +67,10 @@ class Create extends Component
             $this->presence();
         }
 
-        $this->notification()->error('Erro ao criar a presença!');
+        session()->flash('response', [
+            'type'    => 'red',
+            'message' => 'Erro ao criar a presença!',
+        ]);
     }
 
     private function presence(): void

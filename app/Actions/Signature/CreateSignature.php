@@ -42,7 +42,6 @@ class CreateSignature
             return [];
         }
 
-        //TODO: criar um alerta dentro do modal de settings que indique essa condição
         if ($signature->delivery !== DeliveryType::InPerson) {
             return [];
         }

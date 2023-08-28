@@ -1,20 +1,8 @@
 <div>
     <div class="grid sm:grid-cols-3 mb-4 gap-4">
-        <div class="col-span-1">
-            <x-card>
-                Confirmados
-            </x-card>
-        </div>
-        <div class="col-span-1">
-            <x-card>
-                Não Confirmados
-            </x-card>
-        </div>
-        <div class="col-span-1">
-            <x-card>
-                Percentual Confirmado
-            </x-card>
-        </div>
+        <x-presence.card type="confirmed" />
+        <x-presence.card type="unconfirmed" />
+        <x-presence.card type="conversion" />
     </div>
     @php /** @var \App\Models\Presence $presence */ @endphp
     <div>

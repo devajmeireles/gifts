@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Presence;
 use App\Models\Presence;
 use Exception;
 use Illuminate\Contracts\View\View;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -44,12 +43,7 @@ class Update extends Component
 
     public function rules(): array
     {
-        return [
-            'presence.name'         => ['required', 'string', 'max:255', Rule::unique('presences', 'name')->ignore($this->presence->id)],
-            'presence.phone'        => ['nullable', 'string', 'max:20'],
-            'presence.is_confirmed' => ['required', 'boolean'],
-            'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])],
-        ];
+        return (new Create())->rules();
     }
 
     public function update(): void

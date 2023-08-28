@@ -39,7 +39,7 @@ class Create extends Component
     public function rules(): array
     {
         return [
-            'presence.name'         => ['required', 'string', 'max:255', Rule::unique('presences', 'name')],
+            'presence.name'         => ['required', 'string', 'max:255'],
             'presence.phone'        => ['nullable', 'string', 'max:20'],
             'presence.is_confirmed' => ['required', 'boolean'],
             'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])],

@@ -18,14 +18,14 @@ class Card extends Component
         return view('components.presence.card');
     }
 
-    public function quantity(): int
+    public function quantity(): ?int
     {
         $presence = Presence::query();
 
         return (match ($this->type) {
             'confirmed'   => fn () => $presence->where('is_confirmed', '=', true)->count(),
             'unconfirmed' => fn () => $presence->where('is_confirmed', '=', false)->count(),
-            'conversion'  => fn () => $presence->get()->percentage(fn (Presence $presence) => $presence->is_confirmed),
+            'conversion'  => fn () => $presence->get()->percentage(fn (Presence $presence) => $presence->is_confirmed) ?? 0,
         })();
     }
 

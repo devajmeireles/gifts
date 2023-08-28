@@ -36,4 +36,9 @@ class Index extends Component
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->quantity);
     }
+
+    public function update(Setting $setting): void
+    {
+        $this->emitTo(Update::class, 'setting::load', $setting);
+    }
 }

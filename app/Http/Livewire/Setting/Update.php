@@ -17,14 +17,26 @@ class Update extends Component
 
     public bool $modal = false;
 
+    protected $listeners = [
+        'setting::load' => 'load',
+    ];
+
     public function mount(): void
     {
-        $this->setting->value = $this->setting->type === 'boolean' ? (bool)$this->setting->value : $this->setting->value;
+        if ($this->setting) {
+            $this->setting->value = $this->setting->type === 'boolean' ? (bool)$this->setting->value : $this->setting->value;
+        }
     }
 
     public function render(): View
     {
         return view('livewire.setting.update');
+    }
+
+    public function load(Setting $setting): void
+    {
+        $this->setting = $setting;
+        $this->modal   = true;
     }
 
     public function rules(): array

@@ -16,9 +16,10 @@ it('can create', function () {
         ->assertEmittedUp('presence::index::refresh');
 
     assertDatabaseHas('presences', [
-        'name'        => $name,
-        'phone'       => $phone,
-        'observation' => $observation,
+        'name'         => $name,
+        'phone'        => $phone,
+        'observation'  => $observation,
+        'is_confirmed' => true,
     ]);
 
     assertDatabaseCount('presences', 1);

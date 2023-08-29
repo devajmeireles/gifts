@@ -1,6 +1,6 @@
 <div>
     @php /** @var \App\Models\User $user */ @endphp
-    <div class="px-4 sm:px-6 lg:px-8">
+    <div>
         <div class="flex items-end justify-end">
             <livewire:user.create />
         </div>

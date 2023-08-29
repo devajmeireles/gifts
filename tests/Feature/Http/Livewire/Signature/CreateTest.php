@@ -5,6 +5,7 @@ use App\Http\Livewire\Signature\Create;
 use App\Models\Item;
 
 use App\Notifications\SignatureCreated;
+use App\Services\Settings\Facades\Settings;
 use Illuminate\Support\Facades\Notification;
 
 use function Pest\Laravel\{assertDatabaseCount, assertDatabaseEmpty, assertDatabaseHas};
@@ -152,4 +153,102 @@ it('cannot create with inactivated item', function () {
     assertDatabaseEmpty('signatures');
 
     Notification::assertNothingSentTo($item);
+});
+
+it('can create one signature and presence', function () {
+    Notification::fake();
+
+    Settings::shouldReceive('get')
+        ->with('converter_assinaturas_em_presenca')
+        ->once()
+        ->andReturnTrue();
+
+    $item = Item::factory()
+        ->activated()
+        ->create();
+
+    assertDatabaseEmpty('presences');
+
+    livewire(Create::class)
+        ->set('signature.name', $name = 'John Doe')
+        ->set('signature.phone', $phone = '123456789')
+        ->set('delivery', $remote = DeliveryType::InPerson->value)
+        ->set('selected', $item->id)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    assertDatabaseHas('signatures', [
+        'name'     => $name,
+        'phone'    => $phone,
+        'item_id'  => $item->id,
+        'delivery' => $remote,
+    ]);
+
+    assertDatabaseHas('presences', [
+        'name'  => $name,
+        'phone' => $phone,
+    ]);
+});
+
+it('can create multiples signature and only one presence', function () {
+    Notification::fake();
+
+    Settings::shouldReceive('get')
+        ->with('converter_assinaturas_em_presenca')
+        ->once()
+        ->andReturnTrue();
+
+    $item = Item::factory()
+        ->quotable(5)
+        ->create();
+
+    assertDatabaseEmpty('presences');
+
+    livewire(Create::class)
+        ->set('signature.name', $name = 'John Doe')
+        ->set('signature.phone', $phone = '123456789')
+        ->set('delivery', DeliveryType::InPerson->value)
+        ->set('quantity', $quantity = ($item->quantity - 1))
+        ->set('selected', $item->id)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    assertDatabaseCount('signatures', $quantity);
+
+    assertDatabaseHas('presences', [
+        'name'  => $name,
+        'phone' => $phone,
+    ]);
+
+    assertDatabaseCount('presences', 1);
+});
+
+it('cannot create signatures and presence if delivery type is not in person', function () {
+    Notification::fake();
+
+    Settings::shouldReceive('get')
+        ->with('converter_assinaturas_em_presenca')
+        ->once()
+        ->andReturnTrue();
+
+    $item = Item::factory()
+        ->activated()
+        ->create();
+
+    livewire(Create::class)
+        ->set('signature.name', $name = 'John Doe')
+        ->set('signature.phone', $phone = '123456789')
+        ->set('delivery', $remote = DeliveryType::Remotely->value)
+        ->set('selected', $item->id)
+        ->call('create')
+        ->assertHasNoErrors();
+
+    assertDatabaseHas('signatures', [
+        'name'     => $name,
+        'phone'    => $phone,
+        'item_id'  => $item->id,
+        'delivery' => $remote,
+    ]);
+
+    assertDatabaseEmpty('presences');
 });

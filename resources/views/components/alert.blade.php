@@ -1,4 +1,5 @@
 @props([
+    'type'    => 'primary',
     'green'   => null,
     'red'     => null,
     'blue'    => null,
@@ -10,7 +11,7 @@
 ])
 
 @php
-    $type = 'primary';
+    $type ??= 'primary';
 
     if ($green) $type = 'green';
     if ($red) $type = 'red';

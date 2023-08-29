@@ -3,11 +3,11 @@
 use App\Http\Controllers\{CategoryController,
     DashboardController,
     ItemController,
+    PresenceController,
     ProfileController,
     SettingsController,
     SignatureController,
-    UserController
-};
+    UserController};
 use App\Http\Middleware\{Admin\UnauthorizeSettingsPageAccess, Admin\UnauthorizeUserPageAccess};
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +34,14 @@ Route::middleware('auth')
             });
 
         Route::get('/categories', CategoryController::class)->name('categories');
+
+        Route::controller(PresenceController::class)
+            ->prefix('/presences')
+            ->name('presences.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/export', 'export')->name('export');
+            });
 
         Route::controller(SignatureController::class)
             ->prefix('/signatures')

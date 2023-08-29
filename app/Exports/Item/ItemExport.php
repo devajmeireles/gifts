@@ -40,7 +40,7 @@ class ItemExport implements FromCollection, WithMapping, WithHeadings
         ];
     }
 
-    public function map($row): array
+    public function map(mixed $row): array
     {
         /** @var Item $row */
         return [

@@ -55,6 +55,11 @@ class SettingSeeder extends Seeder
                 'value' => 'Recebemos a assinatura do seu presente! Entraremos em contato com você pelo número informado em breve. Obrigado!',
                 'type'  => 'textarea',
             ],
+            [
+                'key'   => 'converter_assinaturas_em_presenca',
+                'value' => 1,
+                'type'  => 'boolean',
+            ],
         ];
 
         foreach ($settings as $setting) {

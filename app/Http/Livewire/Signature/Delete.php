@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Signature;
 
 use App\Models\Signature;
+use App\Services\Settings\Facades\Settings;
 use Exception;
 use Livewire\Component;
 use WireUi\Traits\Actions;
@@ -28,9 +29,18 @@ class Delete extends Component
 
     public function confirmation(): void
     {
+        $message = "Deseja realmente deletar esta assinatura?";
+
+        if (
+            Settings::get('converter_assinaturas_em_presenca') &&
+            $this->signature->presence_id !== null // @phpstan-ignore-line
+        ) {
+            $message .= " A presença registrada também será deletada.";
+        }
+
         $this->dialog()->confirm([
             'title'       => 'Confirmação',
-            'description' => 'Deseja realmente deletar esta assinatura?',
+            'description' => $message,
             'icon'        => 'error',
             'accept'      => [
                 'label'  => 'Sim!',
@@ -45,6 +55,10 @@ class Delete extends Component
     public function delete(): void
     {
         try {
+            if (Settings::get('converter_assinaturas_em_presenca')) {
+                $this->signature->presence()->delete();
+            }
+
             $this->signature->item->is_active = true;
 
             if ($this->signature->item->quantity === 1) {

@@ -36,13 +36,15 @@ class Create extends Component
         return view('livewire.presence.create');
     }
 
-    public function rules(): array
+    public function rules(bool $observation = null): array
     {
+        $observation ??= $this->observation;
+
         return [
             'presence.name'         => ['required', 'string', 'max:255'],
             'presence.phone'        => ['nullable', 'string', 'max:20'],
             'presence.is_confirmed' => ['required', 'boolean'],
-            'presence.observation'  => [Rule::when($this->observation, ['required', 'string', 'max:1024'], ['nullable'])],
+            'presence.observation'  => [Rule::when($observation, ['required', 'string', 'max:1024'], ['nullable'])],
         ];
     }
 

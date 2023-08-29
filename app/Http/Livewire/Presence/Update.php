@@ -43,7 +43,8 @@ class Update extends Component
 
     public function rules(): array
     {
-        return (new Create())->rules();
+        return (new Create())
+            ->rules($this->presence?->observation !== null);
     }
 
     public function update(): void

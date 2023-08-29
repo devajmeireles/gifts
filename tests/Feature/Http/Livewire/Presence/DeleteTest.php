@@ -1,5 +1,18 @@
 <?php
 
-it('can load correctly')->todo();
+use App\Http\Livewire\Presence\Delete;
+use App\Models\Presence;
 
-it('can delete')->todo();
+use function Pest\Laravel\assertModelMissing;
+use function Pest\Livewire\livewire;
+
+it('can delete', function () {
+    $presence = Presence::factory()->create();
+
+    livewire(Delete::class)
+        ->set('presence', $presence)
+        ->call('delete')
+        ->assertEmittedUp('presence::index::refresh');
+
+    assertModelMissing($presence);
+});

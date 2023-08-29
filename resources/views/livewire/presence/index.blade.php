@@ -40,13 +40,15 @@
                                 </x-badge>
                             </x-table.td>
                             <x-table.td class="inline-flex gap-1" buttons>
-                                <x-button.circle primary
-                                                 icon="pencil"
-                                                 wire:click="update({{ $presence->id }})"
-                                />
-                                <livewire:presence.delete :presence="$presence"
-                                                          :key="md5('delete-'.$presence->id)"
-                                />
+                                @if (!$guest)
+                                    <x-button.circle primary
+                                                     icon="pencil"
+                                                     wire:click="update({{ $presence->id }})"
+                                    />
+                                    <livewire:presence.delete :presence="$presence"
+                                                              :key="md5('delete-'.$presence->id)"
+                                    />
+                                @endif
                             </x-table.td>
                         </x-table.tr>
                     @empty

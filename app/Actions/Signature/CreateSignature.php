@@ -38,7 +38,7 @@ class CreateSignature
 
     private function presence(Signature $signature): array
     {
-        if (!Settings::get('converter_assinaturas_em_presenca') && $signature->delivery !== DeliveryType::InPerson) {
+        if (!Settings::get('converter_assinaturas_em_presenca') || $signature->delivery !== DeliveryType::InPerson) {
             return [];
         }
 

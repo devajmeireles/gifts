@@ -10,6 +10,9 @@
             @if (!($guest = user()->isGuest()))
                 <livewire:presence.create/>
             @endif
+            @if ($presences->isNotEmpty())
+                <livewire:presence.filter />
+            @endif
         </div>
         <x-table.filter quantity search/>
         <div class="mt-4 flow-root">

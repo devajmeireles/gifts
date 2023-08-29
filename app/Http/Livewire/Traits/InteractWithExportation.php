@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Traits;
 
-use App\Http\Livewire\Item\Filter;
+use App\Http\Livewire\{Item, Presence, Signature};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 
@@ -16,10 +16,15 @@ trait InteractWithExportation
 
         $this->clear();
 
-        $route = $this instanceof Filter
-            ? 'admin.items.export'
-            : 'admin.signatures.export';
+        return redirect($this->route(), [...$exportable]);
+    }
 
-        return redirect(route($route, [...$exportable]));
+    private function route(): string
+    {
+        return match (static::class) {
+            Item\Filter::class      => route('admin.items.export'),
+            Presence\Filter::class  => route('admin.presences.export'),
+            Signature\Filter::class => route('admin.signatures.export'),
+        };
     }
 }

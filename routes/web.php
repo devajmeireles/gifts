@@ -34,7 +34,14 @@ Route::middleware('auth')
             });
 
         Route::get('/categories', CategoryController::class)->name('categories');
-        Route::get('/presences', PresenceController::class)->name('presences');
+
+        Route::controller(PresenceController::class)
+            ->prefix('/presences')
+            ->name('presences.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('/export', 'export')->name('export');
+            });
 
         Route::controller(SignatureController::class)
             ->prefix('/signatures')

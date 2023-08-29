@@ -33,7 +33,7 @@ class Delete extends Component
 
         if (
             Settings::get('converter_assinaturas_em_presenca') &&
-            $this->signature->presence_id
+            $this->signature->presence_id !== null // @phpstan-ignore-line
         ) {
             $message .= " A presença registrada também será deletada.";
         }

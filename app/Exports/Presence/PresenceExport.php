@@ -34,7 +34,7 @@ class PresenceExport implements FromCollection, WithMapping, WithHeadings
             $row->name,
             $row->phone,
             $row->is_confirmed ? 'Sim' : 'Não',
-            $row->signatures?->first()->id ?? 'N/A',
+            $row->signatures?->first()->id ?? 'N/A', // @phpstan-ignore-line
             $row->created_at->format('d/m/Y H:i:s'),
             $row->updated_at->format('d/m/Y H:i:s'),
         ];

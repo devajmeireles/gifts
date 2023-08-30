@@ -58,6 +58,13 @@ npm install && npm run build
 
 9. Acesse a aplicação pelo `APP_URL` configurado no `.env`.
 
+## Frontend & Backend
+
+A aplicação se divide em duas partes, quais eu chamo de `frontend` e `backend`. 
+O `frontend` é na realidade o local que o visitante irá acessar para lhe presentar com algo.
+Lá ele irá ver as categorias criadas e os seus respectivos itens. Já o `backend` é o painel 
+administrativo, que pode ser acessado através da rota `/admin`.
+
 ## Possíveis Adicionais Futuros
 
 1. Integração com PIX.

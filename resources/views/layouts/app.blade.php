@@ -14,18 +14,13 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
-    <style>
-        [x-cloak] { display: none !important; }
-    </style>
-
-    @wireUiScripts
+    <tallstackui:script />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
 </head>
     <body class="font-sans antialiased h-full" >
         <x-layout.navigation />
+        <x-toast />
         <x-dialog />
-        <x-notifications />
         <div class="min-h-full">
             <div class="lg:pl-72">
                 <livewire:layout.notification />

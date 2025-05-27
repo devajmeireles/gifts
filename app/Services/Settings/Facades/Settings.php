@@ -15,6 +15,6 @@ class Settings extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return SettingsService::class;
+        return 'settings';
     }
 }

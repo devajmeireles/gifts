@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 
-class UserController extends Controller
+class UserController
 {
     public function __invoke(): View
     {

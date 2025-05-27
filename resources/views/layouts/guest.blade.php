@@ -12,13 +12,12 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        @wireUiScripts
+        <tallstackui:script />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
     </head>
     <body class="font-sans text-gray-900 antialiased">
+        <x-toast />
         <x-dialog />
-        <x-notifications />
         @if ($wrap)
             <div class="min-h-screen flex flex-col justify-center items-center bg-gray-100">
                 <div class="w-full sm:max-w-lg mt-6 px-6 py-6 bg-white shadow-md overflow-hidden rounded-lg">
@@ -31,4 +30,3 @@
         @livewireScripts
     </body>
 </html>
-

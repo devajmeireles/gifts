@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 
-class CategoryController extends Controller
+class CategoryController
 {
     public function __invoke(): View
     {

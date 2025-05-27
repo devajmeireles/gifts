@@ -4,7 +4,7 @@
             @if (auth()->check())
                 <div class="p-2">
                     <x-button.circle sm primary href="{{ route('admin.dashboard') }}">
-                        <x-heroicon-s-arrow-up-right class="h-6 w-6 text-white" />
+                        <x-icon name="arrow-up-right" class="h-6 w-6 text-white" />
                     </x-button.circle>
                 </div>
             @endif
@@ -18,12 +18,12 @@
                     <div class="mx-auto max-w-7xl px-6 lg:px-8">
                         <div class="flex justify-center">
                             <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-6xl">
-                                {!! Settings::get('titulo') !!}
+                                {!! app('settings')->get('titulo') !!}
                             </h1>
                         </div>
                         <div class="mx-auto max-w-2xl text-center">
                             <p class="mt-6 text-justify text-lg leading-8 text-gray-600">
-                                {!! Settings::get('subtitulo') !!}
+                                {!! app('settings')->get('subtitulo') !!}
                             </p>
                         </div>
                         <div class="mt-16 flow-root sm:mt-24">
@@ -42,7 +42,7 @@
         </main>
         <footer class="bg-white">
             <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-                @if ($rodape = Settings::get('rodape'))
+                @if ($rodape = app('settings')->get('rodape'))
                     <div class="mt-8 md:order-1 md:mt-0">
                         <p class="text-center text-xs leading-5 text-gray-500">
                             &copy; {{ $rodape }}

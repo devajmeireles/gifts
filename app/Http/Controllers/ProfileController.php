@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\Redirect;
 
-class ProfileController extends Controller
+class ProfileController
 {
     public function edit(Request $request): View
     {

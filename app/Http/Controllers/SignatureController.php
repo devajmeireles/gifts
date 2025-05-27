@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class SignatureController extends Controller
+class SignatureController
 {
     public function index(): View
     {

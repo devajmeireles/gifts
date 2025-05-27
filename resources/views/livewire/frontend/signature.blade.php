@@ -63,7 +63,7 @@
                             <a href="{{ $item->reference }}" target="_blank" class="text-sm text-primary font-semibold">
                                 Veja um modelo do item desejado clicando aqui.
                             </a>
-                            <x-heroicon-s-arrow-up-right class="h-4 w-4 text-primary" />
+                            <x-icon name="arrow-up-right" class="h-4 w-4 text-primary" />
                         </div>
                     @endif
                 </div>

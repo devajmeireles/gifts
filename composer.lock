@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1c3715779ff6afe3bec911a66c74b46",
+    "content-hash": "1cd7f116e793dc2adfcf2fe8b6cf1ce8",
     "packages": [
         {
             "name": "brick/math",
@@ -6183,6 +6183,82 @@
                 }
             ],
             "time": "2025-04-09T08:14:01+00:00"
+        },
+        {
+            "name": "tallstackui/tallstackui",
+            "version": "v2.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tallstackui/tallstackui.git",
+                "reference": "157bfa11ff05aae773063ab41f1080ae9970aa18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tallstackui/tallstackui/zipball/157bfa11ff05aae773063ab41f1080ae9970aa18",
+                "reference": "157bfa11ff05aae773063ab41f1080ae9970aa18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zip": "*",
+                "illuminate/console": "^10.0|^11.0|^12.0",
+                "illuminate/contracts": "^10.0|^11.0|^12.0",
+                "illuminate/pagination": "^10.0|^11.0|^12.0",
+                "illuminate/support": "^10.0|^11.0|^12.0",
+                "illuminate/view": "^10.0|^11.0|^12.0",
+                "livewire/livewire": "^3.5.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "blade-ui-kit/blade-icons": "^1.7",
+                "larastan/larastan": "^2.7",
+                "laravel/pint": "^1.13",
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "orchestra/testbench-dusk": "^8.0|^9.0",
+                "pestphp/pest": "^2.0|^3.7",
+                "pestphp/pest-plugin-type-coverage": "^2.2|^3.3",
+                "spatie/ray": "^1.41"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "TallStackUi": "TallStackUi\\Facades\\TallStackUi"
+                    },
+                    "providers": [
+                        "TallStackUi\\TallStackUiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "TallStackUi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "AJ Meireles",
+                    "email": "alvaro.meireles@live.com"
+                }
+            ],
+            "description": "TallStackUI is a powerful suite of Blade components that elevate your workflow of Livewire applications.",
+            "support": {
+                "issues": "https://github.com/tallstackui/tallstackui/issues",
+                "source": "https://github.com/tallstackui/tallstackui/tree/v2.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/devajmeireles",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-05-24T18:54:26+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

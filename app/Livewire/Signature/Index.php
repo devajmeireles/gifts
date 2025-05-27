@@ -3,7 +3,6 @@
 namespace App\Livewire\Signature;
 
 use App\Filters\Signature\Filters\{FilterSignatureCategory, FilterSignatureDate, FilterSignatureItem};
-use App\Livewire\Traits\Table;
 use App\Models\Signature;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,8 +12,6 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    use Table;
-
     protected $listeners = [
         'signature::index::refresh' => '$refresh',
         'signature::index::filter'  => 'filter',

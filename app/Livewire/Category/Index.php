@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Category;
 
-use App\Livewire\Traits\Table;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -10,8 +9,6 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    use Table;
-
     protected $listeners = [
         'category::index::refresh' => '$refresh',
     ];

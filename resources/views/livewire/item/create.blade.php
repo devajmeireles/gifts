@@ -3,11 +3,11 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Item" wire:model.defer="modal">
+    <x-modal.card title="Criação de Item" wire:model="modal">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <x-input label="Nome" wire:model.defer="item.name" />
+            <x-input label="Nome" wire:model="item.name" />
 
-            <x-filter.category wire:model.defer="item.category_id" />
+            <x-filter.category wire:model="item.category_id" />
 
             @if (!$description)
                 <p class="text-sm text-primary font-semibold cursor-pointer" wire:click="$toggle('description')">Definir descrição do item</p>
@@ -16,7 +16,7 @@
             @if ($description)
                 <div class="col-span-full">
                     <x-textarea label="Descrição"
-                                wire:model.defer="item.description"
+                                wire:model="item.description"
                                 class="resize-none"
                                 rows="8"
                     />
@@ -26,25 +26,25 @@
             <div class="col-span-full">
                 <x-inputs.number label="Quantidade"
                                  :min="1"
-                                 wire:model.debounce.250ms="item.quantity" />
+                                 wire:model.live.debounce.250ms="item.quantity" />
             </div>
 
             <div class="col-span-full flex items-center gap-2">
-                <x-toggle label="Ativo" lg wire:model.defer="item.is_active" />
-                <x-toggle label="Cotas" lg wire:model.debounce.250ms="item.is_quotable" />
+                <x-toggle label="Ativo" lg wire:model="item.is_active" />
+                <x-toggle label="Cotas" lg wire:model.live.debounce.250ms="item.is_quotable" />
             </div>
 
             @if ($item->is_quotable)
                 <div>
                     <x-input type="number"
                              label="Valor"
-                             wire:model.debounce.250ms="item.price"
+                             wire:model.live.debounce.250ms="item.price"
                     />
                     <p class="mt-1 text-sm font-semibold text-gray-500">valor total, exemplo: 1550 = R$ 15,50</p>
                 </div>
 
                 <x-input label="Referência"
-                         wire:model.defer="item.reference"
+                         wire:model="item.reference"
                          placeholder="URL de um item de modelo"
                 />
 

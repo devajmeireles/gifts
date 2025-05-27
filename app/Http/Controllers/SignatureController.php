@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\Signature\SignatureExport;
-use App\Models\{Category, Item};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

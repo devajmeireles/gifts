@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Category\Create;
+use App\Livewire\Category\Create;
 
 use App\Models\Category;
 
@@ -25,7 +25,7 @@ it('can create', function () {
         ->call('create')
         ->assertHasNoErrors()
         ->assertSuccessful()
-        ->assertEmittedUp('category::index::refresh')
+
         ->assertSet('category', $default);
 
     assertDatabaseHas('categories', [

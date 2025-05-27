@@ -7,7 +7,7 @@
             <x-heroicon-s-funnel class="h-4 w-4"/>
         </x-button.circle>
     </div>
-    <x-modal.card title="Filtros & Exportação" wire:model.defer="modal" max-width="lg">
+    <x-modal.card title="Filtros & Exportação" wire:model="modal" max-width="lg">
         <div class="grid grid-cols-1 gap-4">
             <x-export wire:click="export"/>
         </div>

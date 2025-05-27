@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\DeliveryType;
-use App\Http\Livewire\Frontend\Signature;
+use App\Livewire\Frontend\Signature;
 use App\Models\Item;
 
 use App\Notifications\SignatureCreated;

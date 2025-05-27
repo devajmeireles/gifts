@@ -1,0 +1,68 @@
+<?php
+
+namespace App\Livewire\Category;
+
+use App\Enums\Category\Badge;
+use App\Models\Category;
+use Exception;
+use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Rule;
+use Livewire\Component;
+
+class Update extends Component
+{
+    public Category $category;
+
+    public bool $modal = false;
+
+    public ?string $color = null;
+
+    protected $listeners = [
+        'category::update::load' => 'load',
+    ];
+
+    public function render(): View
+    {
+        return view('livewire.category.update', [
+            'colors' => collect(Badge::cases()),
+        ]);
+    }
+
+    public function load(Category $category): void
+    {
+        $this->category = $category;
+        $this->color    = $category->color->value;
+        $this->modal    = true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'category.name'        => ['required', 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->category->id)],
+            'color'                => ['required', Rule::in(Badge::toArray())],
+            'category.description' => ['nullable', 'max:255'],
+            'category.is_active'   => ['nullable', 'boolean'],
+        ];
+    }
+
+    public function update(): void
+    {
+        $this->validate();
+
+        $this->modal = false;
+
+        try {
+            $this->category->color = Badge::from($this->color);
+            $this->category->save();
+
+            $this->emitUp('category::index::refresh');
+            $this->notification()->success('Categoria atualizada com sucesso!');
+
+            return;
+        } catch (Exception $e) {
+            report($e);
+        }
+
+        $this->notification()->error('Erro ao atualizar categoria!');
+    }
+}

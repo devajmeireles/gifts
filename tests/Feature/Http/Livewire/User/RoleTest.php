@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\UserRole;
-use App\Http\Livewire\User\Role;
+use App\Livewire\User\Role;
 use App\Models\User;
 
 use function Pest\Livewire\livewire;

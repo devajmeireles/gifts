@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\DeliveryType;
-use App\Http\Livewire\Signature\Update;
+use App\Livewire\Signature\Update;
 use App\Models\{Item, Signature};
 
 use function Pest\Livewire\livewire;

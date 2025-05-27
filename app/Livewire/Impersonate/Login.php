@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Livewire\Impersonate;
+
+use App\Models\User;
+use Illuminate\Support\Facades\{Auth, Session};
+use Livewire\Component;
+
+class Login extends Component
+{
+    public User $user;
+
+    public function render(): string
+    {
+        return <<<'blade'
+            <div>
+                <x-button.circle primary wire:click="login">
+                    <x-heroicon-s-arrow-right-on-rectangle class="w-5 h-5" />
+                </x-button.circle>
+            </div>
+        blade;
+    }
+
+    public function login(): mixed
+    {
+        if (Session::has('impersonate')) {
+            $this->notification()->warning('Você já está impersonando');
+
+            return null;
+        }
+
+        $user = user();
+
+        if ($user->is($this->user)) {
+            $this->notification()->warning('Você não pode se impersonar');
+
+            return null;
+        }
+
+        if (!$user->isAdmin()) {
+            $this->notification()->warning('Somente admins. podem impersonar');
+
+            return null;
+        }
+
+        Session::put('impersonate', [
+            'from' => $user->id,
+            'to'   => $this->user->id,
+        ]);
+
+        Auth::logout();
+        Auth::login($this->user);
+
+        return redirect(route('admin.dashboard'));
+    }
+}

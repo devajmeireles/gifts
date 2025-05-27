@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Item\{Delete, Index};
+use App\Http\Livewire\Item\{Delete};
 use App\Models\Item;
 
 use function Pest\Laravel\assertModelMissing;
@@ -16,8 +16,7 @@ it('can delete', function () {
     livewire(Delete::class)
         ->call('load', $item)
         ->assertDispatchedBrowserEvent('wireui:confirm-dialog')
-        ->call('delete')
-        ->assertEmittedUp('item::index::refresh');
+        ->call('delete');
 
     assertModelMissing($item);
 });

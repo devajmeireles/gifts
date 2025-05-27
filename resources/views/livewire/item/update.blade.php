@@ -1,10 +1,10 @@
 <div>
-    <x-modal.card :title="__('Edição de Item: #:id', ['id' => $item?->id])" wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Item: #:id', ['id' => $item?->id])" wire:model="modal">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <x-input label="Nome" wire:model.defer="item.name" />
+            <x-input label="Nome" wire:model="item.name" />
 
             @if ($item)
-                <x-filter.category wire:model.defer="item.category_id" />
+                <x-filter.category wire:model="item.category_id" />
             @endif
 
             @if (!$description)
@@ -14,7 +14,7 @@
             @if ($item && $item->description || $description)
                 <div class="col-span-full">
                     <x-textarea label="Descrição"
-                                wire:model.defer="item.description"
+                                wire:model="item.description"
                                 class="resize-none"
                                 rows="8"
                     />
@@ -24,24 +24,24 @@
             <div class="col-span-full">
                 <x-inputs.number label="Quantidade"
                                  :min="1"
-                                 wire:model.debounce.250ms="item.quantity" />
+                                 wire:model.live.debounce.250ms="item.quantity" />
                 @if ($item && $item->is_quotable)
                     <p class="text-sm text-primary font-semibold">Cotas Assinadas: {{ $item->signatures->count() }}</p>
                 @endif
             </div>
 
             <div class="col-span-full flex items-center gap-2">
-                <x-toggle label="Ativo" lg wire:model.defer="item.is_active" />
-                <x-toggle label="Cotas" lg wire:model.debounce.250ms="item.is_quotable" />
+                <x-toggle label="Ativo" lg wire:model="item.is_active" />
+                <x-toggle label="Cotas" lg wire:model.live.debounce.250ms="item.is_quotable" />
             </div>
 
             @if ($item && $item->is_quotable)
                 <x-input type="number"
                          label="Valor"
-                         wire:model="item.price"
+                         wire:model.live="item.price"
                 />
 
-                <x-input label="Referência" wire:model.defer="item.reference" />
+                <x-input label="Referência" wire:model="item.reference" />
             @endif
 
             @if ($item && $item->is_quotable && $item->price > 0)

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Frontend\Index;
+use App\Livewire\Frontend\Index;
 use App\Models\{Category, Item};
 use App\Services\Settings\Facades\Settings;
 
@@ -97,7 +97,7 @@ it('can back to the initial view', function () {
             $last->name,
         ])
         ->call('more')
-        ->assertEmitted('frontend::load::more')
+        ->assertDispatched('frontend::load::more')
         ->assertSet('limit', 18)
         ->call('category')
         ->assertSet('filtered', false)
@@ -140,7 +140,7 @@ it('cal load more', function () {
         ->call('item', $category)
         ->assertSee($first->name)
         ->call('more')
-        ->assertEmitted('frontend::load::more')
+        ->assertDispatched('frontend::load::more')
         ->call('item', $category)
         ->assertSee($last->name);
 });

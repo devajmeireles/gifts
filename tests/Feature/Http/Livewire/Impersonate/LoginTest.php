@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\UserRole;
-use App\Http\Livewire\Impersonate\Login;
+use App\Livewire\Impersonate\Login;
 
 use function Pest\Laravel\{assertAuthenticatedAs, get};
 use function Pest\Livewire\livewire;

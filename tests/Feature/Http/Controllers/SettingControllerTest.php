@@ -2,7 +2,7 @@
 
 use App\Enums\UserRole;
 
-use App\Http\Livewire\Setting\Index;
+use App\Livewire\Setting\Index;
 
 use function Pest\Laravel\get;
 

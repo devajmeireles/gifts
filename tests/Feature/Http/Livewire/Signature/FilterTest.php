@@ -59,7 +59,7 @@ it('cannot filter using zero filters', function () {
     livewire(Filter::class)
         ->call('filter')
         ->assertDispatchedBrowserEvent('wireui:notification')
-        ->assertNotEmitted('signature::index::filter');
+        ->assertNotDispatched('signature::index::filter');
 });
 
 it('can view filtered by item', function () {

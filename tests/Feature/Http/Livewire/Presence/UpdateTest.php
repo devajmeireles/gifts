@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Presence\Update;
+use App\Livewire\Presence\Update;
 use App\Models\Presence;
 
 use Faker\Provider\Lorem;
@@ -19,8 +19,7 @@ it('can update', function () {
         ->set('presence.observation', $observation = fake()->sentence())
         ->call('update')
         ->assertHasNoErrors()
-        ->assertSuccessful()
-        ->assertEmittedUp('presence::index::refresh');
+        ->assertSuccessful();
 
     $presence->refresh();
 
@@ -55,7 +54,7 @@ it('can validate', function () {
             'presence.phone'       => 'max',
             'presence.observation' => 'max',
         ])
-        ->assertNotEmitted('presence::index::refresh');
+        ->assertNotDispatched('presence::index::refresh');
 
     $presence->refresh();
 

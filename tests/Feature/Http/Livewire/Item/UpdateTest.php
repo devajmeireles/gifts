@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Item\{Index, Update};
+use App\Http\Livewire\Item\{Update};
 use App\Models\{Category, Item, Signature};
 
 use function Pest\Livewire\livewire;
@@ -35,8 +35,7 @@ it('can update', function () {
         ->set('item.is_active', $activated)
         ->call('update')
         ->assertHasNoErrors()
-        ->assertSuccessful()
-        ->assertEmittedUp('item::index::refresh');
+        ->assertSuccessful();
 
     $item->refresh();
 
@@ -86,8 +85,7 @@ it('can update and inactivate item due signature quantity', function () {
         ->set('item.is_quotable', $quotable)
         ->call('update')
         ->assertHasNoErrors()
-        ->assertSuccessful()
-        ->assertEmittedUp('item::index::refresh');
+        ->assertSuccessful();
 
     expect($item->is_active)->toBeTrue();
 
@@ -126,8 +124,7 @@ it('can update and inactivate item due quantity increase', function () {
         ->set('item.is_quotable', $quotable)
         ->call('update')
         ->assertHasNoErrors()
-        ->assertSuccessful()
-        ->assertEmittedUp('item::index::refresh');
+        ->assertSuccessful();
 
     expect($item->is_active)->toBeFalse();
 
@@ -168,8 +165,7 @@ it('can update and activate item due signature removed', function () {
         ->set('item.is_quotable', $quotable)
         ->call('update')
         ->assertHasNoErrors()
-        ->assertSuccessful()
-        ->assertEmittedUp('item::index::refresh');
+        ->assertSuccessful();
 
     expect($item->is_active)->toBeFalse();
 

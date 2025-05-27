@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Livewire\User\Index;
-use App\Models\{Item, User};
+use App\Livewire\User\Index;
+use App\Models\{User};
 
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;

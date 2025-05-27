@@ -9,7 +9,7 @@
         <x-input type="text"
                  placeholder="Pesquise alguma coisa..."
                  class="w-full"
-                 wire:model.debounce.250ms="search"
+                 wire:model.live.debounce.250ms="search"
         />
     </div>
     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">

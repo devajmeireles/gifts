@@ -6,14 +6,9 @@ use App\Enums\UserRole;
 use App\Models\Traits\{HasAvatar, Searchable};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 
-/**
- * @mixin IdeHelperUser
- */
 class User extends Authenticatable
 {
-    use HasApiTokens;
     use HasFactory;
     use Searchable;
     use HasAvatar;

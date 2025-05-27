@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Signature\Delete;
+use App\Livewire\Signature\Delete;
 use App\Models\{Item, Signature};
 use App\Services\Settings\Facades\Settings;
 

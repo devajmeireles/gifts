@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Setting\Index;
+use App\Livewire\Setting\Index;
 use App\Models\Setting;
 
 use function Pest\Laravel\get;

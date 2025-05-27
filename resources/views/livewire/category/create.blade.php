@@ -3,11 +3,11 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Categoria" wire:model.defer="modal">
+    <x-modal.card title="Criação de Categoria" wire:model="modal">
         <div class="grid grid-cols-2 gap-4">
 
             <div class="col-span-1">
-                <x-input label="Nome" wire:model.defer="category.name"/>
+                <x-input label="Nome" wire:model="category.name"/>
             </div>
 
             <div class="col-span-1">
@@ -16,7 +16,7 @@
                           :options="$colors->map(fn ($color) => ['name' => $color->name, 'id' => $color->value])"
                           option-label="name"
                           option-value="id"
-                          wire:model.debounce.250ms="color"
+                          wire:model.live.debounce.250ms="color"
                 />
 
                 @if ($colors->contains('value', $color))
@@ -28,14 +28,14 @@
 
             <div class="col-span-full">
                 <x-textarea label="Descrição"
-                            wire:model.defer="category.description"
+                            wire:model="category.description"
                             class="resize-none"
                             rows="8"
                 />
             </div>
 
             <div class="col-span-full">
-                <x-toggle label="Ativo" lg wire:model.defer="category.is_active"/>
+                <x-toggle label="Ativo" lg wire:model="category.is_active"/>
             </div>
 
         </div>

@@ -73,7 +73,7 @@ it('can load method', function (array $data) {
 
     livewire(Index::class)
         ->call($method, $category)
-        ->assertEmittedTo($component, $event, $category);
+        ->assertDispatchedTo($component, $event, $category);
 })->with([
     fn () => [
         'method' => 'update',

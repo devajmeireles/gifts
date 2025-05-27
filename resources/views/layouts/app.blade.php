@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-      class="h-full bg-gray-100"
-      x-data="{ mobile : false, slide : false }"
-      x-cloak
->
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="tallstackui_darkTheme()">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,21 +13,34 @@
     <tallstackui:script />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-    <body class="font-sans antialiased h-full" >
-        <x-layout.navigation />
-        <x-toast />
-        <x-dialog />
-        <div class="min-h-full">
-            <div class="lg:pl-72">
-                <livewire:layout.notification />
-                <x-layout.header />
-                <main class="max-w-full mx-auto sm:px-6 lg:px-8 py-10">
-                    <div class="px-4 sm:px-6 lg:px-8">
-                        {{ $slot }}
-                    </div>
-                </main>
-            </div>
-        </div>
-        @livewireScripts
+    <body x-bind:class="{ 'dark bg-gray-700': darkTheme, 'bg-white': !darkTheme }">
+
+    <x-layout>
+        <x-slot:header>
+            <x-layout.header>
+                <x-slot:left>
+                    <x-theme-switch />
+                </x-slot:left>
+                <x-slot:right>
+                    <x-dropdown text="Hello, {{ auth()->user()->name }}!">
+                        <form method="POST" action="{{ route('admin.logout') }}">
+                            @csrf
+                            <x-dropdown.items text="Logout" onclick="event.preventDefault(); this.closest('form').submit();" />
+                        </form>
+                    </x-dropdown>
+                </x-slot:right>
+            </x-layout.header>
+        </x-slot:header>
+
+        <x-slot:menu>
+            <x-side-bar>
+                <x-side-bar.item text="Home" icon="home" :route="route('admin.dashboard')" />
+            </x-side-bar>
+        </x-slot:menu>
+
+        {{ $slot }}
+    </x-layout>
+
+    @livewireScripts
     </body>
 </html>

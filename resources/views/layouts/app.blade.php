@@ -33,8 +33,16 @@
         </x-slot:header>
 
         <x-slot:menu>
-            <x-side-bar>
-                <x-side-bar.item text="Home" icon="home" :route="route('admin.dashboard')" />
+            <x-side-bar smart collapsible>
+                <x-side-bar.item :route="route('admin.dashboard')" icon="home" text="Página Inicial" />
+                <x-side-bar.item :route="route('admin.items.index')" icon="gift" text="Itens" />
+                <x-side-bar.item :route="route('admin.categories')" icon="tag" text="Categorias" />
+                <x-side-bar.item :route="route('admin.signatures.index')" icon="pencil" text="Assinaturas" />
+                <x-side-bar.item :route="route('admin.presences.index')" icon="user-group" text="Presenças" />
+                <x-side-bar.item icon="shield-check" text="Administração" opened>
+                    <x-side-bar.item :route="route('admin.users')" icon="users" text="Usuários" :visible="user()->isAdmin()" />
+                    <x-side-bar.item :route="route('admin.settings')" icon="cog" text="Configurações" />
+                </x-side-bar.item>
             </x-side-bar>
         </x-slot:menu>
 

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\Settings\Facades\Settings;
 use App\Services\Settings\SettingsService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;

@@ -5,8 +5,7 @@ namespace App\Livewire\Dashboard;
 use App\Enums\Dashboard\CardType;
 use App\Models\Item;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\Lazy;
+use Livewire\Attributes\{Computed, Lazy};
 use Livewire\Component;
 
 #[Lazy]

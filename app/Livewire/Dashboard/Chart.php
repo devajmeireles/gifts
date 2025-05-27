@@ -6,8 +6,7 @@ use App\Models\Signature;
 use Carbon\{CarbonInterval, CarbonPeriod};
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\Lazy;
+use Livewire\Attributes\{Computed};
 use Livewire\Component;
 
 class Chart extends Component

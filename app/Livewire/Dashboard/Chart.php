@@ -6,11 +6,10 @@ use App\Models\Signature;
 use Carbon\{CarbonInterval, CarbonPeriod};
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
-/**
- * @property-read array $chart
- */
 class Chart extends Component
 {
     public function render(): View
@@ -18,12 +17,8 @@ class Chart extends Component
         return view('livewire.dashboard.chart');
     }
 
-    public function load(): void
-    {
-        //
-    }
-
-    public function getChartProperty(): array
+    #[Computed]
+    public function chart(): array
     {
         return collect($this->dates())
             ->merge($this->count())

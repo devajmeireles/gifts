@@ -13,7 +13,7 @@
     <tallstackui:script />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-    <body x-bind:class="{ 'dark bg-gray-700': darkTheme, 'bg-white': !darkTheme }">
+    <body x-bind:class="{ 'dark bg-gray-700': darkTheme, 'bg-gray-100': !darkTheme }">
 
     <x-layout>
         <x-slot:header>

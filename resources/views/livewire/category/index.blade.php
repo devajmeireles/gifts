@@ -11,6 +11,11 @@
                            color-when-true="green"
                            color-when-false="gray" />
             @endinteract
+            @interact('column_action', $row)
+                <div class="flex gap-1">
+                    <livewire:category.delete @deleted="$refresh" :category="$row" :key="uniqid()" />
+                </div>
+            @endinteract
         </x-table>
 {{--        @if (!user()->isGuest())--}}
 {{--            <livewire:category.update />--}}

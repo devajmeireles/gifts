@@ -9,17 +9,13 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Pipeline;
-use Livewire\Attributes\Computed;
+use Livewire\Attributes\{Computed, On};
 use Livewire\Component;
 
+#[On('item::index::refresh')]
 class Index extends Component
 {
     use Pagination;
-
-    protected $listeners = [
-        'item::index::refresh' => '$refresh',
-        'item::index::filter'  => 'filter',
-    ];
 
     private array $filters = [];
 
@@ -54,11 +50,12 @@ class Index extends Component
             ])
             ->then(
                 fn (Builder $builder) => $builder->search($this->search, 'name', 'description', 'reference') // @phpstan-ignore-line
-                    ->orderBy($this->sort, $this->direction)
+                    ->orderBy(...array_values($this->sort))
                     ->paginate($this->quantity)
             );
     }
 
+    #[On('item::index::filter')]
     public function filter(array $filters): void
     {
         $this->filters = [...$filters];

@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Item;
 
-use App\Models\{Category, Item};
+use App\Livewire\Traits\Alert;
+use App\Models\Item;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
@@ -10,6 +11,8 @@ use Livewire\Component;
 
 class Create extends Component
 {
+    use Alert;
+
     public Item $item;
 
     public bool $modal = false;
@@ -36,18 +39,6 @@ class Create extends Component
         return view('livewire.item.create');
     }
 
-    public function updatedModal(bool $value): void
-    {
-        if ($value && Category::count() === 0) {
-            $this->dialog()->info(
-                'Sem categoria cadastrada!',
-                'Cadastre uma categoria para criar itens.',
-            );
-
-            $this->modal = false;
-        }
-    }
-
     public function rules(): array
     {
         return [
@@ -71,8 +62,9 @@ class Create extends Component
         try {
             $this->item->save();
 
-            $this->emitUp('item::index::refresh');
-            $this->notification()->success('Item criado com sucesso!');
+            $this->dispatch('created');
+
+            $this->success();
 
             return;
         } catch (Exception $e) {
@@ -81,7 +73,7 @@ class Create extends Component
             $this->item();
         }
 
-        $this->notification()->error('Erro ao criar item!');
+        $this->error();
     }
 
     private function item(): void

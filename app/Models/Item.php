@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 use Illuminate\Notifications\Notifiable;
 
-/**
- * @mixin IdeHelperItem
- */
 class Item extends Model
 {
     use HasFactory;

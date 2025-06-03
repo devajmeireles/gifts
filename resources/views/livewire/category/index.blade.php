@@ -6,7 +6,7 @@
             @endif
         </div>
 {{--        <x-table.filter quantity search />--}}
-        <x-table :headers="$this->headers" :rows="$this->rows" paginate simple-pagination loading>
+        <x-table :headers="$this->headers" :rows="$this->rows" filter paginate simple-pagination loading>
             @interact('column_status', $row)
                 <x-boolean :boolean="$row->is_active"
                            color-when-true="green"

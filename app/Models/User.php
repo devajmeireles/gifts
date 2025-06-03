@@ -11,7 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory;
     use Searchable;
-    use HasAvatar;
 
     protected $fillable = [
         'role',

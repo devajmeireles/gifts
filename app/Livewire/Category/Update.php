@@ -3,23 +3,23 @@
 namespace App\Livewire\Category;
 
 use App\Enums\Category\Badge;
+use App\Livewire\Traits\Alert;
 use App\Models\Category;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Update extends Component
 {
-    public Category $category;
+    use Alert;
+
+    public ?Category $category = null;
 
     public bool $modal = false;
 
     public ?string $color = null;
-
-    protected $listeners = [
-        'category::update::load' => 'load',
-    ];
 
     public function render(): View
     {
@@ -28,8 +28,11 @@ class Update extends Component
         ]);
     }
 
+    #[On('category::update::load')]
     public function load(Category $category): void
     {
+        $this->resetValidation();
+
         $this->category = $category;
         $this->color    = $category->color->value;
         $this->modal    = true;
@@ -38,7 +41,7 @@ class Update extends Component
     public function rules(): array
     {
         return [
-            'category.name'        => ['required', 'string', 'max:255', Rule::unique('categories', 'name')->ignore($this->category->id)],
+            'category.name'        => ['required', 'string', 'max:255', Rule::unique(Category::class, 'name')->ignore($this->category->id)],
             'color'                => ['required', Rule::in(Badge::toArray())],
             'category.description' => ['nullable', 'max:255'],
             'category.is_active'   => ['nullable', 'boolean'],
@@ -55,14 +58,16 @@ class Update extends Component
             $this->category->color = Badge::from($this->color);
             $this->category->save();
 
-            $this->emitUp('category::index::refresh');
-            $this->notification()->success('Categoria atualizada com sucesso!');
+            $this->dispatch('updated');
+            $this->success();
 
             return;
         } catch (Exception $e) {
             report($e);
+        } finally {
+            $this->reset();
         }
 
-        $this->notification()->error('Erro ao atualizar categoria!');
+        $this->error();
     }
 }

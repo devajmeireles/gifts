@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserRole;
-use App\Models\Traits\{HasAvatar, Searchable};
+use App\Models\Traits\{Searchable};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

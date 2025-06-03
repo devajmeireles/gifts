@@ -13,13 +13,17 @@
             @endinteract
             @interact('column_action', $row)
                 <div class="flex gap-1">
-                    <livewire:category.delete @deleted="$refresh" :category="$row" :key="uniqid()" />
+                    <x-button.circle icon="pencil"
+                                     color="green"
+                                     wire:click="$dispatch('category::update::load', { category: '{{ $row->id }}' })" />
+                    <livewire:category.delete :category="$row"
+                                              :key="uniqid()"
+                                              @deleted="$refresh" />
                 </div>
             @endinteract
         </x-table>
-{{--        @if (!user()->isGuest())--}}
-{{--            <livewire:category.update />--}}
-{{--            <livewire:category.delete />--}}
-{{--        @endif--}}
+        @if (!user()->isGuest())
+            <livewire:category.update @updated="$refresh" />
+        @endif
     </x-card>
 </div>

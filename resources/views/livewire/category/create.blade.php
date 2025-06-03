@@ -1,4 +1,4 @@
-<div class="mb-4 sm:ml-16 sm:mb-0 sm:flex-none sm:justify-end">
+<div>
     <x-button text="Adicionar" wire:click="$toggle('modal')" />
     <x-modal title="Criação de Categoria" wire>
         <div class="grid grid-cols-2 gap-4">

@@ -1,11 +1,10 @@
 <div>
-    <div>
-        <div class="flex items-end justify-end">
+    <x-card header="Categorias">
+        <div class="mb-2">
             @if (!($guest = user()->isGuest()))
                 <livewire:category.create @created="$refresh" />
             @endif
         </div>
-{{--        <x-table.filter quantity search />--}}
         <x-table :headers="$this->headers" :rows="$this->rows" filter paginate simple-pagination loading>
             @interact('column_status', $row)
                 <x-boolean :boolean="$row->is_active"
@@ -17,5 +16,5 @@
 {{--            <livewire:category.update />--}}
 {{--            <livewire:category.delete />--}}
 {{--        @endif--}}
-    </div>
+    </x-card>
 </div>

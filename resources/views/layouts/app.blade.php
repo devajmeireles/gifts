@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
     <body x-bind:class="{ 'dark bg-gray-700': darkTheme, 'bg-gray-100': !darkTheme }">
-
+    <x-dialog />
     <x-layout>
         <x-slot:header>
             <x-layout.header>

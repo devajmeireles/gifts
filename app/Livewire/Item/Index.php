@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Pipeline;
 use Livewire\Attributes\{Computed, On};
 use Livewire\Component;
 
-#[On('item::index::refresh')]
 class Index extends Component
 {
     use Pagination;
@@ -23,13 +22,13 @@ class Index extends Component
     public function headers(): array
     {
         return [
-            ['column' => 'id', 'label' => '#'],
-            ['column' => 'name', 'label' => 'Nome'],
-            ['column' => 'category', 'label' => 'Categoria'],
-            ['column' => 'quantity', 'label' => 'Quantidade'],
-            ['column' => 'signed', 'label' => 'Qnt. Assinado'],
-            ['column' => 'status', 'label' => 'Status'],
-            ['column' => 'action'],
+            ['index' => 'id', 'label' => '#'],
+            ['index' => 'name', 'label' => 'Nome'],
+            ['index' => 'category', 'label' => 'Categoria'],
+            ['index' => 'quantity', 'label' => 'Quantidade'],
+            ['index' => 'signed', 'label' => 'Qnt. Assinado'],
+            ['index' => 'status', 'label' => 'Status'],
+            ['index' => 'action'],
         ];
     }
 

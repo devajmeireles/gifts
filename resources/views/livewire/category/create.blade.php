@@ -1,27 +1,21 @@
-<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none sm:justify-end">
-    <x-button label="Adicionar"
-              primary
-              wire:click="$toggle('modal')"
-    />
-    <x-modal.card title="Criação de Categoria" wire:model="modal">
+<div class="mb-4 sm:ml-16 sm:mb-0 sm:flex-none sm:justify-end">
+    <x-button text="Adicionar" wire:click="$toggle('modal')" />
+    <x-modal title="Criação de Categoria" wire>
         <div class="grid grid-cols-2 gap-4">
 
             <div class="col-span-1">
-                <x-input label="Nome" wire:model="category.name"/>
+                <x-input label="Nome *" wire:model="category.name"/>
             </div>
 
             <div class="col-span-1">
-                <x-select x-searchable
-                          label="Cor Destaque"
-                          :options="$colors->map(fn ($color) => ['name' => $color->name, 'id' => $color->value])"
-                          option-label="name"
-                          option-value="id"
-                          wire:model.live.debounce.250ms="color"
+                <x-select.native label="Cor Destaque"
+                                 :options="$colors->map(fn ($color) => ['label' => $color->name, 'value' => $color->value])"
+                                 wire:model.live="color"
                 />
 
                 @if ($colors->contains('value', $color))
                     <div class="mt-2">
-                        <x-badge outline :$color>Exemplo de Cor</x-badge>
+                        <x-badge :$color>Exemplo de Cor</x-badge>
                     </div>
                 @endif
             </div>
@@ -40,13 +34,8 @@
 
         </div>
 
-        <x-slot name="footer">
-            <div class="flex justify-end gap-x-4">
-                <div class="flex">
-                    <x-button flat label="Cancelar" x-on:click="close"/>
-                    <x-button primary label="Criar" wire:click="create"/>
-                </div>
-            </div>
-        </x-slot>
-    </x-modal.card>
+        <x-slot:footer>
+            <x-button text="CRIAR" wire:click="create" />
+        </x-slot:footer>
+    </x-modal>
 </div>

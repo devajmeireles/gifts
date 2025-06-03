@@ -3,6 +3,7 @@
 namespace App\Livewire\Category;
 
 use App\Enums\Category\Badge;
+use App\Livewire\Traits\Alert;
 use App\Models\Category;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,8 @@ use Livewire\Component;
 
 class Create extends Component
 {
+    use Alert;
+
     public Category $category;
 
     public bool $modal = false;
@@ -56,8 +59,9 @@ class Create extends Component
             $this->category->color = Badge::from($this->color);
             $this->category->save();
 
-            $this->emitUp('category::index::refresh');
-            $this->notification()->success('Categoria criada com sucesso!');
+            $this->dispatch('created');
+
+            $this->success();
 
             return;
         } catch (Exception $e) {
@@ -66,7 +70,7 @@ class Create extends Component
             $this->category();
         }
 
-        $this->notification()->error('Erro ao criar categoria!');
+        $this->error();
     }
 
     private function category(): void

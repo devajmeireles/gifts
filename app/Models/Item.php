@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use App\Models\Traits\Searchable;
+use Illuminate\Database\Eloquent\{Builder, Model};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
-use Illuminate\Database\Eloquent\{Builder, Model};
 use Illuminate\Notifications\Notifiable;
 
-/**
- * @mixin IdeHelperItem
- */
 class Item extends Model
 {
     use HasFactory;

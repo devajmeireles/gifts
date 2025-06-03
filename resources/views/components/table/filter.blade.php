@@ -6,11 +6,11 @@
             <x-native-select
                 label="Quantidade"
                 :options="[10, 25, 50, 100]"
-                wire:model.debounce.250ms="quantity"
+                wire:model.live.debounce.250ms="quantity"
             />
         @endif
         @if ($search)
-            <x-input wire:model.debounce.250ms="search"
+            <x-input wire:model.live.debounce.250ms="search"
                      placeholder="Procure por algo..."
                      type="search"
             />

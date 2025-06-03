@@ -2,7 +2,7 @@
 
 namespace App\Exports\Item;
 
-use App\Models\{Category, Item, Signature};
+use App\Models\{Item};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\{FromCollection, WithHeadings, WithMapping};

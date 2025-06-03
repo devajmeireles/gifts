@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Dashboard\Chart;
+use App\Livewire\Dashboard\Chart;
 use App\Models\{Item, Signature};
 
 use function Pest\Livewire\livewire;

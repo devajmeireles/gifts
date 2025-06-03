@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Signature\Index;
+use App\Livewire\Signature\Index;
 
 use function Pest\Laravel\get;
 

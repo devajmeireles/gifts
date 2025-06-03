@@ -1,6 +1,7 @@
 <?php
 
-use function Pest\Laravel\{get, post};
+use function Pest\Laravel\get;
+use function Pest\Laravel\post;
 
 it('can see login page', function () {
     get(route('admin.login'))

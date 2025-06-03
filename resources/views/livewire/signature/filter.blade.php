@@ -11,23 +11,23 @@
             </x-badge>
         @endif
     </div>
-    <x-modal.card title="Filtros" wire:model.defer="modal" max-width="lg">
+    <x-modal.card title="Filtros" wire:model="modal" max-width="lg">
         <div class="grid grid-cols-1 gap-4">
-            <x-filter.category wire:model.debounce.250ms="category"/>
+            <x-filter.category wire:model.live.debounce.250ms="category"/>
 
             <x-filter.item :$category
-                           wire:model.debounce.250ms="item"
+                           wire:model.live.debounce.250ms="item"
                            :active="false"
             />
 
             <x-datetime-picker label="Data Inicial"
                                :max="now()"
-                               wire:model.debounce.250ms="start"
+                               wire:model.live.debounce.250ms="start"
             />
 
             <x-datetime-picker label="Data Final"
                                :max="now()"
-                               wire:model.debounce.250ms="end"
+                               wire:model.live.debounce.250ms="end"
             />
 
             <x-export wire:click="export" />

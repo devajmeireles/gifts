@@ -1,12 +1,7 @@
 <div>
-    <x-select label="{{ $label }}"
-              placeholder="{{ $placeholder }}"
-              :async-data="[
-                  'api'    => route('api.search.item'),
-                  'params' => ['category' => $category, 'active' => $active],
-              ]"
-              option-label="name"
-              option-value="id"
-              {{ $attributes }}
-    />
+    <x-select.styled :$label
+                     :request="[
+                       'route'  => route('search.item'),
+                       'params' => ['category' => $category, 'active' => $active],
+                     ]" {{ $attributes }} />
 </div>

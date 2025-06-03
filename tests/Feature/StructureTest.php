@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Layout\Notification;
+use App\Livewire\Layout\Notification;
 
 test('cannot dump')
     ->expect(['dd', 'dump', 'ray'])

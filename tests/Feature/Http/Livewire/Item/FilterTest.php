@@ -28,7 +28,7 @@ it('cannot filter using zero filters', function () {
     livewire(Filter::class)
         ->call('filter')
         ->assertDispatchedBrowserEvent('wireui:notification')
-        ->assertNotEmitted('item::index::filter');
+        ->assertNotDispatched('item::index::filter');
 });
 
 it('can view filtered', function () {

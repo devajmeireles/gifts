@@ -1,12 +1,12 @@
 <div>
-    <x-modal.card :title="__('Edição de Presença: #:id', ['id' => $presence?->id])" wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Presença: #:id', ['id' => $presence?->id])" wire:model="modal">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <x-input label="Nome" wire:model.defer="presence.name"/>
+            <x-input label="Nome" wire:model="presence.name"/>
 
             @if ($presence)
                 <x-inputs.maskable label="Telefone"
                                    mask="['(##) #####-####', '(##) ####-####']"
-                                   wire:model.defer="presence.phone"
+                                   wire:model="presence.phone"
                                    :emitFormatted="true"
                 />
             @endif
@@ -20,7 +20,7 @@
             @if ($observation)
                 <div class="col-span-full">
                     <x-textarea label="Observação"
-                                wire:model.defer="presence.observation"
+                                wire:model="presence.observation"
                                 class="resize-none"
                                 rows="8"
                     />
@@ -28,7 +28,7 @@
             @endif
 
             <div class="col-span-full flex items-center gap-2">
-                <x-toggle label="Presença Confirmada" lg wire:model.defer="presence.is_confirmed"/>
+                <x-toggle label="Presença Confirmada" lg wire:model="presence.is_confirmed"/>
             </div>
         </div>
         <x-slot name="footer">

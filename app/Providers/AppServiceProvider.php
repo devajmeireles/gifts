@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\Settings\Facades\Settings;
 use App\Services\Settings\SettingsService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
@@ -13,22 +12,35 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(
-            Settings::class,
-            fn () => $this->app->make(SettingsService::class)
-        );
+        $this->app->bind('settings', fn () => $this->app->make(SettingsService::class));
     }
 
     public function boot(): void
     {
-        $production = $this->app->isProduction();
+        $this->configureHttps();
 
-        if ($production) {
-            URL::forceScheme('https');
-        }
+        $this->configureModel();
 
-        Model::shouldBeStrict(!$production);
+        $this->configurePassword();
 
+    }
+
+    private function configureHttps(): void
+    {
+        URL::forceHttps($this->app->isProduction());
+    }
+
+    private function configureModel(): void
+    {
+        Model::automaticallyEagerLoadRelationships();
+
+        Model::unguard();
+
+        Model::shouldBeStrict(!$this->app->isProduction());
+    }
+
+    private function configurePassword(): void
+    {
         Password::defaults(function () {
             return Password::min(8)
                 ->letters()

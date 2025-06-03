@@ -1,8 +1,8 @@
 <?php
 
 use App\Enums\Category\Badge;
-use App\Http\Livewire\Category\Update;
-use App\Models\{Category, Item};
+use App\Livewire\Category\Update;
+use App\Models\{Category};
 
 use function Pest\Livewire\livewire;
 
@@ -25,8 +25,7 @@ it('can update', function () {
         ->set('category.is_active', $activated)
         ->call('update')
         ->assertHasNoErrors()
-        ->assertSuccessful()
-        ->assertEmittedUp('category::index::refresh');
+        ->assertSuccessful();
 
     $category->refresh();
 

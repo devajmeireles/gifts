@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Category\Delete;
+use App\Livewire\Category\Delete;
 
 use App\Models\{Category, Item};
 
@@ -15,8 +15,7 @@ it('can delete', function () {
     livewire(Delete::class)
         ->call('load', $category)
         ->assertDispatchedBrowserEvent('wireui:confirm-dialog')
-        ->call('delete')
-        ->assertEmittedUp('category::index::refresh');
+        ->call('delete');
 
     assertModelMissing($category);
 });

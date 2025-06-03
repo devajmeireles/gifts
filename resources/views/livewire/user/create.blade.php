@@ -3,28 +3,28 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Usuário" wire:model.defer="modal">
+    <x-modal.card title="Criação de Usuário" wire:model="modal">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="col-span-full">
                 <x-native-select label="Regra"
                                  :options="\App\Enums\UserRole::toSelect()"
                                  option-label="label"
                                  option-value="id"
-                                 wire:model="role"
+                                 wire:model.live="role"
                 />
             </div>
 
-            <x-input label="Nome" wire:model.debounce.500ms="user.name"/>
+            <x-input label="Nome" wire:model.live.debounce.500ms="user.name"/>
 
-            <x-input label="Nome de Usuário" wire:model.debounce.250ms="user.username"/>
+            <x-input label="Nome de Usuário" wire:model.live.debounce.250ms="user.username"/>
 
             <div class="col-span-full">
-                <x-inputs.password label="Senha" wire:model.defer="password" />
+                <x-inputs.password label="Senha" wire:model="password" />
                 <p class="text-sm text-gray-500 cursor-pointer" wire:click="random">Gerar senha randomica</p>
             </div>
 
             <div class="col-span-full">
-                <x-inputs.password label="Confirme a Senha" wire:model.defer="password_confirmation" />
+                <x-inputs.password label="Confirme a Senha" wire:model="password_confirmation" />
             </div>
         </div>
         <x-slot name="footer">

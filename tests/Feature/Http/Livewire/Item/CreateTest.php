@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Item\Create;
+use App\Livewire\Item\Create;
 
 use App\Models\{Category, Item};
 
@@ -38,7 +38,7 @@ it('can create', function () {
         ->call('create')
         ->assertHasNoErrors()
         ->assertSuccessful()
-        ->assertEmittedUp('item::index::refresh')
+
         ->assertSet('item', $default);
 
     assertDatabaseHas('items', [

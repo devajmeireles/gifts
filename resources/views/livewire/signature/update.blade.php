@@ -5,7 +5,7 @@
                      icon="pencil"
                      wire:click="$toggle('modal')"
     />
-    <x-modal.card :title="__('Edição de Assinatura: #:id', ['id' => $signature?->id])" wire:model.defer="modal">
+    <x-modal.card :title="__('Edição de Assinatura: #:id', ['id' => $signature?->id])" wire:model="modal">
         <div class="mb-4">
             <x-alert>
                 Por mais que seja possível editar uma assinatura, não recomendamos que faça isso.
@@ -14,18 +14,18 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <x-input label="Nome" wire:model.defer="signature.name"/>
+            <x-input label="Nome" wire:model="signature.name"/>
 
             <x-inputs.maskable label="Telefone"
                                mask="(##) #####-####"
-                               wire:model.defer="signature.phone"
+                               wire:model="signature.phone"
             />
 
-            <x-filter.item wire:model.debounce.250ms="selected" :active="false"/>
+            <x-filter.item wire:model.live.debounce.250ms="selected" :active="false"/>
 
             <x-native-select label="Tipo de Entrega"
                              :options="DeliveryType::toSelect()"
-                             wire:model.defer="delivery"
+                             wire:model="delivery"
                              option-label="label"
                              option-value="id"
             />
@@ -48,7 +48,7 @@
 
             <div class="col-span-full">
                 <x-textarea label="Observação"
-                            wire:model.defer="signature.observation"
+                            wire:model="signature.observation"
                             class="resize-none"
                             rows="8"
                 />

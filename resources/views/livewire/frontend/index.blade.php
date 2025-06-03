@@ -50,7 +50,7 @@
             @endif
         </div>
         <div class="mt-2">
-            <x-input wire:model.debounce.500ms="search"
+            <x-input wire:model.live.debounce.500ms="search"
                      placeholder="Procure por algum item..."
                      type="search"
             />

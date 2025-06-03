@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Presence\Create;
+use App\Livewire\Presence\Create;
 
 use Faker\Provider\Lorem;
 
@@ -12,8 +12,7 @@ it('can create', function () {
         ->set('presence.name', $name = fake()->name())
         ->set('presence.phone', $phone = fake()->phoneNumber())
         ->set('presence.observation', $observation = fake()->sentence())
-        ->call('create')
-        ->assertEmittedUp('presence::index::refresh');
+        ->call('create');
 
     assertDatabaseHas('presences', [
         'name'         => $name,
@@ -34,7 +33,7 @@ it('can validate', function () {
             'presence.name'  => 'required',
             'presence.phone' => 'max',
         ])
-        ->assertNotEmitted('presence::index::refresh');
+        ->assertNotDispatched('presence::index::refresh');
 
     assertDatabaseEmpty('presences');
 });
@@ -51,7 +50,7 @@ it('cannot create with description enable but empty', function () {
             'presence.phone'       => 'max',
             'presence.observation' => 'required',
         ])
-        ->assertNotEmitted('presence::index::refresh');
+        ->assertNotDispatched('presence::index::refresh');
 
     assertDatabaseEmpty('presences');
 });

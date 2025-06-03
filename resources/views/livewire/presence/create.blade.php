@@ -3,7 +3,7 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Presença" wire:model.defer="modal">
+    <x-modal.card title="Criação de Presença" wire:model="modal">
         @if ($response = session()->get('response'))
             <div class="mb-4 uppercase">
                 <x-alert :type="$response['type']" center>
@@ -12,11 +12,11 @@
             </div>
         @endif
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <x-input label="Nome" wire:model.defer="presence.name"/>
+            <x-input label="Nome" wire:model="presence.name"/>
 
             <x-inputs.maskable label="Telefone"
                                mask="['(##) #####-####', '(##) ####-####']"
-                               wire:model.defer="presence.phone"
+                               wire:model="presence.phone"
                                :emitFormatted="true"
             />
 
@@ -29,7 +29,7 @@
             @if ($observation)
                 <div class="col-span-full">
                     <x-textarea label="Observação"
-                                wire:model.defer="presence.observation"
+                                wire:model="presence.observation"
                                 class="resize-none"
                                 rows="8"
                     />
@@ -37,7 +37,7 @@
             @endif
 
             <div class="col-span-full flex items-center gap-2">
-                <x-toggle label="Presença Confirmada" lg wire:model.defer="presence.is_confirmed"/>
+                <x-toggle label="Presença Confirmada" lg wire:model="presence.is_confirmed"/>
             </div>
         </div>
         <x-slot name="footer">

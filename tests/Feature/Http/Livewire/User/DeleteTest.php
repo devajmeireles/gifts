@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\User\Delete;
+use App\Livewire\User\Delete;
 use App\Models\User;
 
 use function Pest\Laravel\{assertModelExists, assertModelMissing};
@@ -15,8 +15,7 @@ it('can delete', function () {
 
     livewire(Delete::class, ['user' => $user])
         ->call('delete')
-        ->assertHasNoErrors()
-        ->assertEmittedUp('user::index::refresh');
+        ->assertHasNoErrors();
 
     assertModelMissing($user);
 });

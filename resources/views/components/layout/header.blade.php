@@ -7,7 +7,7 @@
         </svg>
     </button>
     <x-button.circle sm primary href="{{ route('frontend') }}">
-        <x-heroicon-s-arrow-up-right class="h-6 w-6 text-white" />
+        <x-icon name="arrow-up-right" class="h-6 w-6 text-white" />
     </x-button.circle>
     <div class="flex flex-1 justify-end gap-x-4 self-stretch lg:gap-x-6">
         <div class="flex items-center gap-2">

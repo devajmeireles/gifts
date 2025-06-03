@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\Dashboard\CardType;
-use App\Http\Livewire\Dashboard\Card;
+use App\Livewire\Dashboard\Card;
 use App\Models\{Item, Signature};
 
 use function Pest\Livewire\livewire;

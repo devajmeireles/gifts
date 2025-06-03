@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\UserRole;
-use App\Http\Livewire\User\Index;
+use App\Livewire\User\Index;
 
 use function Pest\Laravel\get;
 

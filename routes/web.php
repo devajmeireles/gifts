@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\{CategoryController,
+use App\Http\Controllers\{
+    CategoryController,
     DashboardController,
     ItemController,
     PresenceController,

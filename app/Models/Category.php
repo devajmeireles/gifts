@@ -4,13 +4,10 @@ namespace App\Models;
 
 use App\Enums\Category\Badge;
 use App\Models\Traits\Searchable;
+use Illuminate\Database\Eloquent\{Builder, Model};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\{Builder, Model};
 
-/**
- * @mixin IdeHelperCategory
- */
 class Category extends Model
 {
     use HasFactory;

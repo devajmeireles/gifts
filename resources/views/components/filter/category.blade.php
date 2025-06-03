@@ -1,9 +1,3 @@
-<div>
-    <x-select label="{{ $label }}"
-              placeholder="{{ $placeholder }}"
-              :async-data="route('api.search.category')"
-              option-label="name"
-              option-value="id"
-              {{ $attributes }}
-    />
+<div wire:key="{{ uniqid() }}">
+    <x-select.styled :$label :request="route('search.category')" {{ $attributes }} />
 </div>

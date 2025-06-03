@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Setting\Update;
+use App\Livewire\Setting\Update;
 use App\Models\Setting;
 use App\Services\Settings\Facades\Settings;
 

@@ -1,16 +1,16 @@
 <div>
-    <div class="mt-6"
+    <x-card header="Assinaturas">
+        <div class="mt-6"
          x-data="{
             values : [{{ collect($this->chart)->map(fn (int $value) => $value)->join(',') }}],
             labels : [{{ collect($this->chart)->keys()->map(fn (string $date, int $value) => "'$date'")->join(',') }}],
-            async init() {
+            init() {
                 let chart = new ApexCharts(this.$refs.chart, this.options)
 
-                await chart.render()
+                chart.render()
 
-                this.$watch('values', () => {
-                    chart.updateOptions(this.options).then(r => {})
-                })
+                this.$watch('darkTheme', () => chart.updateOptions(this.options))
+                this.$watch('values', () => chart.updateOptions(this.options))
             },
             get options () {
                 return {
@@ -19,7 +19,7 @@
                         type: 'line',
                         width: '100%',
                         height: 450,
-                        background: '#fff',
+                        background: this.darkTheme ? '#334155' : '#ffffff',
                         foreColor: '#e63f66',
                         colors: '#e63f66',
                         toolbar: {
@@ -45,13 +45,8 @@
                     }]
                 }
             }
-        }" wire:init="load">
-        <x-card wire:loading>
-            <x-preloader />
-        </x-card>
-        <x-card wire:loading.remove>
-            <p class="text-xl text-primary font-semibold">Assinaturas</p>
+        }">
             <div x-ref="chart"></div>
-        </x-card>
-    </div>
+        </div>
+    </x-card>
 </div>

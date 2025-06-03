@@ -106,7 +106,7 @@ it('can load method', function (array $data) {
 
     livewire(Index::class)
         ->call($method, $item)
-        ->assertEmittedTo($component, $event, $item);
+        ->assertDispatchedTo($component, $event, $item);
 })->with([
     fn () => [
         'method' => 'update',

@@ -3,19 +3,15 @@
 namespace App\Models;
 
 use App\Enums\DeliveryType;
-use App\Models\Traits\{HasAvatar, Searchable};
+use App\Models\Traits\{Searchable};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo};
 
-/**
- * @mixin IdeHelperSignature
- */
 class Signature extends Model
 {
     use HasFactory;
     use Searchable;
-    use HasAvatar;
 
     protected $fillable = [
         'presence_id',

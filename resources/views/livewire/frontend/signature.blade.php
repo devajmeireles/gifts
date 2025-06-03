@@ -6,12 +6,12 @@
               label="ASSINAR"
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Nova Assinatura" wire:model.defer="modal">
+    <x-modal.card title="Nova Assinatura" wire:model="modal">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div class="col-span-full">
                 <x-input label="Nome"
                          placeholder="Insira seu nome aqui"
-                         wire:model.defer="signature.name"
+                         wire:model="signature.name"
                          autocomplete="name"
                 />
             </div>
@@ -19,7 +19,7 @@
                 <x-inputs.maskable label="Telefone"
                                    mask="(##) #####-####"
                                    placeholder="Insira seu telefone celular aqui"
-                                   wire:model.defer="signature.phone"
+                                   wire:model="signature.phone"
                                    autocomplete="phone"
                                    :emitFormatted="true"
                 />
@@ -31,7 +31,7 @@
             <div class="col-span-1">
                 <x-native-select label="Tipo de Entrega"
                                  :options="DeliveryType::toSelect()"
-                                 wire:model.debounce.250ms="delivery"
+                                 wire:model.live.debounce.250ms="delivery"
                                  option-label="label"
                                  option-value="id"
                 />
@@ -42,7 +42,7 @@
             @if ($item && $item->availableQuantity() > 1)
                 <div class="col-span-full space-y-2">
                     <x-inputs.number label="Quantidade"
-                                     wire:model.debounce.250ms="quantity"
+                                     wire:model.live.debounce.250ms="quantity"
                                      :min="1"
                                      :max="$item->availableQuantity()"
                     />
@@ -63,7 +63,7 @@
                             <a href="{{ $item->reference }}" target="_blank" class="text-sm text-primary font-semibold">
                                 Veja um modelo do item desejado clicando aqui.
                             </a>
-                            <x-heroicon-s-arrow-up-right class="h-4 w-4 text-primary" />
+                            <x-icon name="arrow-up-right" class="h-4 w-4 text-primary" />
                         </div>
                     @endif
                 </div>
@@ -71,7 +71,7 @@
             <div class="col-span-full">
                 <x-textarea label="Observação"
                             placeholder="Insira uma observação que ache ser necessária aqui"
-                            wire:model.defer="signature.observation"
+                            wire:model="signature.observation"
                             class="resize-none"
                             rows="5"
                 />

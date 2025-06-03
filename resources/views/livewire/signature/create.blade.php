@@ -4,21 +4,21 @@
               primary
               wire:click="$toggle('modal')"
     />
-    <x-modal.card title="Criação de Assinatura" wire:model.defer="modal">
+    <x-modal.card title="Criação de Assinatura" wire:model="modal">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <x-input label="Nome" wire:model.defer="signature.name"/>
+            <x-input label="Nome" wire:model="signature.name"/>
 
             <x-inputs.maskable label="Telefone"
                                mask="(##) #####-####"
-                               wire:model.defer="signature.phone"
+                               wire:model="signature.phone"
                                :emitFormatted="true"
             />
 
-            <x-filter.item wire:model.debounce.250ms="selected"/>
+            <x-filter.item wire:model.live.debounce.250ms="selected"/>
 
             <x-native-select label="Tipo de Entrega"
                              :options="DeliveryType::toSelect()"
-                             wire:model.defer="delivery"
+                             wire:model="delivery"
                              option-label="label"
                              option-value="id"
             />
@@ -26,7 +26,7 @@
             @if ($item?->quantity > 1)
                 <div class="col-span-full">
                     <x-inputs.number label="Quantidade"
-                                     wire:model.debounce.250ms="quantity"
+                                     wire:model.live.debounce.250ms="quantity"
                                      :min="1"
                                      :max="$item->availableQuantity()"
                     />
@@ -43,7 +43,7 @@
 
             <div class="col-span-full">
                 <x-textarea label="Observação"
-                            wire:model.defer="signature.observation"
+                            wire:model="signature.observation"
                             class="resize-none"
                             rows="8"
                 />
